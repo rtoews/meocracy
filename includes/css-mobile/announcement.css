@@ -1,0 +1,9 @@
+#response_form {
+    display:none;
+}
+#btn_support {
+    background:green;
+}
+#btn_oppose {
+    background:red;
+}

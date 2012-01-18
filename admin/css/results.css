@@ -1,0 +1,24 @@
+.row, .row_clickable {
+height:auto;
+margin-bottom:6px;
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+border-radius: 4px;
+padding:7px;
+cursor:pointer;
+}
+
+.row_icon {
+position:relative;
+top:0;
+float:right;
+background:url('../images/icon_next.png') center center;
+background-repeat:no-repeat;
+min-height:80px;
+width:18px;
+margin:0 5px 0 20px;
+}
+
+.row_thumb {
+min-height:80px;
+}

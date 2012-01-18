@@ -1,0 +1,17 @@
+#tag_choices {
+    height:50px;
+}
+.tag_wrap {
+    float:left;
+    border:1px solid gray;
+    border-radius:2px 2px 2px 2px;
+    padding:3px;
+    background:gray;
+    margin:3px;
+    cursor:pointer;
+}
+.tag_wrap span {
+    font:10px verdana;
+    color:white;
+    text-align:center;
+}

@@ -1,0 +1,23 @@
+.chart_outer {
+width:620px;
+height:70px;
+display:table-cell;
+clear:all;
+padding-top:8px;
+margin-top:8px;
+align:center;
+}
+
+.chart_inner {
+width:520px;
+height:70px;
+text-align:center;
+position:relative;
+left:54px;
+}
+
+.chart {
+height:70px;
+width:260px;
+float:left;
+}

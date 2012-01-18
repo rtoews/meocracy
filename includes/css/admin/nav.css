@@ -1,0 +1,13 @@
+.nav {
+height:14px;
+width:180px;
+text-decoration:none;
+cursor:pointer;
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+border-radius: 4px;
+margin-bottom:6px;
+padding:8px;
+}
+
+

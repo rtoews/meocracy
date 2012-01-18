@@ -1,0 +1,10 @@
+* img {
+border:none;
+}
+
+.thumbnail {
+float:left;
+height:80px;
+clip:rect(0px,80px,80px,80px);
+margin-right:20px;
+}

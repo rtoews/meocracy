@@ -1,0 +1,79 @@
+body {
+/*text-shadow: #FFF 1px 1px 1px;*/
+color:#000;
+background:#FFFFFF;
+}	`
+
+* a {
+color:#FFFFFF;
+}
+
+.header_fullwidth {
+-ms-filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#222222', endColorstr='#666666'); 
+filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#222222', endColorstr='#666666'); 
+background:-webkit-gradient(linear, left top, left bottom, from(#222222), to(#666666)); 
+background:-moz-linear-gradient(top, #222222, #666666); 
+}
+
+.wrapper {
+-ms-filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f6fcfd', endColorstr='#FFFFFF'); 
+filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f6fcfd', endColorstr='#FFFFFF'); 
+background:-webkit-gradient(linear, left top, left bottom, from(#f6fcfd), to(#FFFFFF)); 
+background:-moz-linear-gradient(top, #f6fcfd, #FFFFFF); 
+}
+
+h1 {
+color:#FFFFFF;
+text-shadow: #DDDDDD 1px 1px 1px;
+}
+
+h3 {
+color:#407086;
+text-shadow: #FFFFFF 1px 1px 1px;
+}
+
+/* ---- Navigation --- */
+
+.nav {
+color:#407086;
+background:#d8ebf0 url('../images/nav_back.png') repeat-x;
+border:1px solid #bbd3d9;
+}
+
+.nav:hover {
+background:#FFFFFF url('../images/nav_back.png') repeat-x;
+border:1px solid #e3f0f3;
+}
+
+
+/* ---- Results rows --- */
+
+.row {
+color:#274d5e;
+background:#ebf4f7;
+}
+
+.row_clickable {
+background:#d8ebf0 url('../images/row_back.png') repeat-x;
+border:1px solid #bbd3d9;
+}
+
+.row_clickable:hover {
+background:#FFFFFF url('../images/row_back.png') repeat-x;
+border:1px solid #e3f0f3;
+}
+
+/* ---- Charts --- */
+
+.chart_outer {
+border-top:1px solid #bbd3d9;
+
+/* ----- Forms ------ */
+
+input, select, textbox {
+border:1px solid #bbd3d9;
+}
+
+.input_border:hover {
+background:#deeef4;
+}

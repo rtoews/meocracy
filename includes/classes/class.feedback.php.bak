@@ -1,0 +1,88 @@
+<?php
+require_once($_SERVER['DOCUMENT_ROOT'] . '/includes/global.php');
+require_once(DOC_ROOT . '/includes/classes/class.user.php');
+require_once(DOC_ROOT . '/includes/classes/class.announcement.php');
+require_once(DOC_ROOT . '/includes/classes/class.sponsor.php');
+
+class Feedback extends DBInterface
+{
+    private $_issue_type;
+    private $_issue_id;
+    private $_feedback_table;
+
+    /*
+     * $issue_type can be 'announcement' or 'legislation'.
+     */
+    public function __construct($issue_type, $feedback_id = 0)
+    {
+        parent::__construct($issue_type . '_feedback', $feedback_id);
+        $this->_issue_type = $issue_type;
+        $this->_feedback_table = $issue_type . '_feedback';
+        $this->_issue_key = $issue_type . '_id';
+        if ($issue_type == 'announcement') {
+            $this->_issue_id = $this->announcement_id();
+        }
+        elseif ($issue_type == 'legislation') {
+            $this->_issue_id = $this->legislation_id();
+        }
+    }
+
+    private function _first_response()
+    {
+        $sql = sprintf("SELECT feedback_id FROM " . $this->_feedback_table . " WHERE user_id=%d AND " . $this->_issue_key . "=%d", $this->user_id(), $this->_issue_id);
+        $data = db()->Get_Cell($sql);
+        $result = empty($data) ? true : false;
+        return $result;
+    }
+
+    public function record_response()
+    {
+        $data = db()->Get_Cell($sql);
+        if ($this->_first_response()) {
+            $this->feedback_date(TODAY_DATETIME);
+            $this->insert();
+            if ($this->_issue_type == 'announcement') {
+                $issue_obj = new Announcement($this->_issue_id);
+            }
+            elseif ($this->_issue_type == 'legislation') {
+                $issue_obj = new Legislation($this->_issue_id);
+            }
+            $user = new User($this->user_id());
+            $issue_obj->notify($user, $this);
+        }
+    }
+
+    public static function get_feedback_count($issue_table)
+    {
+        $sql = "SELECT COUNT(*) total_feedback FROM " . $issue_table;
+        $total_feedback = db()->Get_Cell($sql);
+        return $total_feedback;
+    }
+
+    public static function get_feedback($issue_table, $issue_id)
+    {
+        $feedback = array();
+        $sql = sprintf("SELECT feedback_id FROM " . $this->_feedback_table . " WHERE " . $this->_issue_key . "=%d", $this->_issue_id);
+        $data = db()->Get_Table($sql);
+        if (!empty($data)) {
+            foreach ($data as $row) {
+                $feedback[] = new Feedback($issue_table, $row['feedback_id']);
+            }
+        }
+        return $feedback;
+    }
+
+    public static function get_feedback_with_comments($issue_table, $issue_id)
+    {
+        $feedback = array();
+        $sql = sprintf("SELECT feedback_id FROM " . $this->_feedback_table . " WHERE " . $this->_issue_key . "=%d AND comments > ''", $this->_issue_id);
+        $data = db()->Get_Table($sql);
+        if (!empty($data)) {
+            foreach ($data as $row) {
+                $feedback[] = new Feedback($issue_table, $row['feedback_id']);
+            }
+        }
+        return $feedback;
+    }
+}
+?>
