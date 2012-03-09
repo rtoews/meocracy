@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html> 
+<head>
+<meta charset="utf-8"/>
+
+<title>Meocracy</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+<link href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" type="text/css" rel="stylesheet" />
+<link href="css/meocracy.css" type="text/css" rel="stylesheet" />
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="jslib/phonegap-1.1.0.js"></script>
+
+    <script type="text/javascript" src="js/charts.js"></script>
+    <script type="text/javascript" src="js/constants.js"></script>
+    <script type="text/javascript" src="js/meo.js"></script>
+    <script type="text/javascript" src="js/settings.js"></script>
+    <script type="text/javascript" src="js/util.js"></script>
+    <script type="text/javascript">
+        if (!window.googleLoaded) {
+            google.load("visualization", "1", {packages:["corechart"]});
+            window.googleLoaded = true;
+        }
+    </script>
+
+</head>  
+<body>
+
+<div id="issue" data-role="page" data-title="Meocracy" data-theme="a">
+    <div data-role="header">
+		<div data-role="navbar">
+			<ul>
+			<li><a href='index.html' data-icon="home" data-theme="a">Home</a></li>
+			<li><a href='settings.html' data-icon="gear" data-theme="a">Settings</a></li>
+		    <li><a href="about.html" data-role="button" data-icon="arrow-u" class="button_green_gray" style="color:#CCC">Support</a>
+    		<li><a href="about.html" data-role="button" data-icon="arrow-d" class="button_red_gray" style="color:#CCC">Oppose</a></li>
+			</ul>
+		</div>
+	</div>
+
+    <ul data-role="listview">
+        <li>
+            <a href="index.html#settings_zip" data-rel="dialog" data-icon="none">
+            <img class="header_image" src=""/>
+            <h3>My issues in...</h3>
+            <p class="header_location"></p>
+            </a>
+        </li>
+    </ul>
+
+	<div data-role="content">
+
+<!-- Parent Section -->
+        <ul data-role="listview" data-inset="false" data-theme="a"  data-divider-theme="a">
+        	<li class="issue_header" data-role="list-divider"></li>
+        </ul>
+
+
+<!-----------------------------------------
+Everything above here is global.  Every page except search and user prefs has a parent section and a masthead. 
+--------------------------------------------->
+
+        <p></p>
+
+
+        <h2 class="issue_title"></h2>
+        <h3 class="issue_date"></h3>
+        <h4 class="issue_location"></h4>
+
+<!-- This photo is optional -->
+        <img class="issue_image content_img" src="">
+
+        <div class="issue_content">
+        </div>
+<!-- End Content Section -->
+
+
+<!-- Opinion Widget -->
+        <div class="button_plate">
+            <h4 class="issue_question"></h4>
+        	<fieldset class="ui-grid-a">
+<!--
+        		<div class="ui-block-a"><a href="feedback_comments.html" data-role="button" class="button_green" data-rel="dialog">Support</a></div>
+        		<div class="ui-block-b"><a href="feedback_comments.html" data-role="button" class="button_red" data-rel="dialog">Oppose</a></div>	   
+-->
+        		<div class="ui-block-a"><span data-role="button" class="button_green">Support</span></div>
+        		<div class="ui-block-b"><span data-role="button" class="button_red">Oppose</span></div>	   
+        	</fieldset>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
+

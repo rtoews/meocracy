@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html> 
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Meocracy</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="apple-touch-startup-image" href="../photos/logo/startup.jpg">
+    <link rel="apple-touch-icon" href="../photos/logo/touch-icon-iphone.png" /> 
+    <link rel="apple-touch-icon" sizes="72x72" href="../photos/logo/touch-icon-ipad.png" /> 
+    <link rel="apple-touch-icon" sizes="114x114" href="../photos/logo/touch-icon-iphone4.png" /> 
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
+    <script src="./jslib/jquery-1.6.4.min.js"></script>
+    <script src="./jslib/jquery.mobile-1.0.min.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="./jslib/phonegap-1.1.0.js"></script>
+    <script type="text/javascript" src="./js/constants.js"></script>
+    <script type="text/javascript" src="./js/charts.js"></script>
+    <script type="text/javascript" src="./js/util.js"></script>
+    <script type="text/javascript" src="./js/meo.js"></script>
+    <script type="text/javascript" src="./js/settings.js"></script>
+    <script type="text/javascript">
+        if (!window.googleLoaded) {
+            google.load("visualization", "1", {packages:["corechart"]});
+            window.googleLoaded = true;
+        }
+    </script>
+</head> 
+<body> 
+<div id="announcement" data-role="page" data-title="Meocracy" data-theme="a">
+    <div data-role="header" data-theme="a">
+        <div data-role="navbar">
+            <ul>
+            <li><a href="index.html" data-icon="home" data-theme="a">Home</a></li>
+            <li><a href="search.html" data-icon="search" data-theme="a">Search</a></li>
+            <li><a href="alert_manager.html" data-icon="alert" data-theme="a">Alerts</a></li>
+            <li><a href="settings.html" data-icon="gear" data-theme="a">Settings</a></li>
+            </ul>
+        </div>
+    </div><!-- /header -->
+
+    <div data-role="content">
+        <xstyle type="text/css">
+        #btn_support {
+            background:green;
+        }
+        #btn_oppose {
+            background:red;
+        }
+        
+        </xstyle>
+
+        <ul data-role="listview" data-inset="false" data-theme="a"  data-divider-theme="a">
+            <li>
+                <a href="">Back</a>
+            </li>
+            <li>
+                <img id="image" src=""/>
+                <span id="description"></span></li>
+        </ul>
+    </div>
+
+    <div data-role="content">
+        <p>
+            <span class="label">Status</span> <span id="status"></span><br/>
+            <span class="label">Calendared</span> <span id="calendared"></span><br/>
+            <span class="label">Sponsored by</span> <span id="sponsors"></span><br/><br/>
+            <span class="label">Vote</span> <span id="vote"></span><br/>
+
+            <div class="clear"></div>
+            <br/><br/>
+            <p>I have <span id="days_remaining"></span> left to:</p>
+            <form method="get" action="#announcement_comments">
+            <div class="ui-grid-a">
+                <div class="ui-block-a">
+                    <!--div id="btn_support" class="feedback_button" data-val="1" data-role="button">Support</div-->
+                    <input type="submit" id="btn_support" data-val="1" data-role="button" value="Support" data-rel="dialog"/>
+                </div>
+                <div class="ui-block-b">
+                    <!--div id="btn_oppose" class="feedback_button" data-val="-1" data-role="button">Oppose</div-->
+                    <input type="submit" id="btn_oppose" data-val="-1" data-role="button" value="Oppose" data-rel="dialog"/>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript">
+    var A = {};
+
+    A.getResponse = function(responseVal) {
+        var response_desc = responseVal == '1' ? 'support' : 'opposition';
+        $('#btn_response_send').html('Send my ' + response_desc);
+        $('#response').val(responseVal);
+        $.mobile.changePage('#announcement_comments');
+    };
+
+    A.sendResponse = function() {
+        $('form').submit();
+    };
+
+    A.processButton = function(btnObj) {
+        var btn = btnObj.attr('id');
+        var responseVal = btnObj.attr('data-val');
+        if (btn == 'btn_response_send') {
+            A.sendResponse();
+        }
+        else {
+            A.getResponse(responseVal);
+        } 
+    };
+
+    $(document).ready(function() {
+        $('.feedback_button').click(function() {
+            A.processButton($(this));
+        });
+    });
+
+    </script>
+</div>
+
+<div id="announcement_comments" data-role="page" data-title="Meocracy" data-theme="a">
+    <div data-role="header" data-theme="a">
+        <div data-role="navbar">
+            <ul>
+            <li><a href="index.html" data-icon="home" data-theme="a">Home</a></li>
+            <li><a href="search.html" data-icon="search" data-theme="a">Search</a></li>
+            <li><a href="alert_manager.html" data-icon="alert" data-theme="a">Alerts</a></li>
+            <li><a href="settings.html" data-icon="gear" data-theme="a">Settings</a></li>
+            </ul>
+        </div>
+    </div><!-- /header -->
+
+    <div data-role="content">
+        <form id="response_form">
+
+        <input type="hidden" name="response" id="response" value=""/>
+        <ul id="sponsor_images"></ul>
+        Comments (optional):<br/>
+        <textarea name="response_comments" id="response_comments"></textarea>
+        </li>
+        <div id="btn_response_send" class="button" data-role="button">Submit Feedback</div>
+
+        </form>
+    </div>
+</div>
+</body>
+</html>
+

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html> 
+<head>
+<meta charset="utf-8"/>
+
+<title>City of Aliso Viejo</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+<link href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" type="text/css" rel="stylesheet" />
+<link href="css/meocracy.css" type="text/css" rel="stylesheet" />
+
+<script type="text/javascript" src="jslib/jquery-1.6.4.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript" src="jslib/phonegap-1.1.0.js"></script>
+
+<script type="text/javascript" src="js/charts.js"></script>
+<script type="text/javascript" src="js/constants.js"></script>
+<script type="text/javascript" src="js/meo.js"></script>
+<script type="text/javascript" src="js/settings.js"></script>
+<script type="text/javascript" src="js/util.js"></script>
+
+</head> 
+<body>
+
+<div id="homepage" data-role="page" data-title="Meocracy" data-theme="a">
+
+	<div data-role="header">
+		<div data-role="navbar">
+			<ul>
+			<li><a rel="external" href="index.html" data-icon="home" data-theme="a">Home</a></li>
+			<li><a rel="external" href="alert_manager.html" data-icon="alert" data-theme="a">Alerts</a></li>
+			<li><a rel="external" href="settings.html" data-icon="gear" data-theme="a">Settings</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div data-role="content">
+
+<!-- Parent Section -->
+        <ul data-role="listview" data-inset="false" data-theme="a"  data-divider-theme="a">
+        <li>
+            <img class="header_image" src="">
+            <h3 class="header_city"></h3>
+            <p class="header_county_state"></p>
+        </li>
+
+<!-- Masthead -->
+        <li id="region_label" data-role="list-divider"></li>
+
+
+<!-- You'll need a rule here to get rid of the closing /ul with the additional result row LIs below. --->
+
+
+<!-- Result rows -->
+        <li id="homepage_announcement_link">
+		<a href="issues_announcements.html">
+		Announcements
+		<span class="comments ui-li-count"></span>
+		</a>
+        </li>
+
+        <li id="homepage_legislation_link">
+		<a href="legislation_categories.html">
+		Legislation
+		<span class="comments ui-li-count">4 new</span>
+		</a>
+        </li>
+
+        <li>
+		<a href="about.html">
+		About <span id="region_label_about"></span>
+		</a>
+        </li>
+
+        <li>
+		<a href="contact.html">
+		Contact Us
+		</a>
+        </li>
+
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>
+

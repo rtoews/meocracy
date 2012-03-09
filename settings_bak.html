@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html> 
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Meocracy</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="apple-touch-startup-image" href="../photos/logo/startup.jpg">
+    <link rel="apple-touch-icon" href="../photos/logo/touch-icon-iphone.png" /> 
+    <link rel="apple-touch-icon" sizes="72x72" href="../photos/logo/touch-icon-ipad.png" /> 
+    <link rel="apple-touch-icon" sizes="114x114" href="../photos/logo/touch-icon-iphone4.png" /> 
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
+    <script src="./jslib/jquery-1.6.4.min.js"></script>
+    <script src="./jslib/jquery.mobile-1.0.min.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="./jslib/phonegap-1.1.0.js"></script>
+    <script type="text/javascript" src="./js/constants.js"></script>
+    <script type="text/javascript" src="./js/charts.js"></script>
+    <script type="text/javascript" src="./js/util.js"></script>
+    <script type="text/javascript" src="./js/meo.js"></script>
+    <script type="text/javascript" src="./js/settings.js"></script>
+    <script type="text/javascript">
+        if (!window.googleLoaded) {
+            google.load("visualization", "1", {packages:["corechart"]});
+            window.googleLoaded = true;
+        }
+    </script>
+</head> 
+<body> 
+<div id="settings_display" data-role="page" data-title="Meocracy" data-theme="a">
+    <div data-role="header" data-theme="a">
+        <div data-role="navbar">
+
+            <ul>
+            <li><a href="index.html" data-icon="home" data-theme="a" rel="external">Home</a></li>
+            <li><a href="search.html" data-icon="search" data-theme="a" rel="external">Search</a></li>
+            <li><a href="alert_manager.html" data-icon="alert" data-theme="a" rel="external">Alerts</a></li>
+            <li><a href="settings.html" data-icon="gear" data-theme="a" rel="external">Settings</a></li>
+            </ul>
+
+        </div>
+    </div><!-- /header -->
+
+
+    <div id="content" data-role="content">
+        <div>
+            <ul data-role="listview" data-theme="a">
+                <li data-theme="e"><a href="#settings_input">Contact Settings</a></li>
+                <li data-theme="b">Name: <span id="settings_name"></span></li>
+                <li data-theme="b">Mobile #: <span id="settings_phone"></span></li>
+                <li data-theme="b">Carrier: <span id="settings_carrier"></span></li>
+                <li data-theme="e"><a href="#settings_zip">Location Settings</a></li>
+                <li data-theme="b">City: <span id="settings_city"></span></li>
+                <li data-theme="b">County: <span id="settings_county"></span></li>
+                <li data-theme="b">State: <span id="settings_state"></span></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div id="settings_input" data-role="page" data-title="Meocracy" data-theme="a">
+    <div data-role="header" data-theme="a">
+        <div data-role="navbar">
+
+            <ul>
+            <li><a href="index.html" data-icon="home" data-theme="a">Home</a></li>
+            <li><a href="search.html" data-icon="search" data-theme="a">Search</a></li>
+
+            <li><a href="alert_manager.html" data-icon="alert" data-theme="a">Alerts</a></li>
+            <li><a href="settings.html" data-icon="gear" data-theme="a">Settings</a></li>
+            </ul>
+
+        </div>
+    </div><!-- /header -->
+
+    <div data-role="content">
+        <form>
+            <div data-role="fieldcontain">
+                <label for="person_last">Last Name</label>
+                <input type="text" id="person_last" value=""/>
+            </div>
+            <div data-role="fieldcontain">
+                <label for="person_first">First Name</label>
+                <input type="text" id="person_first" value=""/>
+            </div>
+            <div data-role="fieldcontain">
+                <label for="person_phone">Phone</label>
+                <input type="text" id="person_phone" value=""/>
+            </div>
+            <div data-role="fieldcontain">
+                <label for="person_sms_id">Mobile service provider</label>
+                <select id="person_sms_id" name="person_sms_id">
+                    <option value=""></option>
+                </select>
+            </div>
+            <div data-role="fieldcontain">
+                <a href="#settings_zip" data-role="button">Save</a>
+            </div>
+            <div data-role="fieldcontain">
+                <a href="#settings_display" data-role="button">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="settings_zip" data-role="page" data-title="Meocracy" data-theme="a">
+    <div data-role="header" data-theme="a">
+        <div data-role="navbar">
+
+            <ul>
+            <li><a href="index.html" data-icon="home" data-theme="a">Home</a></li>
+            <li><a href="search.html" data-icon="search" data-theme="a">Search</a></li>
+
+            <li><a href="alert_manager.html" data-icon="alert" data-theme="a">Alerts</a></li>
+            <li><a href="settings.html" data-icon="gear" data-theme="a">Settings</a></li>
+            </ul>
+
+        </div>
+    </div><!-- /header -->
+
+    <div data-role="content">
+        <div>
+            <span id="place_name"></span><br/>
+            <span id="place_phone"></span><br/>
+            <span id="place_email"></span><br/>
+        </div>
+        <form>
+            <div data-role="fieldcontain">
+                <label for="place_zip">Zip</label>
+                <input type="text" id="place_zip" value=""/><br/>
+            </div>
+            <div data-role="fieldcontain">
+                <a href="#choose_city" data-role="button" data-rel="dialog" data-transition="pop">Select City</a>
+            </div>
+            <div data-role="fieldcontain">
+                <a href="#settings_display" data-role="button">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="choose_city" data-role="page" data-title="Meocracy" data-theme="a">
+    <div data-role="header" data-theme="a"></div>
+
+    <div id="content" data-role="content">
+        <ul id="city_list" data-role="listview" data-inset="false" data-theme="a"  data-divider-theme="a"></ul>
+        <a href="#settings_zip">Different Zip</a>
+    </div>
+</div>
+<div id="settings" data-role="page" data-title="Meocracy" data-theme="a">
+    <div data-role="header" data-theme="a">
+        <div data-role="navbar">
+
+            <ul>
+            <li><a href="index.html" data-icon="home" data-theme="a">Home</a></li>
+            <li><a href="search.html" data-icon="search" data-theme="a">Search</a></li>
+
+            <li><a href="alert_manager.html" data-icon="alert" data-theme="a">Alerts</a></li>
+            <li><a href="settings.html" data-icon="gear" data-theme="a">Settings</a></li>
+            </ul>
+
+        </div>
+    </div><!-- /header -->
+
+    <div data-role="content">
+        <form>
+            <div data-role="fieldcontain">
+                <label for="person_last">Last Name</label>
+                <input type="text" id="person_last" value=""/>
+            </div>
+            <div data-role="fieldcontain">
+                <label for="person_first">First Name</label>
+                <input type="text" id="person_first" value=""/>
+            </div>
+            <div data-role="fieldcontain">
+                <label for="person_phone">Phone</label>
+                <input type="text" id="person_phone" value=""/>
+            </div>
+            <div data-role="fieldcontain">
+                <label for="person_email">Email</label>
+                <input type="text" id="person_email" value=""/>
+            </div>
+            <div data-role="fieldcontain">
+                <a href="#settings_zip" data-role="button">Save</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

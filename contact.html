@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html> 
+<head>
+<meta charset="utf-8"/>
+
+<title>Meocracy</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+<link href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" type="text/css" rel="stylesheet" />
+<link href="css/meocracy.css" type="text/css" rel="stylesheet" />
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript" src="jslib/phonegap-1.1.0.js"></script>
+
+<script type="text/javascript" src="js/charts.js"></script>
+<script type="text/javascript" src="js/constants.js"></script>
+<!-- script type="text/javascript" src="js/meo.js" --></script>
+<script type="text/javascript" src="js/settings.js"></script>
+<!-- script type="text/javascript" src="js/util.js"></script -->
+
+</head>  
+<body>
+
+<div id="contact" data-role="page" data-title="Meocracy" data-theme="a">
+	<div data-role="header" data-theme="a">
+		<div data-role="navbar">
+			<ul>
+			<li><a rel="external" href="index.html" data-icon="home" data-theme="a">Home</a></li>
+			<li><a rel="external" href="alert_manager.html" data-icon="alert" data-theme="a">Alerts</a></li>
+			<li><a rel="external" href="settings.html" data-icon="gear" data-theme="a">Settings</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div data-role="content">
+
+<!-- Parent Section -->
+<ul data-role="listview" data-inset="false" data-theme="a"  data-divider-theme="a">
+	<li>
+		<a rel="external" href="homepage.html">
+		<img src="http://www.meocracy.com/images/photos/logo/city_aliso_viejo.png">
+		<h3>City of Aliso Viejo</h3>
+		<p>Orange County, California</p>
+		</a>
+	</li>
+
+<!-- Masthead -->
+	<li data-role="list-divider">
+		Contact Aliso Viejo City Departments
+	</li>
+
+<!-----------------------------------------
+Everything above here is global.  Every page except search and user prefs has a parent section and a masthead. 
+--------------------------------------------->
+
+	<li data-icon="grid">
+		<a href="tel:19493952009">
+		<img src="http://www.meocracy.com/images/photos/people/official_cave.jpg">
+		<h3>City Council</h3>
+		<p>Carmen Cave, Mayor</p>
+		</a>
+	</li>
+
+
+	<li data-icon="grid">
+		<a href="tel:19493952009">
+		<img src="http://www.meocracy.com/images/photos/people/official_ficke.jpg">
+		<h3>Financial</h3>
+		<p>Greg Ficke, Controller</p>
+		</a>
+	</li>
+
+	<li data-icon="grid">
+		<a href="tel:19493952009">
+		<img src="http://www.meocracy.com/images/photos/people/official_tsunoda.jpg">
+		<h3>Planning Department</h3>
+		<p>Phil Tsunoda, Planner</p>
+		</a>
+	</li>
+
+	<li data-icon="grid">
+		<a href="tel:19493952009">
+		<img src="http://www.meocracy.com/images/photos/people/official_hutchens.jpg">
+		<h3>Law Enforcement</h3>
+		<p>Sandra Hutchens, Orange County Sheriff</p>
+		</a>
+	</li>
+
+	<li data-icon="grid">
+		<a href="tel:19493952009">
+		<img src="http://www.meocracy.com/images/photos/people/official_munks.jpg">
+		<h3>Fire Authority</h3>
+		<p>Thomas Munks, Orange County Fire Chief</p>
+		</a>
+	</li>
+</ul>
+
+
+</div>
+
+</body>
+</html>
+

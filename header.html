@@ -1,0 +1,87 @@
+<!-- saved from url=(0022)http://internet.e-mail -->
+<!DOCTYPE html>
+<html> 
+<head>
+<meta charset="utf-8"/>
+
+<title>Meocracy</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+<link href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" type="text/css" rel="stylesheet" />
+<link href="css/meocracy.css" type="text/css" rel="stylesheet" />
+
+<script type="text/javascript" src="jslib/jquery-1.6.4.min.js"></script>
+
+<script type="text/javascript" src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<!-- script type="text/javascript" src="jslib/phonegap-1.1.0.js"></script -->
+
+<script type="text/javascript" src="js/charts.js"></script>
+<!-- script type="text/javascript" src="js/constants.js"></script -->
+<!-- script type="text/javascript" src="js/meo.js"></script -->
+<!-- script type="text/javascript" src="js/settings.js"></script -->
+<!-- script type="text/javascript" src="js/util.js"></script -->
+
+</head>  
+<body onload="window.top.scrollTo(0,1);">
+<div data-role="page" data-title="Meocracy" data-theme="a">
+
+<!-- index.html 
+
+ No changes -->
+
+    <ul data-role="listview">
+        <li><a href="#settings_zip" data-rel="dialog" data-icon="none">
+            <img class="header_image" src=""/>
+
+            <h3>My issues in...</h3>
+            <p class="header_location"></p>
+        </a></li>
+    </ul>
+
+<!-- issues.html 
+
+Same as above -->
+
+    <ul data-role="listview">
+        <li><a href="#settings_zip" data-rel="dialog" data-icon="none">
+            <img class="header_image" src=""/>
+            <h3>My issues in...</h3>
+            <p class="header_location"></p>
+        </a></li>
+    </ul>
+
+<!--
+
+legislation.html and legislation_feedback_response.html
+announcement.html and announcement_feedback_response.html
+
+Create .sponsor_title_full per these examples.  It will be reused, it's worth making.  We'll add county and city versions later:
+
+A State Assemblyman: "State Asm. Lou Correa - R (CA-8)"
+A State Senator: "State Sen. Ron Dellums - R (CA-13)"
+A US Congressman: "US Rep. Rick Toewes - D (WA-9)"
+A US Senator: "US Sen. Diane Feinstein - D (CA-9)"
+
+1. Prepend abbreviated version of sponsor title, ex: "Sen." and "Asm."
+2. If a State or Federal level official, prepend to (1), ex: "State" or "US"
+3. Party appended to name if avail 
+4. State and district code at the end, ex: "(CA-13)"
+
+Links to:  That dude's homepage. 
+
+ -->
+    <ul data-role="listview">
+        <li><a class="header_link" href="#">
+            <img class="header_sponsor_image" src=""/>
+            <h3 class="header_sponsor"><span class=".sponsor_title_full"></span></h3>
+            <p class="header_sponsor_position"></p>
+        </a></li>
+
+    </ul>
+
+</body>
+</html>

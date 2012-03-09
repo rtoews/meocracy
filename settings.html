@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html> 
+<head>
+<meta charset="utf-8"/>
+
+<title>Meocracy</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+<link href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" type="text/css" rel="stylesheet" />
+<link href="css/meocracy.css" type="text/css" rel="stylesheet" />
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript" src="jslib/phonegap-1.1.0.js"></script>
+
+<script type="text/javascript" src="js/charts.js"></script>
+<script type="text/javascript" src="js/constants.js"></script>
+<script type="text/javascript" src="js/meo.js"></script>
+<script type="text/javascript" src="js/settings.js"></script>
+<script type="text/javascript" src="js/util.js"></script>
+
+</head> 
+<body>
+
+<div id="settings_display" data-role="page" data-title="Meocracy" data-theme="a">
+
+	<div data-role="header">
+		<div data-role="navbar">
+			<ul>
+			<li><a href='index.html' data-icon="home" data-theme="a">Home</a></li>
+			<li><a href='settings.html' data-icon="gear" data-theme="a">Settings</a></li>
+		    <li><a href="about.html" data-role="button" data-icon="arrow-u" class="button_green_gray" style="color:#CCC">Support</a>
+    		<li><a href="about.html" data-role="button" data-icon="arrow-d" class="button_red_gray" style="color:#CCC">Oppose</a></li>
+			</ul>
+		</div>
+	</div>
+
+    <div id="content" data-role="content">
+
+        <div data-role="collapsible-set">
+
+    		<div data-role="collapsible">
+    			<h3>My Alerts</h3>
+    			<form method="get">
+                    <div data-role="fieldcontain">
+                        <fieldset id="tag_list" data-role="controlgroup" data-type="vertical"></fieldset>
+                    </div>
+        			<input type="button" value="Save" data-inline="true" data-theme="b" />
+    			</form>
+    		</div>
+
+    		<div data-role="collapsible">
+    			<h3>My Contact Settings</h3>
+    			<form>
+    			<div data-role="fieldcontain">
+    				<label for="person_last">Last Name</label>
+    				<input type="text" id="person_last" value=""/>
+    			</div>
+    			<div data-role="fieldcontain">
+    				<label for="person_first">First Name</label>
+    				<input type="text" id="person_first" value=""/>
+    			</div>
+    			<div data-role="fieldcontain">
+    				<label for="person_phone">Phone</label>
+    				<input type="text" id="person_phone" value=""/>
+    			</div>
+    			<div data-role="fieldcontain">
+    				<label for="person_email">Email</label>
+    				<input type="text" id="person_email" value=""/>
+    			</div>
+    			<input type="button" value="Save" data-inline="true" data-theme="b" />
+    			</form>
+    		</div>
+
+    		<div data-role="collapsible">
+    			<h3>My Location</h3>
+    			<form>
+    			<div data-role="fieldcontain">
+    			<ul id="city_list" data-role="listview" data-inset="false" data-theme="a"  data-divider-theme="a"></ul>
+    			<div data-role="fieldcontain">
+    				<label for="place_zip">Zip</label>
+    				<input type="text" id="place_zip" value=""/><br/>
+    			</div>
+    			<input type="button" value="Save" data-inline="true" data-theme="b" />
+    			</form>
+    		</div>
+    	</div>
+    </div>
+</div>
+
+</body>
+</html>

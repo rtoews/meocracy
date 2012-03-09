@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html> 
+<head>
+<meta charset="UTF-8"/>
+    <title>Meocracy</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+    <link href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" type="text/css" rel="stylesheet" />
+    <link href="css/meocracy.css" type="text/css" rel="stylesheet" />
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="jslib/phonegap-1.1.0.js"></script>
+
+    <script type="text/javascript" src="js/charts.js"></script>
+    <script type="text/javascript" src="js/constants.js"></script>
+    <script type="text/javascript" src="js/meo.js"></script>
+    <script type="text/javascript" src="js/settings.js"></script>
+    <script type="text/javascript" src="js/util.js"></script>
+</head>  
+<body>
+
+<div id="legislation" data-role="page" data-title="Meocracy" data-theme="a">
+    <div data-role="header">
+        <div data-role="navbar">
+            <ul>
+            <li><a href='index.html' data-icon="home" data-theme="a">Home</a></li>
+            <li><a href='settings.html' data-icon="gear" data-theme="a">Settings</a></li>
+                <li><a href="about.html" data-role="button" data-icon="arrow-u" class="button_green">Support</a>
+                <li><a href="about.html" data-role="button" data-icon="arrow-d" class="button_red">Oppose</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <ul data-role="listview">
+        <li><a class="header_link" href="#">
+            <img class="header_sponsor_image" src=""/>
+            <h3 class="header_sponsor"> <span class="sponsor_name"></span> <span class="sponsor_title"></span></h3>
+            <p class="header_sponsor_position"></p>
+        </a></li>
+    </ul>
+
+    <div data-role="content">
+
+    <ul data-role="listview" data-inset="false" data-theme="a" data-divider-theme="a">
+        <li data-role="list-divider" data-theme="a"><a href="issues.html" class="category_name"></a></li>
+        <li class="legislation_title" data-role="list-divider"></li>
+    </ul>
+
+    <h4 class="legislation_bill_id"></h4>
+
+    <div class="legislation_content" style="height:auto">
+    </div>
+
+    <div class="button_plate">
+        <div class="legislation_status">[placeholder] In Process, Senate Appropriations Committee</div>
+            <fieldset class="ui-grid-a">
+                <div class="ui-block-a"><span data-role="button" class="button_green">I Support</span></div>
+                <div class="ui-block-b"><span data-role="button" class="button_red">I Oppose</span></div>       
+            </fieldset>
+        </div>
+    </div>
+</div>
+
+<div id="legislation_feedback" data-role="page" data-title="Meocracy" data-theme="a">
+    <div data-role="header">
+        <div data-role="navbar">
+            <ul>
+            <li><a href='index.html' data-icon="home" data-theme="a">Home</a></li>
+            <li><a href='settings.html' data-icon="gear" data-theme="a">Settings</a></li>
+                <li><a href="about.html" data-role="button" data-icon="arrow-u" class="button_green_gray" style="color:#CCC">Support</a>
+                <li><a href="about.html" data-role="button" data-icon="arrow-d" class="button_red_gray" style="color:#CCC">Oppose</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <ul data-role="listview">
+        <li><a class="header_link" href="#">
+            <img class="header_sponsor_image" src=""/>
+            <h3 class="header_sponsor"> <span class="sponsor_name"></span> <span class="sponsor_title"></span></h3>
+            <p class="header_sponsor_position"></p>
+        </a></li>
+    </ul>
+
+    <div data-role="content">
+
+    <ul data-role="listview" data-inset="false" data-theme="a" data-divider-theme="a">
+        <li data-role="list-divider" data-theme="a"><a href="issues.html" class="category_name"></a></li>
+        <li class="legislation_title" data-role="list-divider"></li>
+    </ul>
+
+    Optional comments:
+
+    <form>
+    <input type="hidden" id="legislation_feedback_id" value=""/>
+    <label for="legislation_comments">Comments</label>
+    <textarea name="legislation_comments" id="legislation_comments" wrap="physical" rows="10" cols="200"></textarea>
+    <div id="submit-block" class="button_plate">
+        <fieldset class="ui-grid-a">
+            <div class="ui-block-a"><input id="legislation_submit" type="button" data-role="button" value="Submit"/></div>
+            <div class="ui-block-b"><input id="legislation_cancel" type="button" data-role="button" value="Cancel"/></div>
+        </fieldset>
+    </div>
+    </form>
+
+</div>
+</body>
+</html>
+

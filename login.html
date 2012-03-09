@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html> 
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Meocracy</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
+    <link type="text/css" rel="stylesheet" href="./css/meo.css"/>
+    <script src="./jslib/jquery-1.6.4.min.js"></script>
+    <script src="./jslib/jquery.mobile-1.0.min.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="./jslib/phonegap-1.1.0.js"></script>
+    <script type="text/javascript" src="./js/constants.js"></script>
+    <script type="text/javascript" src="./js/meo.js"></script>
+    <script type="text/javascript" src="./js/settings.js"></script>
+</head> 
+<body> 
+<div id="login" data-role="page" data-title="Meocracy" data-theme="a">
+
+    <div id="content" data-role='content'>
+        <form method="post" rel="external" data-ajax="false" action="shibboleth.php">
+            <label for="mobile_phone">Mobile phone</label><input type="text" id="mobile_phone" name="mobile_phone" value=""/><br/>
+            <label for="password">Password</label><input type="password" id="password" name="password"/><br/>
+            <div id="submit-block">
+                <input type="submit" data-role="button" value="Log In"/>
+            </div>
+            <div id="signup-link">
+                <a href="/signup.html" data-role="button">Register</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="login_check" data-role="page" data-title="Meocracy" data-theme="a">
+
+    <div id="content" data-role='content'>
+        Checking login...
+    </div>
+</div>
+</body>
+</html>

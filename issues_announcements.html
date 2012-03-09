@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html> 
+<head>
+<meta charset="utf-8"/>
+
+<title>Meocracy</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+<link href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" type="text/css" rel="stylesheet" />
+<link href="css/meocracy.css" type="text/css" rel="stylesheet" />
+
+<script type="text/javascript" src="jslib/jquery-1.6.4.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript" src="jslib/phonegap-1.1.0.js"></script>
+
+<script type="text/javascript" src="js/charts.js"></script>
+<script type="text/javascript" src="js/constants.js"></script>
+<script type="text/javascript" src="js/meo.js"></script>
+<script type="text/javascript" src="js/settings.js"></script>
+<script type="text/javascript" src="js/util.js"></script>
+
+</head> 
+<body>
+
+<div id="issues_announcements" data-role="page" data-title="Meocracy" data-theme="a">
+
+	<div data-role="header">
+		<div data-role="navbar">
+			<ul>
+			<li><a rel="external" href="index.html" data-icon="home" data-theme="a">Home</a></li>
+			<li><a rel="external" href="alert_manager.html" data-icon="alert" data-theme="a">Alerts</a></li>
+			<li><a rel="external" href="settings.html" data-icon="gear" data-theme="a">Settings</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div data-role="content">
+
+<!-- Parent Section -->
+        <ul id="announcement_list" class="list" data-role="listview" data-inset="false" data-theme="a"  data-divider-theme="a">
+        	<li>
+        		<a rel="external" href="homepage.html">
+        		<img class="header_image" src="">
+        		<h3 class="header_city"></h3>
+        		<p class="header_county_state"></p>
+        		</a>
+        	</li>
+
+<!-- Masthead -->
+        	<li class="announcement_header" data-role="list-divider"></li>
+
+        </ul>
+
+    </div>
+</div>
+</body>
+</html>
+
