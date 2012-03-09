@@ -1,10 +1,10 @@
 <?php
-require_once( $_SERVER["DOCUMENT_ROOT"] . "/includes/classes/class.sponsor.php" );
-require_once( $_SERVER["DOCUMENT_ROOT"] . "/includes/classes/class.status.php" );
-require_once( $_SERVER["DOCUMENT_ROOT"] . "/includes/classes/class.office.php" );
-require_once( $_SERVER["DOCUMENT_ROOT"] . "/includes/classes/class.tag.php" );
-require_once( $_SERVER["DOCUMENT_ROOT"] . "/includes/classes/class.announcement_feedback.php" );
-require_once( $_SERVER["DOCUMENT_ROOT"] . "/includes/classes/class.email.php" );
+require_once(DOC_ROOT . '/includes/classes/class.sponsor.php');
+require_once(DOC_ROOT . '/includes/classes/class.status.php');
+require_once(DOC_ROOT . '/includes/classes/class.office.php');
+require_once(DOC_ROOT . '/includes/classes/class.tag.php');
+require_once(DOC_ROOT . '/includes/classes/class.announcement_feedback.php');
+require_once(DOC_ROOT . '/includes/classes/class.email.php');
 
 class Announcement extends DBInterface
 {
@@ -25,10 +25,15 @@ class Announcement extends DBInterface
             $this->calendared_parts = get_date_parts($this->calendared());
             $this->vote_parts = get_date_parts($this->vote());
 //            $this->feedback = Announcement_Feedback::get_feedback($this->id());
-//            $this->feedback_with_comments = Announcement_Feedback::get_feedback_with_comments($this->id());
             $this->_get_public_opinion();
         }
  	}
+
+
+    public function get_feedback_with_comments($id)
+    {
+        return Announcement_Feedback::get_feedback_with_comments($id);
+    }
 
 
     private function _get_public_opinion()
@@ -148,7 +153,7 @@ class Announcement extends DBInterface
         if (!file_exists(DOC_ROOT . $src)) {
             $src = null;
         }
-        return $src;
+        return HOST . $src;
     }
 
     public function feedback_submitted($user_id)

@@ -21,7 +21,7 @@ class HTML {
             $this->_context = '';
         }
 
-        $this->_title = '';
+        $this->_title = 'Meocracy';
         $this->_meta = array();
         $this->_scripts = array();
         $this->_styles = array();
@@ -55,7 +55,6 @@ class HTML {
         $header .= '<html> ' . HTML_EOL;
         $header .= '<head>' . HTML_EOL;
         $header .= '    <meta charset="utf-8"/>' . HTML_EOL;
-        $header .= '    <meta-name="robots" content="noindex,nofollow"/>' . HTML_EOL;
         $header .= '    <!-- iOS Viewport -->' . HTML_EOL;
         $header .= '    <!-- <meta name = "viewport" content = "user-scalable=no, width=device-width"/>  --> ' . HTML_EOL;
         $header .= '    <meta name="viewport" content="width=device-width, initial-scale=1"/>' . HTML_EOL;
@@ -78,19 +77,22 @@ class HTML {
         $header .= '    <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script>' . HTML_EOL;
         $header .= '    <script type="text/javascript" src="http://code.jquery.com/mobile/1.0rc3/jquery.mobile-1.0rc3.min.js"></script>' . HTML_EOL;
         $header .= '    <script type="text/javascript" src="https://www.google.com/jsapi"></script>' . HTML_EOL;
+        $header .= '    <script type="text/javascript" src="/js/constants.js"></script>' . HTML_EOL;
         if (!empty($this->_scripts)) {
             foreach ($this->_scripts as $script) {
                 $header .= '    <script type="text/javascript" src="/includes/js/' . $script . '"></script>' . HTML_EOL;
             }
         }
         $header .= '</head> ' . HTML_EOL;
+        $header .= '<body> ' . HTML_EOL;
         echo $header;
-        include $this->_header_template;
     }
 
     public function generate_footer_mobile()
     {
-        include $this->_footer_template;
+        $footer .= '</body>' . HTML_EOL;
+        $footer .= '</html>' . HTML_EOL;
+        echo $footer;
     }
 
 

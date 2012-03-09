@@ -1,5 +1,6 @@
 <?php
 require_once(DOC_ROOT . '/includes/classes/class.city.php');
+require_once(DOC_ROOT . '/includes/classes/class.email.php');
 
 class User extends DBInterface
 {
@@ -33,12 +34,11 @@ class User extends DBInterface
         else {
 		    $sql_raw = "SELECT user_id FROM user WHERE mobile_phone='{$username}' AND password='{$this->generateHashedPassword($password)}' AND status=1";
         }
-$sql_raw = "SELECT user_id FROM user WHERE mobile_phone='{$username}' AND status=1";
-		
+//$sql_raw = "SELECT user_id FROM user WHERE mobile_phone='{$username}' AND status=1";
 		if ($data = db()->Get_Row($sql_raw)) {
 			$this->retrieve_record($data['user_id']);
 			$_SESSION['user_id'] = $this->id();
-			return true;
+			return $this->id();
 		}
 
 		return false;
@@ -53,24 +53,88 @@ $sql_raw = "SELECT user_id FROM user WHERE mobile_phone='{$username}' AND status
         return false;
     }
 
-    public function signup($mobile_phone, $password, $signup_data)
+    public static function get_user_id()
     {
+        $user_id = get_param('meo_user_id');
+        if (!$user_id) {
+            // generate new user.
+            $user_id = User::generate_new_user();
+        }
+        return $user_id;
+    }
+
+
+    private static function generate_user_code()
+    {
+        $idlength = 10;
+        $chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+        $counter = 0;
+        $unique = 0;
+        $id = '';
+        while (strlen($id) < $idlength) {
+            $n = intval(.5 + rand(0, strlen($chars) - 1));
+            $c = substr($chars, $n, 1);
+            $id .= $c;
+        }
+        return $id;
+    }
+
+    public static function generate_new_user()
+    {
+        $user_code = User::generate_user_code();
+        $new_user = new User();
+        $new_user->anonymous($user_code);
+        $new_user->created_date(TODAY_DATE);
+        $user_id = $new_user->insert();
+        return $user_id;
+    }
+
+    public function signup($mobile_phone, $sms_id, $password, $signup_data)
+    {
+        $code = gen_confirmid();
         $encrypted_pass = $this->generateHashedPassword($password);
         $this->mobile_phone($mobile_phone);
+        $this->sms_id($sms_id);
         $this->password($encrypted_pass);
+        $this->confirm($code);
         if (!empty($signup_data)) {
             foreach ($signup_data as $key => $value) {
                 $this->_fields[$key] = $value;
             }
         }
-        $this->status(1);
         $this->created_date(TODAY_DATE);
 
         if ($user_id = $this->insert()) {
-            $_SESSION['user_id'] = $user_id;
+            $this->sms_confirmation($user_id);
+//            $_SESSION['user_id'] = $user_id;
         }
 
         return $user_id;
+    }
+
+    public function sms_confirmation($user_id)
+    {
+        $sms = new SMS_Gateway($this->sms_id());
+        $to = $this->mobile_phone() . '@' . $sms->domain();
+        $from = 'signup@meocracy.com';
+        $subject = 'Meocracy Signup Confirmation';
+        $message = 'Click link to confirm. ' . HOST . '/confirm.php?id=' . $user_id . '&code=' . $this->confirm();
+        $email = new Email($to, $from, $subject, $message);
+        $email->send();
+    }
+
+    public static function confirm_signup($user_id, $code)
+    {
+        $sql = "SELECT user_id FROM user WHERE confirm='{$code}'";
+
+		if ($data = db()->Get_Cell($sql)) {
+            $_SESSION['user_id'] = $user_id;
+            $sql = "UPDATE user SET confirm='', user_level=1, status=1 WHERE user_id=$user_id AND confirm='$code'";
+            db()->query($sql);
+            return true;
+		}
+
+		return false;
     }
 
 	/**
@@ -176,32 +240,6 @@ $sql_raw = "SELECT user_id FROM user WHERE mobile_phone='{$username}' AND status
         }
 	}
 	
-	public static function confirm( $confirmCode )
-	{
-		$errors_int = 0;
-		// check the database for the passed-in confirm code
-		$sql_raw = "SELECT user_id AS uid FROM user WHERE confirm_code = '{$confirmCode}'";
-		
-		if( $uid = db()->Get_Cell($sql_raw) )
-		{	
-			// passed uid is valid
-			$sql_raw = "UPDATE user SET confirm_code = '', status = 1 WHERE user_id = {$uid}";
-			
-			if( !db()->Query( $sql_raw ) )
-			{
-				$errors_int++;
-			}
-		}
-		
-		
-		// check for errors
-		if($errors_int){
-			return false;
-		} else {
-			return true;
-		}
-	}
-    
 	/**
 	 *    
      * Sets the update_code field in the database
@@ -267,13 +305,7 @@ $sql_raw = "SELECT user_id FROM user WHERE mobile_phone='{$username}' AND status
 		return false;
 	}
         
-	public static function generateConfirmCode()
-	{
-		return strtoupper( randomAlphaNum( 12 ) );
-	}
-
-
-    public function get_friend_list()
+ public function get_friend_list()
     {
         require_once(DOC_ROOT . '/personal/friends.php');
         return $friends;
@@ -333,6 +365,11 @@ $sql_raw = "SELECT user_id FROM user WHERE mobile_phone='{$username}' AND status
             catch (Exception $e) {
             }
         }
+    }
+
+
+    public function tell_friends($friend_ndx_list, $message)
+    {
     }
 }
 

@@ -3,7 +3,7 @@
     * @package Database
     */
 
-    require_once( $_SERVER["DOCUMENT_ROOT"] . "/includes/config.php" );
+    require_once(DOC_ROOT . '/includes/config.php');
 
 	/**
     * MySQLi Database Wrapper
@@ -398,7 +398,6 @@
 	        $query = substr( $query, 0, strlen( $query ) - 2 );
 	
 	        $query .= ")";
-log_time($query);
 	        $this->query( $query );
 	
 	        return $this->_meta->_last_insert_id;

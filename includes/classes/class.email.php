@@ -75,7 +75,7 @@ class Email
     }
 
     function send() {
-        $headers  = "From: $this->from\r\n";
+        $headers  = "From: $this->_from\r\n";
         if ($this->_cc) {
             $headers .= "cc: $this->cc\r\n";
         }
@@ -124,9 +124,15 @@ class Email
         else {
             $headers .= "Content-type: $this->_format\r\n";
         }
-
-        $result = mail($this->_to, $this->_subject, $this->_message, $headers); 
+        $result = mail($this->_to, $this->_subject, $this->_message, $headers, "-f $this->_from"); 
+        $this->log($result);
         return $result;
+    }
+
+    private function log($result) {
+        $sql = "INSERT INTO email_log (recipient, sender, subject, message, result)
+                VALUES ('$this->_to', '$this->_from', '$this->_subject', '$this->_message', '$result')";
+        db()->query($sql);
     }
 }
 ?>

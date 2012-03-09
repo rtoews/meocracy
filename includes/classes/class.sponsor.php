@@ -1,6 +1,6 @@
 <?php
-require_once( $_SERVER["DOCUMENT_ROOT"] . "/includes/classes/class.office.php" );
-require_once( $_SERVER["DOCUMENT_ROOT"] . "/includes/classes/class.region.php" );
+require_once(DOC_ROOT . '/includes/classes/class.office.php');
+require_once(DOC_ROOT . '/includes/classes/class.region.php');
 
 class Sponsor extends DBInterface
 {
@@ -8,9 +8,14 @@ class Sponsor extends DBInterface
 	{
 		parent::__construct( 'sponsor', $sponsor_id );
         if ($sponsor_id) {
+            $region = new Region($this->region_id(), $this->region_type());
+            $office = new Office($this->office_id());
+            $this->sponsor_id = $sponsor_id;
+            $this->office = $this->title();
             $this->full_name = $this->name_first() . ' ' . $this->name_last();
-            $this->region = new Region($this->region_id(), $this->region_type());
-            $this->office = new Office($this->office_id());
+            $this->img_name = $this->name_last() . '_' . $this->name_first();
+            $this->public_image = SPONSOR_IMAGE_PATH . $this->image();
+            $this->region = $region->city_name();
         }
  	}
 

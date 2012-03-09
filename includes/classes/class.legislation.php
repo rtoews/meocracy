@@ -1,10 +1,11 @@
 <?php
-require_once( $_SERVER["DOCUMENT_ROOT"] . "/includes/classes/class.sponsor.php" );
-require_once( $_SERVER["DOCUMENT_ROOT"] . "/includes/classes/class.image.php" );
-require_once( $_SERVER["DOCUMENT_ROOT"] . "/includes/classes/class.office.php" );
-require_once( $_SERVER["DOCUMENT_ROOT"] . "/includes/classes/class.tag.php" );
-require_once( $_SERVER["DOCUMENT_ROOT"] . "/includes/classes/class.legislation_feedback.php" );
-require_once( $_SERVER["DOCUMENT_ROOT"] . "/includes/classes/class.email.php" );
+require_once(DOC_ROOT . '/includes/classes/class.legislator.php');
+require_once(DOC_ROOT . '/includes/classes/class.image.php');
+require_once(DOC_ROOT . '/includes/classes/class.office.php');
+require_once(DOC_ROOT . '/includes/classes/class.tag.php');
+require_once(DOC_ROOT . '/includes/classes/class.legislation_feedback.php');
+require_once(DOC_ROOT . '/includes/classes/class.category.php');
+require_once(DOC_ROOT . '/includes/classes/class.email.php');
 
 class Legislation extends DBInterface
 {
@@ -12,12 +13,13 @@ class Legislation extends DBInterface
 	{
 		parent::__construct( 'legislation', $legislation_id );
         if ($legislation_id) {
-            $this->sponsor_ids = $this->get_sponsor_ids();
-            if (!empty($this->sponsor_ids)) {
-                foreach ($this->sponsor_ids as $id) {
-                    $this->sponsor[] = new Sponsor($id);
+            $this->legislator_ids = $this->get_legislator_ids();
+            if (!empty($this->legislator_ids)) {
+                foreach ($this->legislator_ids as $id) {
+                    $this->legislator[] = new Legislator($id);
                 }
             }
+            $this->location_description = Category::get_location($this->current_location());
             $this->status = new Status($this->status_id());
             $this->date_introduced_parts = get_date_parts($this->date_introduced());
             $this->date_heard_parts = get_date_parts($this->date_heard());
@@ -27,16 +29,22 @@ class Legislation extends DBInterface
 		
 
 /*
-    private function _get_sponsor_id()
+    private function _get_legislator_id()
     {
-        $sponsor_id = null;
+        $legislator_id = null;
         if ($id = $this->id()) {
-            $sql = sprintf("SELECT sponsor_id FROM legislation_sponsor WHERE legislation_id=%d", $id);
-            $sponsor_id = db()->Get_Cell($sql);
+            $sql = sprintf("SELECT legislator_id FROM legislation_legislator WHERE legislation_id=%d", $id);
+            $legislator_id = db()->Get_Cell($sql);
         }
-        return $sponsor_id;
+        return $legislator_id;
     }
 */
+    public function get_feedback_with_comments($id)
+    {
+        return Legislation_Feedback::get_feedback_with_comments($id);
+    }
+
+
     private function _get_public_opinion()
     {
         $opinion = array();
@@ -71,20 +79,16 @@ class Legislation extends DBInterface
 
     public function associate_tags($tags)
     {
-        if (empty($tags)) return;
-
         $tags_to_associate = array();
         for ($i = 0, $j = sizeof($tags); $i < $j; $i++) {
             if (trim($tags[$i]) == '') continue;
             $tag_id = Tag::get_tag_id($tags[$i]);
             $tags_to_associate[] = $tag_id;
         }
-        if (!empty($tags_to_associate)) {
-            $keep_tags = implode(', ', $tags_to_associate);
-            $sql = sprintf("DELETE FROM legislation_tag WHERE legislation_id=%d AND tag_id NOT IN (%s)", $this->id(), $keep_tags);
-            db()->query($sql);
-            User::clear_alerts_except('legislation', $this->id(), $keep_tags);
-        }
+        $keep_tags = !empty($tags_to_associate) ? implode(', ', $tags_to_associate) : -1;
+        $sql = sprintf("DELETE FROM legislation_tag WHERE legislation_id=%d AND tag_id NOT IN (%s)", $this->id(), $keep_tags);
+        db()->query($sql);
+        User::clear_alerts_except('legislation', $this->id(), $keep_tags);
 
         foreach ($tags_to_associate as $tag_id) {
             $sql = sprintf("SELECT legislation_tag_id FROM legislation_tag WHERE legislation_id=%d AND tag_id=%d", $this->id(), $tag_id);
@@ -93,7 +97,7 @@ class Legislation extends DBInterface
                 $sql = sprintf("INSERT INTO legislation_tag (legislation_id, tag_id) VALUES (%d, %d)", $this->id(), $tag_id);
                 db()->query($sql);
             }
-            User::queue_alerts('legislation', $legislation_id, $tag_id);
+            User::queue_alerts('legislation', $this->id(), $tag_id);
         }
     }
 
@@ -103,21 +107,21 @@ class Legislation extends DBInterface
         db()->Get_Cell($sql);
     }
 
-    public function associate_sponsors($sponsor_ids)
+    public function associate_legislators($legislator_ids)
     {
-        if (empty($sponsor_ids)) return;
+        if (empty($legislator_ids)) return;
 
-        if (!empty($sponsor_ids)) {
-            $keep_sponsors = implode(', ', $sponsor_ids);
+        if (!empty($legislator_ids)) {
+            $keep_legislators = implode(', ', $legislator_ids);
             $sql = sprintf("DELETE FROM legislation_sponsor WHERE legislation_id=%d AND sponsor_id NOT IN (%s)", $this->id(), $keep_sponsors);
             db()->query($sql);
         }
 
-        foreach ($sponsor_ids as $sponsor_id) {
-            $sql = sprintf("SELECT legislation_sponsor_id FROM legislation_sponsor WHERE legislation_id=%d AND sponsor_id=%d", $this->id(), $sponsor_id);
+        foreach ($legislator_ids as $legislator_id) {
+            $sql = sprintf("SELECT legislation_sponsor_id FROM legislation_sponsor WHERE legislation_id=%d AND sponsor_id=%d", $this->id(), $legislator_id);
             $id = db()->Get_Cell($sql);
             if (!$id) {
-                $sql = sprintf("INSERT INTO legislation_sponsor (legislation_id, sponsor_id) VALUES (%d, %d)", $this->id(), $sponsor_id);
+                $sql = sprintf("INSERT INTO legislation_sponsor (legislation_id, sponsor_id) VALUES (%d, %d)", $this->id(), $legislator_id);
                 db()->query($sql);
             }
         }
@@ -210,17 +214,17 @@ class Legislation extends DBInterface
     }
 
 
-    public function get_sponsor_ids()
+    public function get_legislator_ids()
     {
-        $sql = "SELECT sponsor_id FROM legislation_sponsor WHERE legislation_id=" . $this->id();
+        $sql = "SELECT sponsor_id, primary_sponsor FROM legislation_sponsor WHERE legislation_id=" . $this->id() . " ORDER BY primary_sponsor DESC";
         $data = db()->Get_Table($sql);
-        $sponsor_ids = array();
+        $legislator_ids = array();
         if (!empty($data)) {
             foreach ($data as $row) {
-                $sponsor_ids[] = $row['sponsor_id'];
+                $legislator_ids[] = $row['sponsor_id'];
             }
         }
-        return $sponsor_ids;
+        return $legislator_ids;
     }
 
 
