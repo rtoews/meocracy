@@ -1,0 +1,2 @@
+[05-Mar-2012 14:44:55] PHP Fatal error:  Function name must be a string in /home/meo/public_html/app/test.php on line 3
+[05-Mar-2012 14:47:28] PHP Fatal error:  Call to undefined function set_cookie() in /home/meo/public_html/app/test.php on line 2
