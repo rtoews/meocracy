@@ -1,0 +1,78 @@
+/*
+    GLOBAL
+*/
+#masthead {
+    position:relative;
+}
+#masthead img {
+    display:block;
+    float:left;
+    margin-right:20px;
+}
+#masthead span:nth-of-type(1) {
+    display:block;
+    font-size:12px;
+    font-weight:bold;
+}
+#masthead span:nth-of-type(2) {
+    display:block;
+    font-size:10px;
+    font-weight:bold;
+}
+h1 {
+}
+h2 {
+    clear:both;
+}
+label {
+    width:100px;
+    display:block;
+    float:left;
+    padding-right:5px;
+}
+input {
+    width:100px;
+}
+input[type=submit] {
+    clear:both;
+    margin-left:105px;
+}
+.error {
+    color:#f00;
+    margin-left:105px;
+}
+.error a {
+}
+.error a:visited {
+}
+.button {
+    cursor:pointer;
+    width:auto;
+    height:auto;
+    padding:3px;
+    margin:3px;
+    background:gray;
+    float:left;
+    font:bold 11pt arial, helvetica;
+    color:white;
+}
+.clear {
+    clear:both;
+}
+
+/*
+    ANNOUNCEMENT PAGE
+*/
+#response_form {
+    display:none;
+}
+#btn_support {
+    background:green;
+}
+#btn_oppose {
+    background:red;
+}
+
+/*
+    SETTINGS PAGE
+*/
