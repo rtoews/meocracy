@@ -1,0 +1,68 @@
+<!-- saved from url=(0022)http://internet.e-mail -->
+<!DOCTYPE html>
+<html> 
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Meocracy</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="apple-touch-startup-image" href="../logo/startup.jpg">
+    <link rel="apple-touch-icon" href="../logo/touch-icon-iphone.png" /> 
+    <link rel="apple-touch-icon" sizes="72x72" href="../logo/touch-icon-ipad.png" /> 
+    <link rel="apple-touch-icon" sizes="114x114" href="../logo/touch-icon-iphone4.png" /> 
+    <link href="/css/import.css" type="text/css" rel="stylesheet" />
+    <script src="/jslib/jquery-1.6.4.min.js"></script>
+    <script src="/jslib/jquery.mobile-1.0.min.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="/jslib/phonegap-1.1.0.js"></script>
+    <script type="text/javascript" src="/js/constants.js"></script>
+    <script type="text/javascript" src="/js/charts.js"></script>
+    <script type="text/javascript" src="/js/util.js"></script>
+    <script type="text/javascript" src="/js/meo.js"></script>
+    <script type="text/javascript">
+        if (!window.googleLoaded) {
+            google.load("visualization", "1", {packages:["corechart"]});
+            window.googleLoaded = true;
+        }
+    </script>
+</head> 
+<body>
+
+<div id="first_time" data-role="page" data-title="Meocracy" data-theme="a">
+    <div data-role="header">
+        <div data-role="navbar">
+            <ul>
+            <li><a href="index.html" data-icon="home" data-theme="a">Home</a></li>
+            <li><a href="settings.html" data-icon="gear" data-theme="a">Settings</a></li>
+            <li><a data-role="button" data-icon="arrow-u" class="button_green_inactive">Support</a>
+            <li><a data-role="button" data-icon="arrow-d" class="button_red_inactive">Oppose</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <ul data-role="listview">
+        <li>
+            <img class="header_image" src=""/>
+            <h3 class="header_city"></h3>
+            <p class="header_county_state"></p>
+        </li>
+    </ul>
+
+    <div data-role="content">
+
+    <h3>Support, Oppose or Comment</h3>
+     to <span class="sponsor_name"></span> on this <span class="header_location"></span> <span class="issue_type"></span>:
+
+    <h3><span class="legislation_bill_id"></span> <span class="issue_title"></span></h3>
+
+        <div class="button_plate">
+    <a id="first_time_button" href="" data-role="button" data-theme="b">Go</a>
+        </div>
+
+</div>
+
+</body>
+</html>
+
+

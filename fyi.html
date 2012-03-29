@@ -1,22 +1,20 @@
 <!DOCTYPE html>
 <html> 
 <head>
-<meta charset="UTF-8"/>
-    <title>Meocracy</title>
+<meta charset="utf-8"/>
+<title>FYI</title>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-
     <link href="css/import.css" type="text/css" rel="stylesheet" />
-
-    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript" src="jslib/jquery-1.6.4.min.js"></script>
     <script type="text/javascript" src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript" src="jslib/phonegap-1.1.0.js"></script>
-
     <script type="text/javascript" src="js/charts.js"></script>
     <script type="text/javascript" src="js/constants.js"></script>
     <script type="text/javascript" src="js/meo.js"></script>
+    <script type="text/javascript" src="js/geolocate.js"></script>
     <script type="text/javascript" src="js/util.js"></script>
     <script type="text/javascript">
         if (!window.googleLoaded) {
@@ -27,35 +25,47 @@
 </head>  
 <body>
 
-<div id="legislation" data-role="page" data-title="Meocracy" data-theme="a">
-    <div data-role="header">
-        <div data-role="navbar">
-            <ul>
-			<li><a data-rel="external" href="index.html" data-icon="home" data-theme="a">Home</a></li>
-            <li><a href="settings.html" data-icon="gear" data-theme="a">Settings</a></li>
-            <li><a data-role="button" data-icon="arrow-u" class="button_green_active">Support</a>
-            <li><a data-role="button" data-icon="arrow-d" class="button_red_active">Oppose</a></li>
-            </ul>
-        </div>
+<div id="fyi" data-role="page" data-title="Meocracy" data-theme="a">
+
+	<div data-role="header">
+		<div data-role="navbar">
+			<ul>
+			<li><a href="about.html" data-role="button" data-icon="arrow-u" class="button_green_inactive" >Support</a>
+			<li><a href="about.html" data-role="button" data-icon="arrow-d" class="button_red_inactive" >Oppose</a></li>
+			</ul>
+		</div>
+	</div>
+
+<!-- Parent Section -->
+    <ul data-role="listview">
+        <li>
+            <a href="#index_city" data-rel="dialog" data-icon="none">
+            <img class="header_image" src=""/>
+            <h3>Location:</h3>
+            <p class="header_location"></p>
+            </a>
+        </li>
+    </ul>
+
+    <div data-role='content'>
     </div>
 
     <ul data-role="listview">
         <li><a class="header_link" href="#">
             <img class="header_sponsor_image" src=""/>
-            <h3 class="header_sponsor_name"></h3>
-            <p class="header_full_title"></p>
+            <h3 class="header_sponsor"><span class="sponsor_title_full"></span></span></h3>
+            <p class="header_sponsor_position"></p>
         </a></li>
     </ul>
 
     <div data-role="content">
 
         <ul data-role="listview" data-inset="false" data-theme="a" data-divider-theme="a">
-            <li data-role="list-divider" data-theme="a"><a class="category_name" href="issues.html"></a></li>
+            <li data-role="list-divider" data-theme="a"><a href="issues.html" class="category_name"></a></li>
+            <li class="legislation_title" data-role="list-divider"></li>
         </ul>
 
-        <h3 class="legislation_bill_id"></h3>
-
-        <h3 class="legislation_title"></h3>
+        <h4 class="legislation_bill_id"></h4>
 
         <div class="legislation_content" style="height:auto">
         </div>
@@ -75,7 +85,6 @@
     </div>
 
 </div>
-
 </body>
 </html>
 

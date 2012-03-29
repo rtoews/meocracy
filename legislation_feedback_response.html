@@ -7,8 +7,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
-    <link href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" type="text/css" rel="stylesheet" />
-    <link href="css/meocracy.css" type="text/css" rel="stylesheet" />
+    <link href="css/import.css" type="text/css" rel="stylesheet" />
 
     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script type="text/javascript" src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
@@ -18,8 +17,8 @@
     <script type="text/javascript" src="js/charts.js"></script>
     <script type="text/javascript" src="js/constants.js"></script>
     <script type="text/javascript" src="js/meo.js"></script>
-    <script type="text/javascript" src="js/settings.js"></script>
     <script type="text/javascript" src="js/util.js"></script>
+
     <script type="text/javascript">
         if (!window.googleLoaded) {
             google.load("visualization", "1", {packages:["corechart"]});
@@ -34,85 +33,85 @@
     <div data-role="header">
         <div data-role="navbar">
             <ul>
-            <li><a href='index.html' data-icon="home" data-theme="a">Home</a></li>
-            <li><a href='settings.html' data-icon="gear" data-theme="a">Settings</a></li>
-            <li><a href="about.html" data-role="button" data-icon="arrow-u" class="button_green_gray" style="color:#CCC">Support</a>
-            <li><a href="about.html" data-role="button" data-icon="arrow-d" class="button_red_gray" style="color:#CCC">Oppose</a></li>
+			<li><a data-rel="external" href="index.html" data-icon="home" data-theme="a">Home</a></li>
+            <li><a href="settings.html" data-icon="gear" data-theme="a">Settings</a></li>
+            <li><a href="about.html" data-role="button" data-icon="arrow-u" class="button_green_inactive" >Support</a>
+            <li><a href="about.html" data-role="button" data-icon="arrow-d" class="button_red_inactive" >Oppose</a></li>
             </ul>
         </div>
     </div>
 
+<!-- Parent Section -->
     <ul data-role="listview">
         <li>
-            <a href="homepage.html"  data-icon="none">
+            <a class="header_link" href="" data-icon="none">
             <img class="header_image" src=""/>
-            <h3>My issues in...</h3>
+            <h3 class="header_title"></h3>
             <p class="header_location"></p>
+            </a>
+        </li>
+        <li>
+            <a class="header_sponsor_link" href="">
+            <img class="header_sponsor_image" src=""/>
+            <h3 class="header_sponsor_name"></h3>
+            <p class="header_full_title"></p>
             </a>
         </li>
     </ul>
 
     <div data-role="content">
 
-<!-- Parent Section -->
-        <ul data-role="listview" data-inset="false" data-theme="a"  data-divider-theme="a">
-            <li data-role="list-divider" data-theme="a"><a href="issues.html" class="category_name"></a></li>
-<!-- Masthead -->
-            <li class="legislation_title" data-role="list-divider"></li>
-        </ul>
-
-        <ul data-role="listview" data-inset="false" data-theme="a"  data-divider-theme="a">
-            <li>
-                <a rel="external" href="legislation.html#legislation">
-                <h3 class="issue_title"></h3>
-                <p class="issue_date"></p>
-                </a>
-            </li>
-
-<!-- Masthead -->
-            <li data-role="list-divider">
-                Opinion on this issue
-            </li>
-        </ul>
-
-        <br><p>
-
-<!-----------------------------------------
-Everything above here is global.  Every page except search and user prefs has a parent section and a masthead. 
---------------------------------------------->
-
         <div class="chart_outer">
             <div class="chart_inner">
                 <!-- Support/Oppose chart -->
                 <div id="chart_feedback" class="chart"></div>
-                <!-- Support/Oppose chart -->
-                <!--div id="chart_total" class="chart"></div-->
-            </div><!-- corresponds to class="chart_inner"-->
-        </div><!-- corresponds to class="chart_outer"-->
+            </div>
+        </div>
         <br style="clear:both"/>
-<!-- Action Items -->
-        <ul class="legislation_feedback_footer" data-role="listview" data-inset="false" data-theme="a"  data-divider-theme="a">
 
-<!-- Buttons -->
-            <li><a rel="external" href="view_comments.html">See comments on this issue</a></li>
-            <li><a rel="external" href="tell_friends.html">Let my friends know</a></li>
-            <li><a rel="external" href="alerts.html">Stay on top of it</a></li>
+<!-- Actions -->
 
-<!-- Masthead -->
-            <li data-role="list-divider"> Sponsored by: </li>
+        <div class="button_plate">
+            <div><a href="tell_friends.html" data-role="button" data-theme="b">Tell friends</a></div>
+            <div><a href="alerts.html" data-role="button" data-theme="b">Subscribe</a></div>      
+        </div>
 
-<!-- Sponsor -->
-            <li>
-                <a rel="external" href="contact.html">
-                <img src="">
-                <h3></h3>
-                <p></p>
-                </a>
-            </li>
-        </ul>
+<!-- Send a comment -->
+
+        <h4>Comments (<span id="legislation_comment_count"></span>)</h4>
+
+        <form id="legislation_comment_form">
+        	<input type="hidden" id="legislation_feedback_id" value=""/>
+        	<label for="legislation_comments">My comments to <span class="sponsor_title"></span> <span class="sponsor_lastname"></span>:</label><br/>
+        	<textarea name="legislation_comments" id="legislation_comments" wrap="physical" rows="10" cols="200"></textarea>
+        	<input id="legislation_submit" type="button" data-role="button" data-inline="true" value="Submit" data-theme="b"/>
+        </form>
+
+        <br style="clear:both"/>
+
+<!-- View comments -->
+
+    	<ul id="legislation_comment_list" data-role="listview">
+      		<li>
+        		<h4>Some guy</h4>
+        		<p>This is my comment. This is my comment. This is my comment. </p>
+    		</li>
+      		<li>
+        		<h4>Some guy</h4>
+        		<p>This is my comment. This is my comment. This is my comment. </p>
+    		</li>
+      		<li>
+        		<h4>Some guy</h4>
+        		<p>This is my comment. This is my comment. This is my comment. </p>
+    		</li>
+    	</ul>
 
     </div>
 </div>
+<script type="text/javascript">
+	google.load("visualization", "1", {packages:["corechart"]});
+</script>
+
 </body>
 </html>
 

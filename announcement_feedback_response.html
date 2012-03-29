@@ -7,8 +7,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
-    <link href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" type="text/css" rel="stylesheet" />
-    <link href="css/meocracy.css" type="text/css" rel="stylesheet" />
+    <link href="css/import.css" type="text/css" rel="stylesheet" />
 
     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script type="text/javascript" src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
@@ -18,7 +17,6 @@
     <script type="text/javascript" src="js/charts.js"></script>
     <script type="text/javascript" src="js/constants.js"></script>
     <script type="text/javascript" src="js/meo.js"></script>
-    <script type="text/javascript" src="js/settings.js"></script>
     <script type="text/javascript" src="js/util.js"></script>
     <script type="text/javascript">
         if (!window.googleLoaded) {
@@ -31,32 +29,38 @@
 <body>
 
 <div id="announcement_feedback_response" data-role="page" data-title="Meocracy" data-theme="a">
-	<div data-role="header" data-theme="a">
-		<div data-role="navbar">
-			<ul>
-			<li><a rel="external" href="index.html" data-icon="home" data-theme="a">Home</a></li>
-			<li><a rel="external" href="alert_manager.html" data-icon="alert" data-theme="a">Alerts</a></li>
-			<li><a rel="external" href="settings.html" data-icon="gear" data-theme="a">Settings</a></li>
-			</ul>
-		</div>
-	</div>
+    <div data-role="header" data-theme="a">
+        <div data-role="navbar">
+            <ul>
+            <li><a data-rel="external" href="index.html" data-icon="home" data-theme="a">Home</a></li>
+            <li><a href="settings.html" data-icon="gear" data-theme="a">Settings</a></li>
+            <li><a href="about.html" data-role="button" data-icon="arrow-u" class="button_green_inactive" >Support</a>
+            <li><a href="about.html" data-role="button" data-icon="arrow-d" class="button_red_inactive" >Oppose</a></li>
+            </ul>
+        </div>
+    </div>
 
-	<div data-role="content">
+    <div data-role="content">
 
 <!-- Parent Section -->
         <ul data-role="listview" data-inset="false" data-theme="a"  data-divider-theme="a">
-        	<li>
-        		<a rel="external" href="announcement.html#announcement">
-        		<img class="issue_image" src="">
-        		<h3 class="issue_title"></h3>
-        		<p class="issue_date"></p>
-        		</a>
-        	</li>
+        <li>
+            <a class="header_link" href="" data-icon="none">
+            <img class="header_image" src=""/>
+            <h3 class="header_title"></h3>
+            <p class="header_location"></p>
+            </a>
+        </li>
+        <li>
+            <img class="header_sponsor_image" src=""/>
+            <h3 class="sponsor_title_full"></h3>
+            <p class="header_sponsor_position"></p>
+        </li>
 
 <!-- Masthead -->
-        	<li data-role="list-divider">
-        		Opinion on this issue
-        	</li>
+            <li data-role="list-divider">
+                Opinion on this issue
+            </li>
         </ul>
 
         <br><p>
@@ -65,37 +69,49 @@
 Everything above here is global.  Every page except search and user prefs has a parent section and a masthead. 
 --------------------------------------------->
 
-		<div class="chart_outer">
-			<div class="chart_inner">
-				<!-- Support/Oppose chart -->
-				<div id="chart_feedback" class="chart"></div>
-				<!-- Support/Oppose chart -->
-<!--				<div id="chart_total" class="chart"></div>-->
-			</div><!-- corresponds to class="chart_inner"-->
-		</div><!-- corresponds to class="chart_outer"-->
+        <div class="chart_outer">
+            <div class="chart_inner">
+                <!-- Support/Oppose chart -->
+                <div id="chart_feedback" class="chart"></div>
+            </div>
+        </div>
         <br style="clear:both"/>
 <!-- Action Items -->
-        <ul class="announcement_feedback_footer" data-role="listview" data-inset="false" data-theme="a"  data-divider-theme="a">
 
-<!-- Buttons -->
-        	<li><a rel="external" href="view_comments.html">See comments on this issue</a></li>
-        	<li><a rel="external" href="tell_friends.html">Let my friends know</a></li>
-        	<li><a rel="external" href="alerts.html">Stay on top of it</a></li>
+        <div class="button_plate">
+            <div><a href="tell_friends.html" data-role="button" data-theme="b">Tell friends</a></div>
+            <div><a href="alerts.html" data-role="button" data-theme="b">Subscribe</a></div>      
+        </div>
 
-<!-- Masthead -->
-        	<li data-role="list-divider">
-        		Sponsored by:
-        	</li>
+<!-- Send a comment -->
 
-<!-- Sponsor -->
-        	<li>
-        		<a rel="external" href="contact.html">
-        		<img src="">
-        		<h3></h3>
-        		<p></p>
-        		</a>
-        	</li>
-        </ul>
+        <h4>Comments (<span id="announcement_comment_count"></span>)</h4>
+
+        <form id="announcement_comment_form">
+        	<input type="hidden" id="announcement_feedback_id" value=""/>
+        	<label for="announcement_comments">My comments to <span class="sponsor_title"></span> <span class="sponsor_firstname"></span> <span class="sponsor_lastname"></span>:</label><br/>
+        	<textarea name="announcement_comments" id="announcement_comments" wrap="physical" rows="10" cols="200"></textarea>
+        	<input id="announcement_submit" type="button" data-role="button" data-inline="true" value="Submit" data-theme="b"/>
+        </form>
+
+        <br style="clear:both"/>
+
+<!-- View comments -->
+
+    	<ul id="announcement_comment_list" data-role="listview">
+      		<li>
+        		<h4>Some guy</h4>
+        		<p>This is my comment. This is my comment. This is my comment. </p>
+    		</li>
+      		<li>
+        		<h4>Some guy</h4>
+        		<p>This is my comment. This is my comment. This is my comment. </p>
+    		</li>
+      		<li>
+        		<h4>Some guy</h4>
+        		<p>This is my comment. This is my comment. This is my comment. </p>
+    		</li>
+    	</ul>
 
     </div>
 </div>

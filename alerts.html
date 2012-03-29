@@ -10,7 +10,7 @@
     <link rel="apple-touch-icon" href="../photos/logo/touch-icon-iphone.png" /> 
     <link rel="apple-touch-icon" sizes="72x72" href="../photos/logo/touch-icon-ipad.png" /> 
     <link rel="apple-touch-icon" sizes="114x114" href="../photos/logo/touch-icon-iphone4.png" /> 
-    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
+    <link href="css/import.css" type="text/css" rel="stylesheet" />
     <script src="./jslib/jquery-1.6.4.min.js"></script>
     <script src="./jslib/jquery.mobile-1.0.min.js"></script>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
@@ -19,7 +19,6 @@
     <script type="text/javascript" src="./js/charts.js"></script>
     <script type="text/javascript" src="./js/util.js"></script>
     <script type="text/javascript" src="./js/meo.js"></script>
-    <script type="text/javascript" src="./js/settings.js"></script>
     <script type="text/javascript">
         if (!window.googleLoaded) {
             google.load("visualization", "1", {packages:["corechart"]});
@@ -33,18 +32,48 @@
         <div data-role='navbar'>
 
             <ul>
-			<li><a rel="external" href="index.html" data-icon="home" data-theme="a">Home</a></li>
-			<li><a rel="external" href="alert_manager.html" data-icon="alert" data-theme="a">Alerts</a></li>
-			<li><a rel="external" href="settings.html" data-icon="gear" data-theme="a">Settings</a></li>
+			<li><a data-rel="external" href="index.html" data-icon="home" data-theme="a">Home</a></li>
+			<li><a href="settings.html" data-icon="gear" data-theme="a">Settings</a></li>
+	    	<li><a href="about.html" data-role="button" data-icon="arrow-u" class="button_green_inactive" >Support</a>
+   			<li><a href="about.html" data-role="button" data-icon="arrow-d" class="button_red_inactive" >Oppose</a></li>
             </ul>
 
         </div>
     </div><!-- /header -->
 
+    <ul data-role="listview">
+        <li>
+            <a class="header_link" href="" data-icon="none">
+            <img class="header_image" src=""/>
+            <h3 class="header_title"></h3>
+            <p class="header_location"></p>
+            </a>
+        </li>
+        <li>
+            <a class="header_sponsor_link" href="">
+            <img class="header_sponsor_image" src=""/>
+            <h3 class="sponsor_title_full"></h3>
+            <p class="header_sponsor_position"></p>
+            </a>
+        </li>
+    </ul>
+
+<!--
+    <ul data-role="listview">
+        <li>
+            <a class="header_link" href="legislation.html?id=2074" data-icon="none">
+            <img class="header_image" src=""/>
+            <h3 class="header_title">Asm. Bill AB43532</h3>
+            <p class="header_location">California State Assembly</p>
+            </a>
+        </li>
+    </ul>
+-->
+
     <div data-role="content">
         <form method="get">
             <fieldset id="tag_list" data-role="controlgroup" data-type="vertical"></fieldset>
-            <input type="submit" id="alerts_save" name="alerts_save" value="Save My Alerts" data-role="button" data-theme="b"/>
+            <input type="button" id="alerts_save" name="alerts_save" value="Save My Alerts" data-role="button" data-theme="b"/>
         </form>
     </div>
 </div>

@@ -5,13 +5,11 @@
 
 <title>Meocracy</title>
 
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
-<link href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" type="text/css" rel="stylesheet" />
-<link href="css/meocracy.css" type="text/css" rel="stylesheet" />
-
+    <link href="css/import.css" type="text/css" rel="stylesheet" />
     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script type="text/javascript" src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
@@ -20,7 +18,6 @@
     <script type="text/javascript" src="js/charts.js"></script>
     <script type="text/javascript" src="js/constants.js"></script>
     <script type="text/javascript" src="js/meo.js"></script>
-    <script type="text/javascript" src="js/settings.js"></script>
     <script type="text/javascript" src="js/util.js"></script>
     <script type="text/javascript">
         if (!window.googleLoaded) {
@@ -36,20 +33,20 @@
     <div data-role="header">
 		<div data-role="navbar">
 			<ul>
-			<li><a href='index.html' data-icon="home" data-theme="a">Home</a></li>
-			<li><a href='settings.html' data-icon="gear" data-theme="a">Settings</a></li>
-		    <li><a href="about.html" data-role="button" data-icon="arrow-u" class="button_green_gray" style="color:#CCC">Support</a>
-    		<li><a href="about.html" data-role="button" data-icon="arrow-d" class="button_red_gray" style="color:#CCC">Oppose</a></li>
+			<li><a data-rel="external" href="index.html" data-icon="home" data-theme="a">Home</a></li>
+			<li><a href="settings.html" data-icon="gear" data-theme="a">Settings</a></li>
+            <li><a data-role="button" data-icon="arrow-u" class="button_green">Support</a>
+            <li><a data-role="button" data-icon="arrow-d" class="button_red">Oppose</a></li>
 			</ul>
 		</div>
 	</div>
 
     <ul data-role="listview">
         <li>
-            <a href="homepage.html"  data-icon="none">
+            <a class="header_link" href="" data-icon="none">
             <img class="header_image" src=""/>
-            <h3>My issues in...</h3>
-            <p class="header_location"></p>
+            <h3 class="header_city"></h3>
+            <p class="header_county_state"></p>
             </a>
         </li>
     </ul>
@@ -61,7 +58,6 @@
 
 <!-- Masthead -->
             <li data-role="list-divider" data-theme="a"><a href="issues.html" class="category_name"></a></li>
-        	<li class="announcement_title" data-role="list-divider"></li>
         </ul>
 
 
@@ -69,14 +65,10 @@
 Everything above here is global.  Every page except search and user prefs has a parent section and a masthead. 
 --------------------------------------------->
 
-        <p></p>
-
-
-        <h3 class="announcement_date"></h3>
-        <h4 class="announcement_location"></h4>
+    	<h3 class="announcement_title"></h3>
 
 <!-- This photo is optional -->
-        <img class="announcement_image content_img" src="">
+        <!--<img class="announcement_image content_img" src=""/>-->
 
         <div class="announcement_content">
         </div>
@@ -94,6 +86,11 @@ Everything above here is global.  Every page except search and user prefs has a 
         		<div class="ui-block-a"><span data-role="button" class="button_green">Support</span></div>
         		<div class="ui-block-b"><span data-role="button" class="button_red">Oppose</span></div>	   
         	</fieldset>
+        </div>
+
+        <div class="feedback_plate">
+            <p>Thank you for expressing your <span class="feedback_word"></span> on this issue.</p>
+            <a href="announcement_feedback_response.html" data-role="button" data-theme="b">View Feedback</a>
         </div>
 
     </div>

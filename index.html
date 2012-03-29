@@ -1,27 +1,31 @@
 <!DOCTYPE html>
 <html> 
 <head>
-<meta charset="utf-8"/>
+    <base href="/"/>
+    <meta charset="utf-8"/>
+    <title>Meocracy</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
-<title>Meocracy</title>
+    <link href="css/import.css" type="text/css" rel="stylesheet" />
 
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <script type="text/javascript" src="jslib/jquery-1.6.4.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="jslib/phonegap-1.1.0.js"></script>
 
-<link href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" type="text/css" rel="stylesheet" />
-<link href="css/meocracy.css" type="text/css" rel="stylesheet" />
-
-<script type="text/javascript" src="jslib/jquery-1.6.4.min.js"></script>
-<script type="text/javascript" src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-<script type="text/javascript" src="jslib/phonegap-1.1.0.js"></script>
-
-<script type="text/javascript" src="js/charts.js"></script>
-<script type="text/javascript" src="js/constants.js"></script>
-<script type="text/javascript" src="js/meo.js"></script>
-<script type="text/javascript" src="js/geolocate.js"></script>
-<script type="text/javascript" src="js/util.js"></script>
+    <script type="text/javascript" src="js/charts.js"></script>
+    <script type="text/javascript" src="js/constants.js"></script>
+    <script type="text/javascript" src="js/meo.js"></script>
+    <script type="text/javascript" src="js/geolocate.js"></script>
+    <script type="text/javascript" src="js/util.js"></script>
+    <script type="text/javascript">
+        if (!window.googleLoaded) {
+            google.load("visualization", "1", {packages:["corechart"]});
+            window.googleLoaded = true;
+        }
+    </script>
 
 </head>  
 <body>
@@ -31,10 +35,10 @@
 	<div data-role="header">
 		<div data-role="navbar">
 			<ul>
-			<li><a href='index.html' data-icon="home" data-theme="a">Home</a></li>
-			<li><a href='settings.html' data-icon="gear" data-theme="a">Settings</a></li>
-		    <li><a href="about.html" data-role="button" data-icon="arrow-u" class="button_green_gray" style="color:#CCC">Support</a>
-    		<li><a href="about.html" data-role="button" data-icon="arrow-d" class="button_red_gray" style="color:#CCC">Oppose</a></li>
+			<li><a href="index.html" data-icon="home" data-theme="a">Home</a></li>
+			<li><a href="settings.html" data-icon="gear" data-theme="a">Settings</a></li>
+			<li><a href="about.html" data-role="button" data-icon="arrow-u" class="button_green_inactive" >Support</a>
+			<li><a href="about.html" data-role="button" data-icon="arrow-d" class="button_red_inactive" >Oppose</a></li>
 			</ul>
 		</div>
 	</div>
@@ -42,18 +46,20 @@
 <!-- Parent Section -->
     <ul data-role="listview">
         <li>
-            <a href="#settings_zip" data-rel="dialog" data-icon="none">
+            <a href="index.html#index_city" data-rel="dialog" data-icon="none">
             <img class="header_image" src=""/>
-            <h3>My issues in...</h3>
-            <p class="header_location"></p>
+            <h3 class="header_city">My issues in:</h3>
+            <p class="header_county_state"></p>
             </a>
         </li>
     </ul>
 
-    <form action="form.php" method="post">
+    <form>
         <div data-role="fieldcontain" style="padding:10px 15px">
-            <label for="search">I'm interested in:</label>
-            <input type="search" name="search" id="search" value=""/>
+            <input type="search" name="search" id="search" placeholder="I'm interested in..." value=""/>
+        </div>
+        <div data-role='content'>
+        <ul id="search_tag_list" data-role='listview' data-inset='false' data-theme='a' data-divider-theme='a' data-filter-theme='a'></ul>
         </div>
     </form>
     <fieldset class="ui-grid-a">
@@ -120,59 +126,18 @@
     </div>
 
 </div>
-<div id="settings_zip" data-role="page" data-theme="a">
-    <div data-role="header">
-        <div data-role="navbar">
-            <ul>
-            <li><a href="index.html" data-icon="home" data-theme="a">Home</a></li>
-            <li><a href="alert_manager.html" data-icon="gear" data-theme="a">Settings</a></li>
-            <li><a href="about.html" data-role="button" data-icon="arrow-u" class="button_green_gray" style="color:#CCC">Support</a>
-            <li><a href="about.html" data-role="button" data-icon="arrow-d" class="button_red_gray" style="color:#CCC">Oppose</a></li>
-            </ul>
-        </div>
-    </div>
-
+<div id="index_city" data-role="page" data-theme="a">
     <div data-role="content">
-        <p>
-        <h3>First time here?</h3>
-        We need to know your city so we can show you relevant information. 
-        We think we have a pretty good guess, but we want to check with you to be sure.
-        </p><p>
-        Select your city if you see it listed.  Otherwise, enter your zip code, and we'll try again.
-        </p>
+        <p>Enter your zip code, and select your city.</p>
         <form>
         <div data-role="fieldcontain">
         <label for="place_zip">Zip</label>
-        <input type="text" id="place_zip" value=""/><br/>
+        <input type="text" pattern="[0-9]*" id="place_zip" class="settings_zip" value=""/><br/>
         </div>
-        <ul id="city_list" data-role="listview" data-inset="false" data-theme="a"  data-divider-theme="a"></ul>
+        <ul class="city_list" data-role="listview" data-inset="false" data-theme="a"  data-divider-theme="a"></ul>
         </form>
     </div>
 </div>
-<!--
-<div id="settings_zip" data-role="dialog" data-theme="a">
-
-	<div data-role="header">
-		<div data-role="navbar">
-			<ul>
-			<li><a href="index.html" data-icon="home" data-theme="a">Home</a></li>
-			</ul>
-		</div>
-	</div>
-
-	<div data-role="content">
-        <p>First time here?  We need to know your city so we can show you relevant information.  We think we have a pretty good guess, but we want to check with you to be sure.</p>
-        <p>Select your city if you see it listed.  Otherwise, enter your zip code, and we'll try again.</p>
-		<form>
-			<div data-role="fieldcontain">
-				<label for="place_zip">Zip</label>
-				<input type="text" id="place_zip" value=""/><br/>
-			</div>
-            <ul id="city_list" data-role="listview" data-inset="false" data-theme="a"  data-divider-theme="a"></ul>
-		</form>
-	</div>
-</div>
--->
 <script type="text/javascript">
 	google.load("visualization", "1", {packages:["corechart"]});
 </script>
