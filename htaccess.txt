@@ -1,0 +1,19 @@
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^\.]+)$ $1.php [NC,L] 
+Options -MultiViews
+
+ErrorDocument 404 /index.php
+
+#RewriteCond %{REQUEST_URI} !^/maintenance\.php$
+#RewriteRule ^(.*)$ /maintenance.php [L]
+
+Redirect /register https://store.scalextreme.com/actmgnt/customer/account/create/?context=normal
+Redirect /blog http://blog.scalextreme.com/?q=blog
+Redirect /blog/ http://blog.scalextreme.com/
+Redirect /server-uplink /products/server-uplink
+
+# Help (SEO) directory
+RewriteEngine On 
+RewriteRule ^help/$ /result.php?section=$1 
+

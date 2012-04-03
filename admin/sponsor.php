@@ -34,7 +34,7 @@ if (!empty($sponsor_ids)) {
             $sponsor_name = $office;
         }
         $src = '/images/photos/personnel/' . $sponsor->image();
-        $region_name = $sponsor->region->name();
+        $region_name = $sponsor->region;
 ?>
     <div class='row_clickable row_thumb' onclick="document.location.href='sponsor_edit?id=<?php echo $id; ?>'">
     <div class='row_icon'></div>		

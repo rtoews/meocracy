@@ -4,6 +4,7 @@ require_once(DOC_ROOT . '/includes/classes/class.user.php');
 require_once(DOC_ROOT . '/includes/classes/class.city.php');
 require_once(DOC_ROOT . '/includes/classes/class.legislation_feedback.php');
 
+$user = new User($user_id);
 $id = get_param('id');
 $feedback_id = get_param('fid');
 
@@ -23,15 +24,16 @@ if (!empty($legislation)) {
             'legislation_id' => $id,
             'response_type' => "opinion: $response",
             'feedback_id' => $feedback_id,
+            'comment_data' => $legislation->comment_data,
         );
     }
     else {
-        $feedback->comments(get_param('response_comments'));
+        $feedback->comments(get_param('comments'));
         $feedback->update();
         $data = array(
             'legislation_id' => $id,
             'response_type' => 'comments',
-            'feedback_id' => false,
+            'comment_data' => $legislation->get_comment_data(),
         );
     }
 }

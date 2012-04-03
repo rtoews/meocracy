@@ -1,4 +1,5 @@
 <?php
+require_once(DOC_ROOT . '/includes/classes/class.city.php');
 require_once(DOC_ROOT . '/includes/classes/class.legislator.php');
 require_once(DOC_ROOT . '/includes/classes/class.image.php');
 require_once(DOC_ROOT . '/includes/classes/class.office.php');
@@ -9,21 +10,33 @@ require_once(DOC_ROOT . '/includes/classes/class.email.php');
 
 class Legislation extends DBInterface
 {
-	public function __construct( $legislation_id = 0 )
+	public function __construct($legislation_id = 0)
 	{
-		parent::__construct( 'legislation', $legislation_id );
+		parent::__construct('legislation', $legislation_id);
         if ($legislation_id) {
+            $state = new State($this->region_id());
+            $logo = LOGO_PATH . strtolower('state_' . $state->state_abbr() . '_' . $this->current_chamber()) . '.png';
+            $location = $state->state_name() . ' State ' . $this->current_chamber();
+            list($category_id, $category_name) = Category::legislation_get_category($this->current_location());
+            $committee = Category::get_location($this->current_location());
             $this->legislator_ids = $this->get_legislator_ids();
+            $legislators = array();
             if (!empty($this->legislator_ids)) {
                 foreach ($this->legislator_ids as $id) {
-                    $this->legislator[] = new Legislator($id);
+                    $legislators[] = new Legislator($id);
                 }
             }
-            $this->location_description = Category::get_location($this->current_location());
+            $this->sponsors = Legislation::get_legislator_data($legislators, $committee);
+            $this->bill = $this->_extract_bill_id();
+            $this->image = $logo;
+            $this->bill_location = $location;
+            $this->location_description = $committee;
+            $this->category = array('id' => $category_id, 'name' => $category_name);
             $this->status = new Status($this->status_id());
             $this->date_introduced_parts = get_date_parts($this->date_introduced());
             $this->date_heard_parts = get_date_parts($this->date_heard());
             $this->_get_public_opinion();
+            $this->comment_data = $this->get_comment_data();
         }
  	}
 		
@@ -39,11 +52,76 @@ class Legislation extends DBInterface
         return $legislator_id;
     }
 */
+    public static function get_legislator_data($data, $committee)
+    {
+        $committee = $committee ? $committee . ' Committee' : '';
+        $first_position = $committee && sizeof($data) > 1 ? 'Chair, ' . $committee : $committee;
+        $legislators = array();
+        if (!empty($data)) {
+            foreach ($data as $legislator) {
+                $legislators[] = array(
+                    'id' => $legislator->id(), 
+                    'img_name' => $legislator->img_name, 
+                    'image' => $legislator->image, 
+                    'full_title' => $legislator->full_title, 
+                    'level' => $legislator->level, 
+                    'position' => $committee, 
+                    'title' => $legislator->name_title(),
+                    'name' => $legislator->full_name, 
+                    'party' => $legislator->party, 
+                    'state' => $legislator->state(), 
+                    'office' => $legislator->name_title(), 
+                    'district' => $legislator->district, 
+                    'lastname' => $legislator->name_last(),
+                    'firstname' => $legislator->name_first(),
+                );
+            }
+            $legislators[0]['position'] = $first_position;
+        }
+        return $legislators;
+    }
+
     public function get_feedback_with_comments($id)
     {
         return Legislation_Feedback::get_feedback_with_comments($id);
     }
 
+    private function _extract_bill_id()
+    {
+        $bill_id = $this->bill_id() . 'cap';
+        $bill_id = trim($bill_id, '0123456789');
+        $bill_id = substr($bill_id, 0, strlen($bill_id)-3);
+        return $bill_id;
+    }
+
+    function get_comment_data()
+    {
+        $comment_count = $this->_get_comment_count();
+        $comments = $this->_get_comments();
+        $data = array('count' => $comment_count, 'comments' => $comments);
+        return $data;
+    }
+
+    private function _get_comment_count()
+    {
+        $sql = sprintf("SELECT COUNT(*) comment_count FROM legislation_feedback WHERE legislation_id=%d AND comments IS NOT NULL", $this->id());
+        $total_feedback = db()->Get_Cell($sql);
+        return $total_feedback;
+    }
+
+    private function _get_comments()
+    {
+        $comments = array();
+        $sql = sprintf("SELECT feedback_id FROM legislation_feedback WHERE legislation_id=%d AND comments IS NOT NULL ORDER BY feedback_date DESC", $this->id());
+        $data = db()->Get_Table($sql);
+        if (!empty($data)) {
+            foreach ($data as $row) {
+                $c = new Legislation_Feedback($row['feedback_id']);
+                $comments[] = array('feedback_id' => $c->id(), 'legislation_id' => $c->legislation_id(), 'user_id' => $c->user->id(), 'user_handle' => $c->user->get_handle(), 'comments' => $c->comments(), 'response' => $c->response(), 'date' => $c->feedback_date());
+            }
+        }
+        return $comments;
+    }
 
     private function _get_public_opinion()
     {
@@ -159,9 +237,17 @@ class Legislation extends DBInterface
     {
         $submitted = false;
         $sql = sprintf("SELECT feedback_id FROM legislation_feedback WHERE user_id=%d AND legislation_id=%d", $user_id, $this->id());
-        $data = db()->Get_Cell($sql);
-        if (!empty($data)) {
-            $submitted = true;
+        $feedback_id = db()->Get_Cell($sql);
+        if (!empty($feedback_id)) {
+            $feedback = new Legislation_Feedback($feedback_id);
+            $submitted = array(
+                'feedback_id' => $feedback_id,
+                'user_id' => $feedback->user_id(),
+                'legislation_id' => $feedback->legislation_id(),
+                'response' => $feedback->response(),
+                'comments' => $feedback->comments(),
+                'date' => $feedback->feedback_date(),
+            );
         }
         return $submitted;
     }

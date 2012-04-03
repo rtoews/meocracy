@@ -1,6 +1,8 @@
 <?php
 require_once(DOC_ROOT . '/includes/classes/class.city.php');
 require_once(DOC_ROOT . '/includes/classes/class.email.php');
+require_once(DOC_ROOT . '/includes/classes/class.smsified.php');
+require_once(DOC_ROOT . '/includes/classes/class.tell_friend.php');
 
 class User extends DBInterface
 {
@@ -51,6 +53,16 @@ class User extends DBInterface
             return true;
         }
         return false;
+    }
+
+    public static function ensure_user_id($user_id)
+    {
+        $sql = sprintf("SELECT user_id FROM user WHERE user_id=%d", $user_id);
+        $ensure_id = db()->Get_Cell($sql);
+        if (!$ensure_id) {
+            $ensure_id = User::generate_new_user();
+        }
+        return $ensure_id;
     }
 
     public static function get_user_id()
@@ -110,6 +122,15 @@ class User extends DBInterface
         }
 
         return $user_id;
+    }
+
+    public function get_handle()
+    {
+        $handle = 'Anonymous';
+        if ($this->firstname()) {
+            $handle = $this->firstname() . ' ' . substr($this->lastname(), 0, 1) . '.';
+        }
+        return $handle;
     }
 
     public function sms_confirmation($user_id)
@@ -371,6 +392,60 @@ class User extends DBInterface
     public function tell_friends($friend_ndx_list, $message)
     {
     }
+
+    public function tell_friend($address, $data)
+    {
+        $sms = new SMSified(SMS_USER, SMS_PWD);
+        if ($address) {
+            $code = User::generate_user_code();
+            $link = $_SERVER['HTTP_HOST'] . "/fyi/$code";
+            $message = sprintf("%s\n%s\n%s\n- %s", $link, $data['title'], $data['message'], $data['name']);
+            $request = sprintf("address=%s&message=%s", $address, $message);
+            $url = PUSHURL;
+            $response = $sms->sendMessage(SMS_SENDER, $address, $message);
+            $responseJson = json_decode($response);
+//print 'Response:<pre>';
+//print_r($responseJson);
+//print "</pre>";
+            $success = $responseJson;
+            $tf = new Tell_Friend();
+            $tf->code($code);
+            $tf->user_id($data['user_id']);
+            $tf->phone($address);
+            $tf->city_id($data['city_id']);
+            $tf->issue_type($data['issue_type']);
+            $tf->issue_id($data['issue_id']);
+            $tf->message($data['message']);
+            $tf->created_date(TODAY_DATETIME);
+            $tf->insert();
+        }
+        elseif (0) {
+            $contents = array(
+                'badge' => '1',
+                'alert' => 'New item for ' . $tag,
+            ); 
+            $push = array('aps' => $contents); 
+
+            $json = json_encode($push); 
+
+            $session = curl_init(PUSHURL); 
+            curl_setopt($session, CURLOPT_USERPWD, APPKEY . ':' . PUSHSECRET); 
+            curl_setopt($session, CURLOPT_POST, true); 
+            curl_setopt($session, CURLOPT_POSTFIELDS, $json); 
+            curl_setopt($session, CURLOPT_HEADER, false); 
+            curl_setopt($session, CURLOPT_RETURNTRANSFER, true); 
+            curl_setopt($session, CURLOPT_HTTPHEADER, array('Content-Type:application/json')); 
+            $content = curl_exec($session); 
+            echo $content; // just for testing what was sent
+
+            // Check if any error occured 
+            $response = curl_getinfo($session); 
+            curl_close($session);
+            $success = $response['http_code'] == 200;
+        }
+        return $success;
+    }
+
 }
 
 
@@ -388,7 +463,8 @@ class UserRegion extends DBInterface
         $this->region_type(REGION_CITY);
         $this->updated_date(date(TODAY_DATETIME));
         $user_region_id = $this->insert();
-        return $user_region_id;
+        $city = new City($city_id);
+        return $city;
     }
 
     public function get_city($user_id)
@@ -408,6 +484,9 @@ class UserRegion extends DBInterface
         if (!empty($data)) {
             $city = new City($data['region_id']);
             return $city;
+        }
+        else {
+            return new City();
         }
     }
 }

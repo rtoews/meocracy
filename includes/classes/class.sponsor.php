@@ -13,8 +13,9 @@ class Sponsor extends DBInterface
             $this->sponsor_id = $sponsor_id;
             $this->office = $this->title();
             $this->full_name = $this->name_first() . ' ' . $this->name_last();
-            $this->img_name = $this->name_last() . '_' . $this->name_first();
-            $this->public_image = SPONSOR_IMAGE_PATH . $this->image();
+            $this->img_name = $this->image();
+            $this->public_image = $this->get_image_src();
+            $this->image = $this->get_image_src();
             $this->region = $region->city_name();
         }
  	}
@@ -52,9 +53,9 @@ class Sponsor extends DBInterface
 
     public function get_image_src()
     {
-        $src = SPONSOR_IMAGE_PATH . $this->image();
-        if (!file_exists(DOC_ROOT . $src)) {
-            $src = null;
+        $src = 'missing.png';
+        if ($this->image()) {
+            $src = SPONSOR_IMAGE_PATH . $this->image();
         }
         return $src;
     }

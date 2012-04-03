@@ -28,7 +28,7 @@ if (!empty($announcement_ids)) {
         $announcement = new Announcement($id);
 	    $announcement_id = $id;
         $src = $announcement->get_image_src();
-        $shorttitle = my_truncate($announcement->heading(), 10, "..." );
+        $shorttitle = my_truncate($announcement->title(), 10, "..." );
         $shortdescription = my_truncate($announcement->description(), 20, "...");
         $chart_question = $announcement->question();
         $feedback_support = $announcement->get_support();

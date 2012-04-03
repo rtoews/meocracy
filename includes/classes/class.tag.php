@@ -36,6 +36,19 @@ class Tag extends DBInterface
         return $alerts;
     }
 
+    public static function filter_tags($partial)
+    {
+        $tags = array();
+        $sql = "SELECT tag_id, tag FROM tag WHERE tag LIKE '" . $partial . "%' ORDER BY tag";
+        $data = db()->Get_Table($sql);
+        if (!empty($data)) {
+            foreach ($data as $row) {
+                $tags[] = array('key' => $row['tag_id'], 'value' => $row['tag']);
+            }
+        }
+        return $tags;
+    }
+
     public function add()
     {
         $this->status(1);

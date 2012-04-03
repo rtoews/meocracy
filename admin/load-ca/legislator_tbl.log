@@ -1,0 +1,32 @@
+--------------
+LOAD DATA LOCAL
+  INFILE "/tmp/LEGISLATOR_TBL.dat"
+  REPLACE
+  INTO TABLE capublic.legislator_tbl
+  FIELDS TERMINATED BY '\t'
+  OPTIONALLY ENCLOSED BY '`'
+  LINES TERMINATED BY '\n'
+(
+   DISTRICT
+  ,SESSION_YEAR
+  ,LEGISLATOR_NAME
+  ,HOUSE_TYPE
+  ,AUTHOR_NAME
+  ,FIRST_NAME
+  ,LAST_NAME
+  ,MIDDLE_INITIAL
+  ,NAME_SUFFIX
+  ,NAME_TITLE
+  ,WEB_NAME_TITLE
+  ,PARTY
+  ,ACTIVE_FLG
+  ,TRANS_UID
+  ,TRANS_UPDATE
+  ,ACTIVE_LEGISLATOR
+)
+--------------
+
+Query OK, 122 rows affected
+Records: 122  Deleted: 0  Skipped: 0  Warnings: 0
+
+Bye

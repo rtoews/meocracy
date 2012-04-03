@@ -1,0 +1,122 @@
+Alameda: http://www.cityofalamedaca.gov/pressreleases.cfm
+Albany: http://www.albanyca.org/Rss.aspx?type=5&paramtime=Current
+American Canyon: http://www.ci.american-canyon.ca.us/Rss.aspx?type=5
+Angels Camp: http://www.angelscamp.gov/index.php?format=feed&type=rss
+Apple Valley: http://www.applevalley.org/Rss.aspx?type=5&paramtime=Current
+Arroyo Grande: http://www.arroyogrande.org/rss/press-releases/
+Avila Beach: http://avilabeachpier.com/blog/?feed=rss2
+Azusa: http://www.ci.azusa.ca.us/support/pages.xml
+Beaumont: http://www.ci.beaumont.ca.us/support/pages.xml
+Belvedere: http://www.cityofbelvedere.org/support/pages.xml
+Big Bear Lake: http://www.citybigbearlake.com/index.php?option=com_content&view=category&id=1&Itemid=145&format=feed&type=rss
+Biggs: http://www.biggs-ca.gov/feeds/biggs-city.xml
+Blythe: http://www.cityofblythe.ca.gov/support/newsflash.xml
+Brea: http://www.cityofbrea.net/rss.cfm?id=1
+Brisbane: http://www.brisbaneca.org/latest-news/rss.xml
+Burbank: http://www.ci.burbank.ca.us/Rss.aspx?type=5&paramtime=Current
+Burlingame: http://www.burlingame.org/rss.aspx?cat=&dept=&type=5&paramtime=Current
+Campbell: http://www.ci.campbell.ca.us/General/RSS/WhatsNew.xml
+Cathedral City: http://www.cathedralcity.gov/Rss.aspx?type=5&paramtime=Current
+Chino Hills: http://www.chinohills.org/support/newsflash.xml
+Chino: http://www.cityofchino.org/Rss.aspx?type=5&paramtime=Current
+Clayton: http://www.ci.clayton.ca.us/rss.php?module=newsmodule&src=@random4893dc49f420c
+Cloverdale: http://www.cloverdale.net/support/newsflash.xml
+Clovis: http://www.ci.clovis.ca.us/_layouts/feed.aspx?xsl=1&web=/news&page=890894e9-9b24-4966-b8f4-d12f4c02ba9d&wp=2de0db77-95b6-43b6-8d06-9efe695f0ddc
+Commerce: http://www.ci.commerce.ca.us/support/newsflash.xml
+Costa Mesa: http://www.ci.costa-mesa.ca.us/rss.xml
+Cupertino: http://www.cupertino.org/Rss.aspx?type=5&paramtime=Current
+Dana Point: http://www.danapoint.org/Rss.aspx?type=5&paramtime=Current
+Davis: http://cityofdavis.org/RSS/whatsnew-RSS.cfm
+Del Mar: http://www.delmar.ca.us/_layouts/feed.aspx?xsl=1&web=/News&page=0143335d-234f-4223-9640-90dbe6cdd7b0&wp=8ed78b57-6050-4781-9556-6748da147c1a
+Diamond Bar: http://www.ci.diamond-bar.ca.us/Rss.aspx?type=5&paramtime=Current
+Dixon: http://www.ci.dixon.ca.us/support/newsflash.xml
+Downey: http://www.downeyca.org/custom/whatsnew_rss.asp
+
+Warning: xml_parse(): input conversion failed due to input error, bytes 0x9D 0x20 0x69 0x6E in /home/meo/public_html/admin/scripts/extract_announcements.php on line 20
+
+Warning: xml_parse(): input conversion failed due to input error, bytes 0x9D 0x20 0x69 0x6E in /home/meo/public_html/admin/scripts/extract_announcements.php on line 20
+Dublin: http://www.dublin.ca.gov/support/newsflash.xml
+El Cerrito: http://www.el-cerrito.org/support/newsflash.xml
+Elk Grove: http://www.elkgrovecity.org/feeds/press-releases.xml
+Emeryville: http://www.ci.emeryville.ca.us/support/newsflash.xml
+Fontana: http://www.fontana.org/support/newsflash.xml
+Fremont: http://www.fremont.gov/support/newsflash.xml
+Fullerton: http://www.cityoffullerton.com/cof_added/rss/rssnewshome.asp
+Gilroy: http://gilroy.granicus.com/viewpublisherrss.php?view_id=16&mode=agendas
+Glendale: http://www.ci.glendale.ca.us/rssHeadlines.ashx
+Glendora: http://www.ci.glendora.ca.us/Rss.aspx?type=5
+Goleta: http://www.cityofgoleta.org/Rss.aspx?type=5&paramtime=Current
+Grand Terrace: http://www.cityofgrandterrace.org/support/newsflash.xml
+Healdsburg: http://www.ci.healdsburg.ca.us/Rss.aspx?type=5&paramtime=Current
+Hercules: http://www.ci.hercules.ca.us/Rss.aspx?type=5&paramtime=Current
+Hesperia: http://www.cityofhesperia.us/support/newsflash.xml
+Huntington Park: http://www.huntingtonpark.org/support/newsflash.xml
+Jackson: http://ci.jackson.ca.us/RSSfeed.rss
+La Mesa: http://www.cityoflamesa.com/support/newsflash.xml
+La Mirada: http://www.cityoflamirada.org/Rss.aspx?type=5&paramtime=Current
+La Palma: http://www.cityoflapalma.org/support/newsflash.xml
+Lake Elsinore: http://www.lake-elsinore.org/Rss.aspx?type=5&paramtime=Current
+Lakewood: http://www.lakewoodcity.org/civica/news/rssfeed.asp
+Lancaster: http://www.cityoflancasterca.org/Rss.aspx?type=5&paramtime=Current
+Lemon Grove: http://www.ci.lemon-grove.ca.us/support/newsflash.xml
+Lodi: http://cityoflodi.blogspot.com/feeds/posts/default
+
+Warning: Invalid argument supplied for foreach() in /home/meo/public_html/admin/scripts/extract_announcements.php on line 76
+Los Banos: http://www.losbanos.org/index.php?format=feed&type=rss
+Los Gatos: http://www.town.los-gatos.ca.us/support/newsflash.xml
+Mammoth Lakes: http://www.ci.mammoth-lakes.ca.us/support/newsflash.xml
+Marina: http://www.ci.marina.ca.us/support/newsflash.xml
+Menlo Park: http://service.govdelivery.com/service/rss/item_editions.rss?code=CAMENLO_1
+Mill Valley: http://www.cityofmillvalley.org/Rss.aspx?type=5&paramtime=Current
+Millbrae: http://www.ci.millbrae.ca.us/Rss.aspx?type=5&paramtime=Current
+Mission Viejo: http://missionviejolife.org/feed/
+Modesto: http://www.ci.modesto.ca.us/newsroom/releases/rss.aspx?CatId=31
+Monrovia: http://www.ci.monrovia.ca.us/index.php?format=feed&type=rss
+Monterey Park: http://www.ci.monterey-park.ca.us/Rss.aspx?type=5&paramtime=Current
+Morgan Hill: http://www.morgan-hill.ca.gov/support/newsflash.xml
+Morro Bay: http://www.morro-bay.ca.us/support/newsflash.xml
+National City: http://www.ci.national-city.ca.us/Rss.aspx?type=5&cat=11,10&paramtime=Current
+Newport Beach: http://www.city.newport-beach.ca.us/aciswebcast/rss.aspx
+Novato: http://www.cityofnovato.org/Rss.aspx?type=4
+Oroville: http://www.cityoforoville.org/Rss.aspx?type=5&paramtime=Current
+Pacifica: http://www.cityofpacifica.org/custom/whatsnew_rss.asp
+Palm Desert: http://www.cityofpalmdesert.org/Rss.aspx?type=5&paramtime=Current
+Palmdale: http://www.cityofpalmdale.org/feeds/getfeed.aspx/72d57cca-c462-4632-b74f-2d673cd842d5
+
+Warning: file(http://www.cityofpalmdale.org/feeds/getfeed.aspx/72d57cca-c462-4632-b74f-2d673cd842d5): failed to open stream: HTTP request failed! HTTP/1.1 500 Internal Server Error
+ in /home/meo/public_html/admin/scripts/extract_announcements.php on line 18
+
+Warning: implode(): Invalid arguments passed in /home/meo/public_html/admin/scripts/extract_announcements.php on line 19
+
+Warning: Invalid argument supplied for foreach() in /home/meo/public_html/admin/scripts/extract_announcements.php on line 76
+Pasadena: http://www.ci.pasadena.ca.us/RssFeed.aspx?index=news
+Pismo Beach: http://www.pismobeach.org/support/newsflash.xml
+Placentia: http://placentia.org/support/newsflash.xml
+Pleasant Hill: http://www.ci.pleasant-hill.ca.us/support/newsflash.xml
+Poway: http://www.poway.org/Rss.aspx?type=5&paramtime=Current
+Rancho Mirage: http://www.ranchomirageca.gov/scripts/rss/press_releases.rss.php
+Richmond: http://www.ci.richmond.ca.us/support/newsflash.xml
+Riverside: http://www.riversideca.gov/xml/rss/homepage.xml
+Rocklin: http://www.rocklin.ca.gov/custom/rss/headlines.asp
+Roseville: http://www.roseville.ca.us/civica/news/rssfeed.asp
+Salinas: http://www.ci.salinas.ca.us/rss/news.xml
+San Anselmo: http://www.townofsananselmo.org/support/newsflash.xml
+San Bernardino: https://www.ci.san-bernardino.ca.us/custom/whatsnew_rss.asp
+San Carlos: http://www.cityofsancarlos.org/custom/whatsnew_rss.asp
+San Diego: http://www.sandiego.gov/rss/home/home.xml
+San Francisco: http://www5.sfgov.org/sf_news/rss.xml
+San Juan Capistrano: http://www.sanjuancapistrano.org/Rss.aspx?type=5&paramtime=Current
+San Marcos: http://www.ci.san-marcos.ca.us/Rss.aspx?type=5&paramtime=Current
+San Mateo: http://www.ci.sanmateo.ca.us/support/newsflash.xml
+Santa Clara: http://santaclaraca.gov/Rss.aspx?type=5&paramtime=Current
+Santa Clarita: http://santaclaritacitybriefs.com/feed/
+Santa Cruz: http://www.cityofsantacruz.com/Rss.aspx?type=5
+Sausalito: http://www.ci.sausalito.ca.us/Rss.aspx?type=5&paramtime=Current
+Seaside: http://www.ci.seaside.ca.us/Rss.aspx?type=5&paramtime=Current
+Signal Hill: http://www.cityofsignalhill.org/support/newsflash.xml
+Simi Valley: http://www.simivalley.org/Rss.aspx?type=5&paramtime=Current
+South Lake Tahoe: http://www.cityofslt.us/support/newsflash.xml
+South San Francisco: http://www.ci.ssf.ca.us/support/newsflash.xml
+Sunnyvale: http://feeds.feedburner.com/SunnyvaleCityManager
+Taft: http://www.cityoftaft.org/cot/index.php?format=feed&type=rss
+Windsor: http://www.ci.windsor.ca.us/support/newsflash.xml

@@ -4,12 +4,24 @@ require_once(DOC_ROOT . '/includes/classes/class.user.php');
 require_once(DOC_ROOT . '/includes/classes/class.category.php');
 require_once(DOC_ROOT . '/includes/classes/class.city.php');
 
-$category_id = get_param('cat');
-$location_code = get_param('loc');
-$filter = $location_code ? $location_code : $category_id;
+$category_id = get_param('c');
+$tag_id = get_param('t');
+$location_code = get_param('l');
+if ($category_id) {
+    $filter = $category_id;
+    $filter_type = 'c';
+    $category = new Category($category_id);
+    $category_name = $category->lc_category();
+}
+elseif ($tag_id) {
+    $filter = $tag_id;
+    $filter_type = 't';
+}
+elseif ($location_code) {
+    $filter = $location_code;
+    $filter_type = 'l';
+}
 
-$category = new Category($category_id);
-$category_name = $category->lc_category();
 $data = array();
 
 $search = preg_replace('/[^a-z0-9]/i', '', get_param('search'));
@@ -20,24 +32,27 @@ if ($search) {
     $issues = $city->get_issues_search($search);
 }
 else {
-    $issues = $city->get_issues($filter);
+    $issues = $city->get_issues($filter, $filter_type);
 }
 $issue_list = array();
 if (!empty($issues)) {
     foreach ($issues as $row) {
         $issue = $row['issue'];
-        if ($issue->feedback_submitted($user_id)) {
-            $issue_list[] = array('type' => $row['type'], 'is_checked' => 1, 'key' => $issue->id(), 'image' => $issue->get_image_src(), 'value' => $issue->title());
+        $issue_type = $row['type'];
+        $checked = $issue->feedback_submitted($user_id) ? 1 : 0;
+        if ($issue_type == ANNOUNCEMENT_TYPE) {
+            $value = 'Announcement: ' . $issue->title();
         }
         else {
-            $issue_list[] = array('type' => $row['type'], 'is_checked' => 0, 'key' => $issue->id(), 'image' => $issue->get_image_src(), 'value' => $issue->title());
+            $value = 'Bill ' . $issue->bill . ': ' . $issue->title();
         }
+        $issue_list[] = array('type' => $row['type'], 'is_checked' => $checked, 'key' => $issue->id(), 'image' => $issue->get_image_src(), 'value' => $value);
     }
 }
 
 $data = array(
     'filter' => $filter,
-    'category_id' => $category_id,
+    'filter_type' => $filter_type,
     'category' => $category_name,
     'issues' => $issue_list,
 );

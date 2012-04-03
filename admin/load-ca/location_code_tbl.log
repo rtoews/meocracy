@@ -1,0 +1,26 @@
+--------------
+LOAD DATA LOCAL
+  INFILE "/tmp/LOCATION_CODE_TBL.dat"
+  REPLACE
+  INTO TABLE capublic.location_code_tbl
+  FIELDS TERMINATED BY '\t'
+  OPTIONALLY ENCLOSED BY '`'
+  LINES TERMINATED BY '\n'
+(
+   SESSION_YEAR
+  ,LOCATION_CODE
+  ,LOCATION_TYPE
+  ,CONSENT_CALENDAR_CODE
+  ,DESCRIPTION
+  ,LONG_DESCRIPTION
+  ,ACTIVE_FLG
+  ,TRANS_UID
+  ,TRANS_UPDATE
+  ,INACTIVE_FILE_FLG
+)
+--------------
+
+Query OK, 191 rows affected
+Records: 191  Deleted: 0  Skipped: 0  Warnings: 0
+
+Bye

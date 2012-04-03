@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html> 
+<head>
+    <meta charset="utf-8"/>
+    <title>Meocracy</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+    <link href="css/import.css" type="text/css" rel="stylesheet" />
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="jslib/phonegap-1.1.0.js"></script>
+
+    <script type="text/javascript" src="js/charts.js"></script>
+    <script type="text/javascript" src="js/constants.js"></script>
+    <script type="text/javascript" src="js/meo.js"></script>
+    <script type="text/javascript" src="js/util.js"></script>
+    <script type="text/javascript">
+        if (!window.googleLoaded) {
+            google.load("visualization", "1", {packages:["corechart"]});
+            window.googleLoaded = true;
+        }
+    </script>
+
+</head>  
+<body>
+
+<div id="announcement_feedback_response" data-role="page" data-title="Meocracy" data-theme="a">
+    <div data-role="header" data-theme="a">
+        <div data-role="navbar">
+            <ul>
+            <li><a href="index.html" data-icon="home" data-theme="a">Home</a></li>
+            <li><a href="settings.html" data-icon="gear" data-theme="a">Settings</a></li>
+            <li><a href="about.html" data-role="button" data-icon="arrow-u" class="button_green_inactive" >Support</a>
+            <li><a href="about.html" data-role="button" data-icon="arrow-d" class="button_red_inactive" >Oppose</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div data-role="content">
+
+<!-- Parent Section -->
+        <ul data-role="listview" data-inset="false" data-theme="a"  data-divider-theme="a">
+        <li>
+            <a class="header_link" href="" data-icon="none">
+            <img class="header_image" src=""/>
+            <h3 class="header_title"></h3>
+            <p class="header_location"></p>
+            </a>
+        </li>
+        <li>
+            <a class="header_sponsor_link" href="">
+            <img class="header_sponsor_image" src=""/>
+            <h3 class="sponsor_title_full"></h3>
+            <p class="header_sponsor_position"></p>
+            </a>
+        </li>
+
+<!-- Masthead -->
+            <li data-role="list-divider">
+                Opinion on this issue
+            </li>
+        </ul>
+
+        <br><p>
+
+<!-----------------------------------------
+Everything above here is global.  Every page except search and user prefs has a parent section and a masthead. 
+--------------------------------------------->
+
+        <div class="chart_outer">
+            <div class="chart_inner">
+                <!-- Support/Oppose chart -->
+                <div id="chart_feedback" class="chart"></div>
+                <!-- Support/Oppose chart -->
+<!--                <div id="chart_total" class="chart"></div>-->
+            </div><!-- corresponds to class="chart_inner"-->
+        </div><!-- corresponds to class="chart_outer"-->
+        <br style="clear:both"/>
+<!-- Action Items -->
+
+        <div class="button_plate">
+            <fieldset class="ui-grid-a">
+                <div class="ui-block-a"><a href="tell_friends.html" data-role="button" data-theme="b">Tell friends</a></div>
+                <div class="ui-block-b"><a href="alerts.html" data-role="button" data-theme="b">Subscribe</a></div>      
+            </fieldset>
+        </div>
+
+<!-- Send a comment -->
+
+        <h4>Comments (<span id="announcement_comment_count"></span>)</h4>
+
+        <form id="announcement_comment_form">
+        	<input type="hidden" id="announcement_feedback_id" value=""/>
+        	<label for="announcement_comments">My comments to <span class="sponsor_title"></span> <span class="sponsor_lastname"></span>:</label>
+        	<textarea name="announcement_comments" id="announcement_comments" wrap="physical" rows="10" cols="200"></textarea>
+        	<input id="announcement_submit" type="button" data-role="button" data-inline="true" value="Submit" data-theme="b"/>
+        </form>
+
+        <br style="clear:both"/>
+
+<!-- View comments -->
+
+    	<ul id="announcement_comment_list" data-role="listview">
+      		<li>
+        		<h4>Some guy</h4>
+        		<p>This is my comment. This is my comment. This is my comment. </p>
+    		</li>
+      		<li>
+        		<h4>Some guy</h4>
+        		<p>This is my comment. This is my comment. This is my comment. </p>
+    		</li>
+      		<li>
+        		<h4>Some guy</h4>
+        		<p>This is my comment. This is my comment. This is my comment. </p>
+    		</li>
+    	</ul>
+
+    </div>
+</div>
+</body>
+</html>
+

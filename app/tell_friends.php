@@ -3,26 +3,37 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/includes/global.php');
 require_once(DOC_ROOT . '/includes/classes/class.user.php');
 require_once(DOC_ROOT . '/includes/classes/class.announcement.php');
 
-$type = get_param('type');
-$id = get_param('id');
-$screen = get_param('screen');
+$phone = get_param('phone');
+$issue_type = get_param('t');
+$issue_id = get_param('id');
 
-if ($type == 'a') {
-    $issue = new Announcement($id);
+if ($issue_type == ANNOUNCEMENT_TYPE) {
+    $issue = new Announcement($issue_id);
 }
-elseif ($type == 'l') {
-    $issue = new Legislation($id);
+elseif ($issue_type == LEGISLATION_TYPE) {
+    $issue = new Legislation($issue_id);
 }
+
 $user = new User($user_id);
-$friends = $user->get_friend_list();
 
-$select_friends = true;
 if (!empty($_GET)) {
-    $friend_ndx_list = get_param('friend_ndx_list');
-    $message = get_param('message');
-    $user->tell_friends($friend_ndx_list, $message);
+    $data = array(
+        'user_id' => $user_id,
+        'name' => $user->firstname() . ' ' . $user->lastname(),
+        'issue_type' => $issue_type,
+        'issue_id' => $issue_id,
+        'city_id' => get_param('city_id'),
+        'title' => $issue->title(),
+        'message' => get_param('message'),
+    );
+    $user->tell_friend($phone, $data);
 }
 
+$data = array(
+    'type' => $issue_type,
+    'success' => 1,
+);
+/*
 $row = array();
 if (!empty($friends)) {
     foreach ($friends as $key => $friend) {
@@ -35,6 +46,7 @@ if (!empty($friends)) {
 $data = array(
     'friends' => $row
 );
+*/
 
 return_jsonp_data($data);
 ?>

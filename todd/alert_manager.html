@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html> 
+<head>
+<meta charset="utf-8"/>
+
+<title>Meocracy</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+<link href="css/import.css" type="text/css" rel="stylesheet" />
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript" src="jslib/phonegap-1.1.0.js"></script>
+
+<script type="text/javascript" src="js/charts.js"></script>
+<script type="text/javascript" src="js/constants.js"></script>
+<script type="text/javascript" src="js/meo.js"></script>
+<script type="text/javascript" src="js/util.js"></script>
+
+</head>  
+<body>
+
+<div id="alert_manager" data-role="page" data-title="Meocracy" data-theme="a">
+	<div data-role="header" data-theme="a">
+		<div data-role="navbar">
+			<ul>
+			<li><a href="index.html" data-icon="home" data-theme="a">Home</a></li>
+			<li><a href="settings.html" data-icon="gear" data-theme="a">Settings</a></li>
+	    	<li><a href="about.html" data-role="button" data-icon="arrow-u" class="button_green_inactive" >Support</a>
+    		<li><a href="about.html" data-role="button" data-icon="arrow-d" class="button_red_inactive" >Oppose</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div data-role="content">
+
+	<!-- Masthead -->
+	<ul data-role="listview" data-inset="false" data-theme="a"  data-divider-theme="a">
+		<li data-role="list-divider">
+			My subscribed alerts
+		</li>
+	</ul>
+
+
+	<div data-role="content">
+
+	<form method="get">
+        <div data-role="fieldcontain">
+            <fieldset id="tag_list" data-role="controlgroup" data-type="vertical"></fieldset>
+        </div>
+	    <input type="submit" data-rel="dialog" data-role="button" data-inline="true" data-theme="b" value="Save my alerts"/>
+	</form>
+	</div>
+</div>
+
+
+<!-- Alert Manager Save Confirmation Dialog-->
+
+<div id="alert_manager_save" data-role="page" data-title="Meocracy" data-theme="a">
+	<div data-role="header">
+		<h3>Alerts saved</h3>
+	</div>
+
+	<div data-role="content" data-theme="a">
+		I'll be alerted to these issues now.
+		<a rel="external" href="#" data-rel="back" data-role="button" data-theme="b">Okay</a>    
+	</div>
+</div>
+
+
+</div>
+
+
+</body>
+</html>

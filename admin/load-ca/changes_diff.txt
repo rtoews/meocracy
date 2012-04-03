@@ -1,0 +1,702 @@
+Comparing: old/capublic.sql new/capublic.sql
+9a10,11
+> --  2011-03-18  Rudy-H.    Added more fields, indexes and changed fields.
+> --                         See changes_diff.txt file for actual changes.
+20a23,24
+> GRANT ALL ON capublic.* TO capublic@'%' IDENTIFIED BY 'capublic';
+> 
+37c40
+<   `source_doc`                  DECIMAL                 NULL,
+---
+>   `source_doc`                  LONGBLOB                NULL,
+42,43c45,46
+<   INDEX         `bill_analysis_bill_id_idx`     (`bill_id`(20)),
+<   UNIQUE INDEX  `bill_analysis_tbl_pk`          (`analysis_id`)
+---
+>   PRIMARY KEY (`analysis_id`),
+>   INDEX `bill_analysis_bill_id_idx`  (`bill_id`(20))
+59a63,64
+>   `session_date`                DATETIME                NULL,
+>   `speaker`                     VARCHAR(1)      BINARY  NULL,
+93c98
+<   UNIQUE INDEX `bill_motion_tbl_pk` (`motion_id`)
+---
+>   PRIMARY KEY (`motion_id`)
+110a116,119
+>   `file_item_num`               VARCHAR(10)     BINARY  NULL,
+>   `file_location`               VARCHAR(50)     BINARY  NULL,
+>   `display_lines`               VARCHAR(2000)   BINARY  NULL,
+>   `session_date`                DATETIME                NULL,
+138a148,149
+>   PRIMARY KEY (`bill_id`),
+>   INDEX `bill_tbl_chapter_year_idx`     (`chapter_year`(4)),
+141d151
+<   UNIQUE INDEX  `bill_tbl_pk`                   (`bill_id`(19)),
+160,161c170,171
+<   INDEX         `bill_version_auth_tbl_id_idx`  (`bill_version_id`(30))
+< --  INDEX `bill_version_auth_tbl_name_idx` ((nil))
+---
+>   INDEX `bill_version_auth_tbl_id_idx`  (`bill_version_id`(30)),
+>   Index `bill_version_auth_tbl_name_idx` (`name`)
+186a196
+>   PRIMARY KEY (`bill_version_id`),
+188,189d197
+<   INDEX         `bill_version_tbl_bill_xml`     (`bill_xml`(86)),
+<   UNIQUE INDEX  `bill_version_tbl_pk`           (`bill_version_id`(30)),
+223a232,237
+>   `floor_manager`               VARCHAR(100)    BINARY  NULL,
+>   `trans_uid`                   VARCHAR(20)     BINARY  NULL,
+>   `trans_update_date`           DATETIME                NULL,
+>   `session_num`                 VARCHAR(2)      BINARY  NULL,
+>   `status`                      VARCHAR(200)    BINARY  NULL,
+>   Index `daily_file_pub_date_idx` (`publication_date`),
+248a263
+>   INDEX `law_section_tbl_pk`   (`id`(100)),
+250,252c265,266
+<   UNIQUE INDEX  `law_section_id_idx`            (`law_section_version_id`(100)),
+<   INDEX         `law_section_sect_idx`          (`section_num`(30)),
+<   INDEX         `law_section_tbl_pk`            (`id`(100))
+---
+>   Index `law_section_id_idx` (`law_section_version_id`(100)),
+>   Index `law_section_sect_idx` (`section_num`(30))
+270a285
+>   `seq_num`                     DECIMAL(22, 0)          NULL,
+321c336
+<   `active_flg`                  VARCHAR(1)      BINARY  NOT NULL,
+---
+>   `active_flg`                  VARCHAR(1)      BINARY  NOT NULL DEFAULT 'Y',
+323c338,339
+<   `trans_update`                DATETIME                NULL
+---
+>   `trans_update`                DATETIME                NULL,
+>   `active_legislator`           VARCHAR(1)      BINARY  NULL DEFAULT 'Y'
+339,340c355,357
+<   INDEX         `localtion_code_session_idx1`   (`session_year`(8)),
+<   INDEX         `location_code_tbl_pk1`         (`location_code`(6))
+---
+>   `inactive_file_flg`           VARCHAR(1)      BINARY  NULL,
+>   INDEX `location_code_tbl_pk1`       (`location_code`(6)),
+>   Index `localtion_code_session_idx1` (`session_year`(8))
+
+Comparing: old/bill_analysis_tbl.sql new/bill_analysis_tbl.sql
+4c4
+<   INTO TABLE bill_analysis_tbl
+---
+>   INTO TABLE capublic.bill_analysis_tbl
+8,22c8,24
+<  ( ANALYSIS_ID ,
+< BILL_ID ,
+< HOUSE ,
+< ANALYSIS_TYPE ,
+< COMMITTEE_CODE ,
+< COMMITTEE_NAME ,
+< AMENDMENT_AUTHOR ,
+< ANALYSIS_DATE   ,
+< AMENDMENT_DATE   ,
+< PAGE_NUM ,
+< @var1 ,
+< RELEASED_FLOOR ,
+< ACTIVE_FLG ,
+< TRANS_UID ,
+< TRANS_UPDATE   )
+---
+> (
+>    ANALYSIS_ID
+>   ,BILL_ID
+>   ,HOUSE
+>   ,ANALYSIS_TYPE
+>   ,COMMITTEE_CODE
+>   ,COMMITTEE_NAME
+>   ,AMENDMENT_AUTHOR
+>   ,ANALYSIS_DATE
+>   ,AMENDMENT_DATE
+>   ,PAGE_NUM
+>   ,@var1
+>   ,RELEASED_FLOOR
+>   ,ACTIVE_FLG
+>   ,TRANS_UID
+>   ,TRANS_UPDATE
+> )
+
+Comparing: old/bill_detail_vote_tbl.sql new/bill_detail_vote_tbl.sql
+1d0
+< -- 2010-05-19 Added field MEMBER_ORDER
+5c4
+<   INTO TABLE BILL_DETAIL_VOTE_TBL
+---
+>   INTO TABLE capublic.bill_detail_vote_tbl
+19a19,20
+>   ,SESSION_DATE
+>   ,SPEAKER
+
+Comparing: old/bill_history_tbl.sql new/bill_history_tbl.sql
+4c4
+<   INTO TABLE bill_history_tbl
+---
+>   INTO TABLE capublic.bill_history_tbl
+8,20c8,22
+<  ( BILL_ID ,
+< BILL_HISTORY_ID ,
+< ACTION_DATE   ,
+< ACTION ,
+< TRANS_UID ,
+< TRANS_UPDATE_DT   ,
+< ACTION_SEQUENCE ,
+< ACTION_CODE ,
+< ACTION_STATUS ,
+< PRIMARY_LOCATION ,
+< SECONDARY_LOCATION ,
+< TERNARY_LOCATION ,
+< END_STATUS )
+---
+> (
+>    BILL_ID
+>   ,BILL_HISTORY_ID
+>   ,ACTION_DATE
+>   ,ACTION
+>   ,TRANS_UID
+>   ,TRANS_UPDATE_DT
+>   ,ACTION_SEQUENCE
+>   ,ACTION_CODE
+>   ,ACTION_STATUS
+>   ,PRIMARY_LOCATION
+>   ,SECONDARY_LOCATION
+>   ,TERNARY_LOCATION
+>   ,END_STATUS
+> )
+
+Comparing: old/bill_motion_tbl.sql new/bill_motion_tbl.sql
+4c4
+<   INTO TABLE bill_motion_tbl
+---
+>   INTO TABLE capublic.bill_motion_tbl
+8,13c8,13
+<  ( MOTION_ID ,
+< MOTION_TEXT ,
+< TRANS_UID ,
+< TRANS_UPDATE   )
+< 
+< 
+---
+> (
+>    MOTION_ID
+>   ,MOTION_TEXT
+>   ,TRANS_UID
+>   ,TRANS_UPDATE
+> )
+
+Comparing: old/bill_summary_vote_tbl.sql new/bill_summary_vote_tbl.sql
+4c4
+<   INTO TABLE bill_summary_vote_tbl
+---
+>   INTO TABLE capublic.bill_summary_vote_tbl
+8,20c8,24
+<  ( BILL_ID ,
+< LOCATION_CODE ,
+< VOTE_DATE_TIME   ,
+< VOTE_DATE_SEQ ,
+< MOTION_ID ,
+< AYES ,
+< NOES ,
+< ABSTAIN ,
+< VOTE_RESULT ,
+< TRANS_UID ,
+< TRANS_UPDATE   )
+< 
+< 
+---
+> (
+>    BILL_ID
+>   ,LOCATION_CODE
+>   ,VOTE_DATE_TIME
+>   ,VOTE_DATE_SEQ
+>   ,MOTION_ID
+>   ,AYES
+>   ,NOES
+>   ,ABSTAIN
+>   ,VOTE_RESULT
+>   ,TRANS_UID
+>   ,TRANS_UPDATE
+>   ,FILE_ITEM_NUM
+>   ,FILE_LOCATION
+>   ,DISPLAY_LINES
+>   ,SESSION_DATE
+> )
+
+Comparing: old/bill_tbl.sql new/bill_tbl.sql
+1d0
+< -- 2010-05-19 Added field DAYS_31ST_IN_PRINT
+5c4
+<   INTO TABLE BILL_TBL
+---
+>   INTO TABLE capublic.bill_tbl
+
+Comparing: old/bill_version_authors_tbl.sql new/bill_version_authors_tbl.sql
+4c4
+<   INTO TABLE bill_version_authors_tbl
+---
+>   INTO TABLE capublic.bill_version_authors_tbl
+8,17c8,19
+<  ( BILL_VERSION_ID ,
+< TYPE ,
+< HOUSE ,
+< NAME ,
+< CONTRIBUTION ,
+< COMMITTEE_MEMBERS ,
+< ACTIVE_FLG ,
+< TRANS_UID ,
+< TRANS_UPDATE   ,
+< PRIMARY_AUTHOR_FLG )
+---
+> (
+>    BILL_VERSION_ID
+>   ,TYPE
+>   ,HOUSE
+>   ,NAME
+>   ,CONTRIBUTION
+>   ,COMMITTEE_MEMBERS
+>   ,ACTIVE_FLG
+>   ,TRANS_UID
+>   ,TRANS_UPDATE
+>   ,PRIMARY_AUTHOR_FLG
+> )
+
+Comparing: old/bill_version_tbl.sql new/bill_version_tbl.sql
+4c4
+<   INTO TABLE bill_version_tbl
+---
+>   INTO TABLE capublic.bill_version_tbl
+8,25c8,27
+<  ( BILL_VERSION_ID ,
+< BILL_ID ,
+< VERSION_NUM ,
+< BILL_VERSION_ACTION_DATE   ,
+< BILL_VERSION_ACTION ,
+< REQUEST_NUM ,
+< SUBJECT ,
+< VOTE_REQUIRED ,
+< APPROPRIATION ,
+< FISCAL_COMMITTEE ,
+< LOCAL_PROGRAM ,
+< SUBSTANTIVE_CHANGES ,
+< URGENCY ,
+< TAXLEVY ,
+< @var1 ,
+< ACTIVE_FLG ,
+< TRANS_UID ,
+< TRANS_UPDATE   )
+---
+> (
+>    BILL_VERSION_ID
+>   ,BILL_ID
+>   ,VERSION_NUM
+>   ,BILL_VERSION_ACTION_DATE
+>   ,BILL_VERSION_ACTION
+>   ,REQUEST_NUM
+>   ,SUBJECT
+>   ,VOTE_REQUIRED
+>   ,APPROPRIATION
+>   ,FISCAL_COMMITTEE
+>   ,LOCAL_PROGRAM
+>   ,SUBSTANTIVE_CHANGES
+>   ,URGENCY
+>   ,TAXLEVY
+>   ,@var1
+>   ,ACTIVE_FLG
+>   ,TRANS_UID
+>   ,TRANS_UPDATE
+> )
+
+Comparing: old/codes_tbl.sql new/codes_tbl.sql
+1c1
+< Truncate Table CODES_TBL;
+---
+> Truncate Table capublic.codes_tbl;
+5c5
+<   INTO TABLE codes_tbl
+---
+>   INTO TABLE capublic.codes_tbl
+9,12c9,12
+<  ( CODE ,
+< TITLE )
+< 
+< 
+---
+> (
+>    CODE
+>   ,TITLE
+> )
+
+Comparing: old/committee_hearing_tbl.sql new/committee_hearing_tbl.sql
+4c4
+<   INTO TABLE committee_hearing_tbl
+---
+>   INTO TABLE capublic.committee_hearing_tbl
+8,14c8,16
+<  ( BILL_ID ,
+< COMMITTEE_TYPE ,
+< COMMITTEE_NR ,
+< HEARING_DATE   ,
+< LOCATION_CODE ,
+< TRANS_UID ,
+< TRANS_UPDATE_DATE   )
+---
+> (
+>    BILL_ID
+>   ,COMMITTEE_TYPE
+>   ,COMMITTEE_NR
+>   ,HEARING_DATE
+>   ,LOCATION_CODE
+>   ,TRANS_UID
+>   ,TRANS_UPDATE_DATE
+> )
+
+Comparing: old/daily_file_tbl.sql new/daily_file_tbl.sql
+4c4
+<   INTO TABLE daily_file_tbl
+---
+>   INTO TABLE capublic.daily_file_tbl
+8,14c8,19
+<  ( BILL_ID ,
+< LOCATION_CODE ,
+< CONSENT_CALENDAR_CODE ,
+< FILE_LOCATION ,
+< PUBLICATION_DATE   )
+< 
+< 
+---
+> (
+>    BILL_ID
+>   ,LOCATION_CODE
+>   ,CONSENT_CALENDAR_CODE
+>   ,FILE_LOCATION
+>   ,PUBLICATION_DATE
+>   ,FLOOR_MANAGER
+>   ,TRANS_UID
+>   ,TRANS_UPDATE_DATE
+>   ,SESSION_NUM
+>   ,STATUS
+> )
+
+Comparing: old/law_section_tbl.sql new/law_section_tbl.sql
+0a1
+> Truncate Table capublic.law_section_tbl;
+3c4
+<   INTO TABLE law_section_tbl
+---
+>   INTO TABLE capublic.law_section_tbl
+7,24c8,27
+<  ( ID ,
+< LAW_CODE ,
+< SECTION_NUM ,
+< OP_STATUES ,
+< OP_CHAPTER ,
+< OP_SECTION ,
+< EFFECTIVE_DATE   ,
+< LAW_SECTION_VERSION_ID ,
+< DIVISION ,
+< TITLE ,
+< PART ,
+< CHAPTER ,
+< ARTICLE ,
+< HISTORY ,
+< @var1 ,
+< ACTIVE_FLG ,
+< TRANS_UID ,
+< TRANS_UPDATE   )
+---
+> (
+>    ID
+>   ,LAW_CODE
+>   ,SECTION_NUM
+>   ,OP_STATUES
+>   ,OP_CHAPTER
+>   ,OP_SECTION
+>   ,EFFECTIVE_DATE
+>   ,LAW_SECTION_VERSION_ID
+>   ,DIVISION
+>   ,TITLE
+>   ,PART
+>   ,CHAPTER
+>   ,ARTICLE
+>   ,HISTORY
+>   ,@var1
+>   ,ACTIVE_FLG
+>   ,TRANS_UID
+>   ,TRANS_UPDATE
+> )
+
+Comparing: old/law_toc_sections_tbl.sql new/law_toc_sections_tbl.sql
+0a1
+> Truncate Table capublic.law_toc_sections_tbl;
+4c5
+<   INTO TABLE law_toc_sections_tbl
+---
+>   INTO TABLE capublic.law_toc_sections_tbl
+8,21c9,23
+<  ( ID ,
+< LAW_CODE ,
+< NODE_TREEPATH ,
+< SECTION_NUM ,
+< SECTION_ORDER ,
+< TITLE ,
+< OP_STATUES ,
+< OP_CHAPTER ,
+< OP_SECTION ,
+< TRANS_UID ,
+< TRANS_UPDATE   ,
+< LAW_SECTION_VERSION_ID )
+< 
+< 
+---
+> (
+>    ID
+>   ,LAW_CODE
+>   ,NODE_TREEPATH
+>   ,SECTION_NUM
+>   ,SECTION_ORDER
+>   ,TITLE
+>   ,OP_STATUES
+>   ,OP_CHAPTER
+>   ,OP_SECTION
+>   ,TRANS_UID
+>   ,TRANS_UPDATE
+>   ,LAW_SECTION_VERSION_ID
+>   ,SEQ_NUM
+> )
+
+Comparing: old/law_toc_tbl.sql new/law_toc_tbl.sql
+0a1
+> Truncate Table capublic.law_toc_tbl;
+4c5
+<   INTO TABLE law_toc_tbl
+---
+>   INTO TABLE capublic.law_toc_tbl
+8,26c9,29
+<  ( LAW_CODE ,
+< DIVISION ,
+< TITLE ,
+< PART ,
+< CHAPTER ,
+< ARTICLE ,
+< HEADING ,
+< ACTIVE_FLG ,
+< TRANS_UID ,
+< TRANS_UPDATE   ,
+< NODE_SEQUENCE ,
+< NODE_LEVEL ,
+< NODE_POSITION ,
+< NODE_TREEPATH ,
+< CONTAINS_LAW_SECTIONS ,
+< HISTORY_NOTE ,
+< OP_STATUES ,
+< OP_CHAPTER ,
+< OP_SECTION )
+---
+> (
+>    LAW_CODE
+>   ,DIVISION
+>   ,TITLE
+>   ,PART
+>   ,CHAPTER
+>   ,ARTICLE
+>   ,HEADING
+>   ,ACTIVE_FLG
+>   ,TRANS_UID
+>   ,TRANS_UPDATE
+>   ,NODE_SEQUENCE
+>   ,NODE_LEVEL
+>   ,NODE_POSITION
+>   ,NODE_TREEPATH
+>   ,CONTAINS_LAW_SECTIONS
+>   ,HISTORY_NOTE
+>   ,OP_STATUES
+>   ,OP_CHAPTER
+>   ,OP_SECTION
+> )
+
+Comparing: old/legislator_tbl.sql new/legislator_tbl.sql
+4c4
+<   INTO TABLE legislator_tbl
+---
+>   INTO TABLE capublic.legislator_tbl
+8,24c8,25
+<  ( DISTRICT ,
+< SESSION_YEAR ,
+< LEGISLATOR_NAME ,
+< HOUSE_TYPE ,
+< AUTHOR_NAME ,
+< FIRST_NAME ,
+< LAST_NAME ,
+< MIDDLE_INITIAL ,
+< NAME_SUFFIX ,
+< NAME_TITLE ,
+< WEB_NAME_TITLE ,
+< PARTY ,
+< ACTIVE_FLG ,
+< TRANS_UID ,
+< TRANS_UPDATE   )
+< 
+< 
+---
+> (
+>    DISTRICT
+>   ,SESSION_YEAR
+>   ,LEGISLATOR_NAME
+>   ,HOUSE_TYPE
+>   ,AUTHOR_NAME
+>   ,FIRST_NAME
+>   ,LAST_NAME
+>   ,MIDDLE_INITIAL
+>   ,NAME_SUFFIX
+>   ,NAME_TITLE
+>   ,WEB_NAME_TITLE
+>   ,PARTY
+>   ,ACTIVE_FLG
+>   ,TRANS_UID
+>   ,TRANS_UPDATE
+>   ,ACTIVE_LEGISLATOR
+> )
+
+Comparing: old/location_code_tbl.sql new/location_code_tbl.sql
+4c4
+<   INTO TABLE location_code_tbl
+---
+>   INTO TABLE capublic.location_code_tbl
+8,18c8,19
+<  ( SESSION_YEAR ,
+< LOCATION_CODE ,
+< LOCATION_TYPE ,
+< CONSENT_CALENDAR_CODE ,
+< DESCRIPTION ,
+< LONG_DESCRIPTION ,
+< ACTIVE_FLG ,
+< TRANS_UID ,
+< TRANS_UPDATE   )
+< 
+< 
+---
+> (
+>    SESSION_YEAR
+>   ,LOCATION_CODE
+>   ,LOCATION_TYPE
+>   ,CONSENT_CALENDAR_CODE
+>   ,DESCRIPTION
+>   ,LONG_DESCRIPTION
+>   ,ACTIVE_FLG
+>   ,TRANS_UID
+>   ,TRANS_UPDATE
+>   ,INACTIVE_FILE_FLG
+> )
+
+Comparing: old/cleanup.bat new/cleanup.bat
+7c7,8
+< Pause Please review results then...
+---
+> @Echo done...
+> Pause
+
+Comparing: old/create_capublic.bat new/create_capublic.bat
+3,4c3
+< Set PATH=%PATH%;c:\Program Files\MySQL\MySQL Server 5.1\bin
+< Set /P pwd=Please enter your root password:
+---
+> Set /P pwd=Please enter your mysql root password:
+7c6
+< mysql -uroot -p%pwd% -hlocalhost -P3306 -v -v -f < capublic.sql
+---
+> mysql -hlocalhost -P3306 -uroot -p%pwd% -v -v -f < capublic.sql 2>&1 | more
+10c9
+< @Echo Please review results then...
+---
+> @Echo done...
+
+Comparing: old/deleteSession.bat new/deleteSession.bat
+0a1,33
+> @Echo off
+> cd \pubinfo
+> cls
+> Set /P sey=Please enter session year to delete:
+> 
+> echo \T deleteSession.log                                                                  > deleteSession.sql
+> echo use `capublic`;                                                                      >> deleteSession.sql
+> echo Delete From capublic.bill_analysis_tbl         Where bill_id like '%sey%%%';         >> deleteSession.sql
+> echo Delete From capublic.bill_detail_vote_tbl      Where bill_id like '%sey%%%';         >> deleteSession.sql
+> echo Delete From capublic.bill_history_tbl          Where bill_id like '%sey%%%';         >> deleteSession.sql
+> echo Delete From capublic.bill_summary_vote_tbl     Where bill_id like '%sey%%%';         >> deleteSession.sql
+> echo Delete From capublic.bill_tbl                  Where bill_id like '%sey%%%';         >> deleteSession.sql
+> echo Delete From capublic.bill_version_authors_tbl  Where bill_version_id like '%sey%%%'; >> deleteSession.sql
+> echo Delete From capublic.bill_version_tbl          Where bill_version_id like '%sey%%%'; >> deleteSession.sql
+> echo Delete From capublic.committee_hearing_tbl     Where bill_id like '%sey%%%';         >> deleteSession.sql
+> echo Delete From capublic.daily_file_tbl            Where bill_id like '%sey%%%';         >> deleteSession.sql
+> echo Delete From capublic.legislator_tbl            Where session_year like '%sey%%%';    >> deleteSession.sql
+> echo Delete From capublic.location_code_tbl         Where session_year like '%sey%%%';    >> deleteSession.sql
+> echo Commit;                                                                              >> deleteSession.sql
+> echo Quit                                                                                 >> deleteSession.sql
+> 
+> Set /P ans=Are you sure you want to delete ALL records for session year %sey%? [y/n]:
+> If NOT %ans% == y goto QUIT
+> 
+> Set /P pwd=Please enter your mysql root password:
+> @Echo on
+> mysql -hlocalhost -uroot -p%pwd% -Dcapublic -v -v -f < deleteSession.sql 2>&1 > deleteSession.log
+> more deleteSession.log
+> @Echo off
+> 
+> :QUIT
+> @Echo done...
+> Pause
+
+Comparing: old/loadData.bat new/loadData.bat
+4c4
+< if '%pwd' == '' Set /P pwd=Please enter your root password:
+---
+> if '%pwd%' == '' Set /P pwd=Please enter your mysql root password:
+7,27c7,12
+< Set OPATH=%PATH%
+< Set PATH=%PATH%;c:\Program Files\MySQL\MySQL Server 5.1\bin
+< 
+< @Echo on
+< if EXIST BILL_VERSION_TBL.dat         mysql -hlocalhost -P3306 -uroot -p%pwd% -Dcapublic -v -v -f < BILL_VERSION_TBL.sql
+< if EXIST LAW_SECTION_TBL.dat          mysql -hlocalhost -P3306 -uroot -p%pwd% -Dcapublic -v -v -f < LAW_SECTION_TBL.sql
+< if EXIST BILL_DETAIL_VOTE_TBL.dat     mysql -hlocalhost -P3306 -uroot -p%pwd% -Dcapublic -v -v -f < BILL_DETAIL_VOTE_TBL.sql
+< if EXIST LOCATION_CODE_TBL.dat        mysql -hlocalhost -P3306 -uroot -p%pwd% -Dcapublic -v -v -f < LOCATION_CODE_TBL.sql
+< if EXIST BILL_ANALYSIS_TBL.dat        mysql -hlocalhost -P3306 -uroot -p%pwd% -Dcapublic -v -v -f < BILL_ANALYSIS_TBL.sql
+< if EXIST BILL_MOTION_TBL.dat          mysql -hlocalhost -P3306 -uroot -p%pwd% -Dcapublic -v -v -f < BILL_MOTION_TBL.sql
+< if EXIST LAW_TOC_TBL.dat              mysql -hlocalhost -P3306 -uroot -p%pwd% -Dcapublic -v -v -f < LAW_TOC_TBL.sql
+< if EXIST BILL_VERSION_AUTHORS_TBL.dat mysql -hlocalhost -P3306 -uroot -p%pwd% -Dcapublic -v -v -f < BILL_VERSION_AUTHORS_TBL.sql
+< if EXIST DAILY_FILE_TBL.dat           mysql -hlocalhost -P3306 -uroot -p%pwd% -Dcapublic -v -v -f < DAILY_FILE_TBL.sql
+< if EXIST BILL_SUMMARY_VOTE_TBL.dat    mysql -hlocalhost -P3306 -uroot -p%pwd% -Dcapublic -v -v -f < BILL_SUMMARY_VOTE_TBL.sql
+< if EXIST LAW_TOC_SECTIONS_TBL.dat     mysql -hlocalhost -P3306 -uroot -p%pwd% -Dcapublic -v -v -f < LAW_TOC_SECTIONS_TBL.sql
+< if EXIST COMMITTEE_HEARING_TBL.dat    mysql -hlocalhost -P3306 -uroot -p%pwd% -Dcapublic -v -v -f < COMMITTEE_HEARING_TBL.sql
+< if EXIST CODES_TBL.dat                mysql -hlocalhost -P3306 -uroot -p%pwd% -Dcapublic -v -v -f < CODES_TBL.sql
+< if EXIST BILL_HISTORY_TBL.dat         mysql -hlocalhost -P3306 -uroot -p%pwd% -Dcapublic -v -v -f < BILL_HISTORY_TBL.sql
+< if EXIST LEGISLATOR_TBL.dat           mysql -hlocalhost -P3306 -uroot -p%pwd% -Dcapublic -v -v -f < LEGISLATOR_TBL.sql
+< if EXIST BILL_TBL.dat                 mysql -hlocalhost -P3306 -uroot -p%pwd% -Dcapublic -v -v -f < BILL_TBL.sql
+< @Echo off
+---
+> for /F %%t IN (tables_lc.lst) DO (
+>   if EXIST %%t.dat (
+>     echo Processing table: %%t
+>     mysql -hlocalhost -uroot -p%pwd% -Dcapublic -v -v -f < %%t.sql 2>&1 > %%t.log
+>   )
+> )
+30,31c15
+< Set PATH=%OPATH%
+< 
+---
+> @Echo done...
+
+Comparing: old/truncateAll.bat new/truncateAll.bat
+0a1,10
+> @Echo off
+> cd \pubinfo
+> Set /P pwd=Please enter your mysql root password:
+> 
+> @Echo on
+> mysql -hlocalhost -uroot -p%pwd% -Dcapublic -v -v -f < truncateAll.sql 2>&1 | more
+> @Echo off
+> 
+> @Echo done...
+> Pause
+

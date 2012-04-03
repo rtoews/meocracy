@@ -1,0 +1,24 @@
+--------------
+Truncate Table capublic.codes_tbl
+--------------
+
+Query OK, 0 rows affected
+
+--------------
+LOAD DATA LOCAL
+  INFILE "/tmp/CODES_TBL.dat"
+  REPLACE
+  INTO TABLE capublic.codes_tbl
+  FIELDS TERMINATED BY '\t'
+  OPTIONALLY ENCLOSED BY '`'
+  LINES TERMINATED BY '\n'
+(
+   CODE
+  ,TITLE
+)
+--------------
+
+Query OK, 30 rows affected
+Records: 30  Deleted: 0  Skipped: 0  Warnings: 0
+
+Bye

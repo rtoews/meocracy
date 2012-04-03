@@ -7,6 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="apple-touch-icon" href="/images/logo/city_fremont.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="/images/logo/city_fremont.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="/images/logo/city_fremont.png" />
 
     <link href="css/import.css" type="text/css" rel="stylesheet" />
 
@@ -35,7 +38,7 @@
 	<div data-role="header">
 		<div data-role="navbar">
 			<ul>
-			<li><a href="index.html" data-icon="home" data-theme="a">Home</a></li>
+			<li><a href="index.html" data-icon="home" data-theme="a">My City</a></li>
 			<li><a href="settings.html" data-icon="gear" data-theme="a">Settings</a></li>
 			<li><a href="about.html" data-role="button" data-icon="arrow-u" class="button_green_inactive" >Support</a>
 			<li><a href="about.html" data-role="button" data-icon="arrow-d" class="button_red_inactive" >Oppose</a></li>
@@ -46,10 +49,10 @@
 <!-- Parent Section -->
     <ul data-role="listview">
         <li>
-            <a href="index.html#index_city" data-rel="dialog" data-icon="none">
-            <img class="header_image" src=""/>
-            <h3 class="header_city">My issues in:</h3>
-            <p class="header_county_state"></p>
+            <a class="city_link" href="index.html#index_city" data-icon="none">
+            <img class="city_seal" src=""/>
+            <h3 class="city"></h3>
+            <p class="county_state"></p>
             </a>
         </li>
     </ul>
@@ -59,7 +62,7 @@
             <input type="search" name="search" id="search" placeholder="I'm interested in..." value=""/>
         </div>
         <div data-role='content'>
-        <ul id="search_tag_list" data-role='listview' data-inset='false' data-theme='a' data-divider-theme='a' data-filter-theme='a'></ul>
+            <ul id="search_tag_list" data-role='listview' data-inset='false' data-theme='a' data-divider-theme='a' data-filter-theme='a'></ul>
         </div>
     </form>
     <fieldset class="ui-grid-a">

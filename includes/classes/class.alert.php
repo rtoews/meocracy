@@ -36,11 +36,11 @@ class User_Alert extends DBInterface
         return $alerts;
     }
 
-    public static function keep_selected_alerts($user_id, $alerts)
+    public static function delete_unchecked_alerts($user_id, $alerts)
     {
-        if (strlen($alerts) > 0) {
-            $keep = $alerts;
-            $sql = sprintf("DELETE FROM user_alert WHERE user_id=%d AND tag_id NOT IN (%s)", $user_id, $keep);
+        if (!empty($alerts)) {
+            $delete = implode(', ', $alerts);
+            $sql = sprintf("DELETE FROM user_alert WHERE user_id=%d AND tag_id IN (%s)", $user_id, $delete);
             db()->query($sql);
         }
             
@@ -83,7 +83,7 @@ class User_Alert extends DBInterface
                 $item_id = $recip['alert_item_id'];
                 $html_page = $recip['page'];
                 $info = sprintf("Meocracy: %s", $recip['question']);
-                $link = 'http://meo.toewsweb.net/' . $html_page . '.html?id=' . $item_id;
+                $link = 'http://www.meocracy.com/' . $html_page . '.html?id=' . $item_id;
                 $tag = $recip['tag'];
                 $success = User_Alert::_notify($sms_recipient, $tag, $info, $link);
                 $date = date('Y-m-d H:i:s');

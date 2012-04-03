@@ -21,5 +21,22 @@ class Category extends DBInterface
         return $description;
     }
 
+    public static function legislation_get_category($location)
+    {
+        $sql = "SELECT lc_parent_id FROM category WHERE lc_category='$location'";
+        $parent_id = db()->Get_Cell($sql);
+        $sql = "SELECT lc_category FROM category WHERE lc_id='$parent_id'";
+        $category_name = db()->Get_Cell($sql);
+        return array($parent_id, $category_name);
+    }
+
+    public static function announcement_get_category($id)
+    {
+        $sql = "SELECT ac_category_id FROM announcement_category WHERE ac_announcement_id='$id'";
+        $category_id = db()->Get_Cell($sql);
+        $sql = "SELECT lc_category FROM category WHERE lc_id='$category_id'";
+        $category_name = db()->Get_Cell($sql);
+        return array($category_id, $category_name);
+    }
 }
 ?>

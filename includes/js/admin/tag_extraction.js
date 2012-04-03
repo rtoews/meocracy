@@ -12,6 +12,31 @@ String.prototype.removePunctuation = function() {
     return nopunct.toLowerCase();
 };
 
+Tag.passesTest = function(str) {
+    pass = true;
+    if (str.length > 28) { // longer than antidisestablishmentarianism... fail!
+        pass = false;
+    }
+    else if (str.indexOf('_') > -1) { // contains underscore... fail!
+        pass = false;
+    }
+    else if (str.match(/[0-9]/)) { // contains digits... fail!
+        pass = false;
+    }
+    return pass;
+};
+
+Array.prototype.removeNoiseWords = function() {
+    var words = this;
+    var filtered = [];
+    for (var i = 0, j = words.length; i < j; i++) {
+        if (Tag.passesTest(words[i])) {
+            filtered.push(words[i]);
+        }
+    }
+    return filtered;
+};
+
 Array.prototype.removeStopWords = function() {
     var words = this;
     var filtered = [];
@@ -63,6 +88,37 @@ Tag.move = function(tag) {
 };
 
 
+Tag.error = function(jqXHR, textStatus, errorThrown) {
+    console.log('Error: ' + textStatus);
+    console.log(errorThrown);
+    console.log(jqXHR);
+};
+
+Tag.serverCall = function(url, data, callback) {
+    $.ajax({
+        url: url,
+        dataType: 'jsonp',
+        data: data,
+        success: callback,
+        error: Tag.error
+    });
+};
+
+Tag.callbackPresentTags = function(data) {
+console.log('Tag.callbackPresentTags');
+console.log(data);
+    words = data.recognized;
+    var el;
+    $('#tag_suggestions').html('');
+    for (var i = 0, j = words.length; i < j; i++) {
+        if (words[i]) {
+            el = Tag.makeTag(words[i]);
+            $(el).click(function() { Tag.move($(this)); } );
+            $('#tag_suggestions').append(el);
+        }
+    }
+};
+
 Tag.extractTags = function() {
     var str_array = [];
     $.each($('.tag_source'), function(index, value) {
@@ -73,15 +129,8 @@ Tag.extractTags = function() {
     var words = nopunct.split(' ');
     words = words.removeStopWords();
     words = words.removeDuplicates();
-    var el;
-    $('#tag_suggestions').html('');
-    for (var i = 0, j = words.length; i < j; i++) {
-        if (words[i]) {
-            el = Tag.makeTag(words[i]);
-            $(el).click(function() { Tag.move($(this)); } );
-            $('#tag_suggestions').append(el);
-        }
-    }
+    words = words.removeNoiseWords();
+    Tag.serverCall('spellcheck.php', { 'words' : words }, Tag.callbackPresentTags);
 };
 
 Tag.addCustomTag = function(str) {

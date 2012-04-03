@@ -1,20 +1,27 @@
 var Constants = {
     phonegap: 0,
-    server: 'http://www.meocracy.com',
+    server: 'http://meocracy.com',
+    HEADER_GENERAL: 1,
+    HEADER_ANNOUNCEMENT: 2,
+    HEADER_LEGISLATION: 4,
     REGION_CITY: 4,
     REGION_COUNTY: 3,
     REGION_STATE: 2,
     REGION_NATION: 1,
     ANNOUNCEMENT_TYPE: 1,
     LEGISLATION_TYPE: 2,
-    SPONSOR_IMG_DIR: '/images/photos/people/',
+    SPONSOR_IMG_DIR: '/images/people/',
+    LOGO_IMG_DIR: '/images/logo/',
 };
 
 Constants.page = {
+    'check_user_id' : '/app/check_user_id.php',
     'index' : '/app/index.php',
     'search' : '/app/search.php',
+    'filter_tags' : '/app/filter_tags.php',
     'alert_manager' : '/app/alert_manager.php',
     'settings' : '/app/settings.php',
+    'settings_save' : '/app/settings_save.php',
     'issues' : '/app/issues.php',
     'issue' : '/app/issue.php',
     'issue_save' : '/app/issue_save.php',
@@ -27,6 +34,7 @@ Constants.page = {
     'legislation_feedback' : '/app/legislation_feedback_response.php',
     'alerts' : '/app/alerts.php',
     'tell_friends' : '/app/tell_friends.php',
+    'fyi' : '/app/fyi.php',
     'friends_message_send' : '/app/friends_message_send.php',
     'view_comments' : '/app/view_comments.php'
 

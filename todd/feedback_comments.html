@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html> 
+<head>
+<meta charset="utf-8"/>
+
+<title>Meocracy</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+    <link href="css/import.css" type="text/css" rel="stylesheet" />
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="jslib/phonegap-1.1.0.js"></script>
+
+    <script type="text/javascript" src="js/charts.js"></script>
+    <script type="text/javascript" src="js/constants.js"></script>
+    <script type="text/javascript" src="js/meo.js"></script>
+    <script type="text/javascript" src="js/util.js"></script>
+    <script type="text/javascript">
+        if (!window.googleLoaded) {
+            google.load("visualization", "1", {packages:["corechart"]});
+            window.googleLoaded = true;
+        }
+    </script>
+
+</head>  
+<body>
+
+<div id="feedback_comments" data-role="page" data-title="Meocracy" data-theme="a">
+	<div data-role="header" data-theme="a"></div>
+
+<!-- Parent Section -->
+	<div data-role="content">
+
+        <form id="response_form">
+
+            <input type="hidden" name="response" id="response" value=""/>
+            <ul id="sponsor_images"></ul>
+            Comments (optional):<br/>
+            <textarea name="response_comments" id="response_comments"></textarea>
+            </li>
+        	<fieldset class="ui-grid-a">
+        		<div class="ui-block-a"><div id="btn_response_send" data-role="button" class="button">Submit Feedback</div></div>
+        		<div class="ui-block-b"><div id="btn_response_cancel" data-role="button" class="button">Cancel</div></div>	   
+        	</fieldset>
+
+        </form>
+
+    </div>
+</div>
+
+</body>
+</html>
+

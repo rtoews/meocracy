@@ -41,29 +41,6 @@ if ($search) {
                         $user->state_id, REGION_STATE);
         $data = db()->Get_Table($sql);
     }
-/*
-    if ($search_fulltext) {
-        if ($search_announcements) {
-            $sql = "SELECT a.announcement_id FROM announcement a
-                    WHERE a.title LIKE '%" . $search . "%'
-                    OR a.description LIKE '%" . $search . "%'
-                    OR a.text LIKE '%" . $search . "%'
-                    OR a.question LIKE '%" . $search . "%'
-                    ";
-            $data = db()->Get_Table($sql);
-        }
-        if ($search_legislation) {
-            $sql = "SELECT l.legislation_id FROM legislation l
-                    WHERE l.title LIKE '%" . $search . "%'
-                    OR l.recommended_action LIKE '%" . $search . "%'
-                    OR l.background LIKE '%" . $search . "%'
-                    OR l.discussion LIKE '%" . $search . "%'
-                    OR l.question LIKE '%" . $search . "%'
-                    ";
-            $data = db()->Get_Table($sql);
-        }
-    }
-*/
 }
 
 return_jsonp_data($data);

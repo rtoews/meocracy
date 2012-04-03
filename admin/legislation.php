@@ -3,8 +3,8 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/includes/global.php');
 require_once(DOC_ROOT . '/includes/classes/class.html.php');
 require_once(DOC_ROOT . '/includes/classes/class.legislation.php');
 
-$region_id = 65517;
-$region_type = REGION_CITY;
+$region_id = 5;
+$region_type = REGION_STATE;
 
 $legislation_ids = Legislation::get_ids_by_region($region_id, $region_type);
 

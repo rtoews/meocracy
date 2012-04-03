@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <!-- <meta name = "viewport" content = "user-scalable=no, width=device-width"/>  --> 
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Meocracy</title>  
+    <!-- iOS Hides the status bar -->
+    <meta name="apple-mobile-web-app-capable" content="yes" /> 
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+    <!-- iOS Icons -->
+    <link rel="apple-touch-startup-image" href="../photos/logo/startup.jpg">
+    <link rel="apple-touch-icon" href="../photos/logo/touch-icon-iphone.png" /> 
+    <link rel="apple-touch-icon" sizes="72x72" href="../photos/logo/touch-icon-ipad.png" /> 
+    <link rel="apple-touch-icon" sizes="114x114" href="../photos/logo/touch-icon-iphone4.png" /> 
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
+    <script src="./jslib/jquery-1.6.4.min.js"></script>
+    <script src="./jslib/jquery.mobile-1.0.min.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="./jslib/phonegap-1.1.0.js"></script>
+</head>
+<body>
+<div id="test" data-role='page' data-title='Meocracy' data-theme='a'>
+    <div data-role='header' data-theme='a'>
+    </div>
+
+           <fieldset data-role="controlgroup" data-type="vertical">
+              <legend>Different name attributes:</legend><br/>
+              <input type="checkbox" name="checkbox-1" id="checkbox-1" class="custom" />
+              <label for="checkbox-1">1</label>
+              <input type="checkbox" name="checkbox-2" id="checkbox-2" class="custom" />
+              <label for="checkbox-2">2</label>
+              <input type="checkbox" name="checkbox-3" id="checkbox-3" class="custom" />
+              <label for="checkbox-3">3</label>
+         </fieldset>
+
+        <ul data-role='listview' data-inset='false' data-theme='a'  data-divider-theme='a'>
+            <li id="city">
+                <a href="./issues.html?reg=4"><img src=""/><span class="location"></span><span class="pending"></span></a>
+            </li>
+            <li id="county">
+                <a href="./issues.html?reg=3"><img src=""/><span class="location"></span><span class="pending"></span></a>
+            </li>
+            <li id="state">
+                <a href="./issues.html?reg=2"><img src=""/><span class="location"></span><span class="pending"></span></a>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

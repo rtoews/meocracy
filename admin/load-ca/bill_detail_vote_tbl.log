@@ -1,0 +1,28 @@
+--------------
+LOAD DATA LOCAL
+  INFILE "/tmp/BILL_DETAIL_VOTE_TBL.dat"
+  REPLACE
+  INTO TABLE capublic.bill_detail_vote_tbl
+  FIELDS TERMINATED BY '\t'
+  OPTIONALLY ENCLOSED BY '`'
+  LINES TERMINATED BY '\n'
+(
+   BILL_ID
+  ,LOCATION_CODE
+  ,LEGISLATOR_NAME
+  ,VOTE_DATE_TIME
+  ,VOTE_DATE_SEQ
+  ,VOTE_CODE
+  ,MOTION_ID
+  ,TRANS_UID
+  ,TRANS_UPDATE
+  ,MEMBER_ORDER
+  ,SESSION_DATE
+  ,SPEAKER
+)
+--------------
+
+Query OK, 274609 rows affected
+Records: 274609  Deleted: 0  Skipped: 0  Warnings: 0
+
+Bye

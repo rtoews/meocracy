@@ -7,26 +7,29 @@ class Announcement_Feedback extends DBInterface
     public function __construct($feedback_id = 0)
     {
         parent::__construct('announcement_feedback', $feedback_id);
+        if ($feedback_id) {
+            $this->user = new User($this->user_id());
+        }
     }
 
-    private function _first_response()
+    private function _already_responded()
     {
         $sql = sprintf("SELECT feedback_id FROM announcement_feedback WHERE user_id=%d AND announcement_id=%d", $this->user_id(), $this->announcement_id());
-        $data = db()->Get_Cell($sql);
-        $result = empty($data) ? true : false;
+        $feedback_id = db()->Get_Cell($sql);
+        $result = !empty($feedback_id) ? $feedback_id : false;
         return $result;
     }
 
     public function record_response($announcement_id)
     {
-        $this->legislation_id($announcement_id);
-        if ($this->_first_response()) {
+        $this->announcement_id($announcement_id);
+        $feedback_id = $this->_already_responded();;
+        if (!$feedback_id) {
+            $new_response = true;
             $this->feedback_date(TODAY_DATETIME);
-            $this->insert();
-//            $issue_obj = new Announcement($this->announcement_id());
-//            $user = new User($this->user_id());
-//            $issue_obj->notify($user, $this);
+            $feedback_id = $this->insert();
         }
+        return $feedback_id;
     }
 
     public static function get_feedback_count()

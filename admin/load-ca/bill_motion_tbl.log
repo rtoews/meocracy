@@ -1,0 +1,20 @@
+--------------
+LOAD DATA LOCAL
+  INFILE "/tmp/BILL_MOTION_TBL.dat"
+  REPLACE
+  INTO TABLE capublic.bill_motion_tbl
+  FIELDS TERMINATED BY '\t'
+  OPTIONALLY ENCLOSED BY '`'
+  LINES TERMINATED BY '\n'
+(
+   MOTION_ID
+  ,MOTION_TEXT
+  ,TRANS_UID
+  ,TRANS_UPDATE
+)
+--------------
+
+Query OK, 53145 rows affected
+Records: 53145  Deleted: 0  Skipped: 0  Warnings: 0
+
+Bye

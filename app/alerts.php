@@ -9,16 +9,17 @@ $type = get_param('type');
 $id = get_param('id');
 
 $alerts = array();
-if ($mode == 1) {
-    if ($type == 'a') {
-        $issue = new Announcement($id);
-    }
-    elseif ($type == 'l') {
-        $issue = new Legislation($id);
-    }
+if ($type == ANNOUNCEMENT_TYPE) {
+    $issue = new Announcement($id);
+}
+elseif ($type == LEGISLATION_TYPE) {
+    $issue = new Legislation($id);
+}
 
-    if ($issue) {
-        $tags = $issue->tags();
+if ($issue) {
+    $tags = $issue->tags();
+}
+if ($mode == 1) {
         if (!empty($tags)) {
         //    $alert = new User_Alert();
             foreach ($tags as $tag_id => $tag) {
@@ -30,13 +31,15 @@ if ($mode == 1) {
                 }
             }
         }
-    }
+
     $data = array (
         'alerts' => $alerts
     );
 }
 elseif ($mode == 2) {
     $alerts = get_param('item');
+    $delete_tags = array_diff(array_keys($tags), $alerts);
+    User_Alert::delete_unchecked_alerts($user_id, $delete_tags);
 
     if (!empty($alerts)) {
         foreach ($alerts as $alert_tag) {

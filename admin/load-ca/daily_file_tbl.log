@@ -1,0 +1,26 @@
+--------------
+LOAD DATA LOCAL
+  INFILE "/tmp/DAILY_FILE_TBL.dat"
+  REPLACE
+  INTO TABLE capublic.daily_file_tbl
+  FIELDS TERMINATED BY '\t'
+  OPTIONALLY ENCLOSED BY '`'
+  LINES TERMINATED BY '\n'
+(
+   BILL_ID
+  ,LOCATION_CODE
+  ,CONSENT_CALENDAR_CODE
+  ,FILE_LOCATION
+  ,PUBLICATION_DATE
+  ,FLOOR_MANAGER
+  ,TRANS_UID
+  ,TRANS_UPDATE_DATE
+  ,SESSION_NUM
+  ,STATUS
+)
+--------------
+
+Query OK, 27290 rows affected
+Records: 27290  Deleted: 0  Skipped: 0  Warnings: 0
+
+Bye

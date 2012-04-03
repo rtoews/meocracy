@@ -13,28 +13,86 @@ class Announcement extends DBInterface
 		parent::__construct( 'announcement', $announcement_id );
         if ($get_list === false && $announcement_id) {
             $this->sponsor_ids = $this->get_sponsor_ids();
+            $sponsors = array();
             if (!empty($this->sponsor_ids)) {
                 foreach ($this->sponsor_ids as $id) {
-                    $this->sponsor[] = new Sponsor($id);
+                    $sponsors[] = new Sponsor($id);
                 }
             }
+            $this->sponsors = Announcement::get_sponsor_data($sponsors);
+            list($category_id, $category_name) = Category::announcement_get_category($this->id());
+            $this->category = array('id' => $category_id, 'name' => $category_name);
             $this->status = new Status($this->status_id());
             $this->office = new Office($this->sponsor_id());
             $this->date_beginning_parts = get_date_parts($this->date_beginning());
             $this->date_ending_parts = get_date_parts($this->date_ending());
             $this->calendared_parts = get_date_parts($this->calendared());
             $this->vote_parts = get_date_parts($this->vote());
-//            $this->feedback = Announcement_Feedback::get_feedback($this->id());
             $this->_get_public_opinion();
+            $this->comment_data = $this->get_comment_data();
         }
  	}
 
+
+    public static function get_sponsor_data($data)
+    {
+        $sponsors = array();
+        if (!empty($data)) {
+            foreach ($data as $sponsor) {
+                $sponsors[] = array(
+                    'id' => $sponsor->id(), 
+                    'image' => $sponsor->image, 
+                    'full_title' => $sponsor->full_title, 
+                    'level' => $sponsor->level, 
+                    'title' => $sponsor->name_first(), 
+                    'position' => $sponsor->title(), 
+                    'name' => $sponsor->full_name, 
+                    'party' => $sponsor->party, 
+                    'state' => $sponsor->state(), 
+                    'office' => $sponsor->name_title(), 
+                    'district' => $sponsor->district, 
+                    'firstname' => $sponsor->name_first(), 
+                    'lastname' => $sponsor->name_last(),
+                );
+            }
+        }
+        return $sponsors;
+    }
 
     public function get_feedback_with_comments($id)
     {
         return Announcement_Feedback::get_feedback_with_comments($id);
     }
 
+
+    function get_comment_data()
+    {
+        $comment_count = $this->_get_comment_count();
+        $comments = $this->_get_comments();
+        $data = array('count' => $comment_count, 'comments' => $comments);
+        return $data;
+    }
+
+    private function _get_comment_count()
+    {
+        $sql = sprintf("SELECT COUNT(*) comment_count FROM announcement_feedback WHERE announcement_id=%d AND comments > ''", $this->id());
+        $total_feedback = db()->Get_Cell($sql);
+        return $total_feedback;
+    }
+
+    private function _get_comments()
+    {
+        $comments = array();
+        $sql = sprintf("SELECT feedback_id FROM announcement_feedback WHERE announcement_id=%d AND comments > '' ORDER BY feedback_date DESC", $this->id());
+        $data = db()->Get_Table($sql);
+        if (!empty($data)) {
+            foreach ($data as $row) {
+                $c = new Announcement_Feedback($row['feedback_id']);
+                $comments[] = array('feedback_id' => $c->id(), 'announcement_id' => $c->announcement_id(), 'user_id' => $c->user->id(), 'user_handle' => $c->user->get_handle(), 'comments' => $c->comments(), 'response' => $c->response(), 'date' => $c->feedback_date());
+            }
+        }
+        return $comments;
+    }
 
     private function _get_public_opinion()
     {
@@ -148,21 +206,28 @@ class Announcement extends DBInterface
 
     public function get_image_src()
     {
-        $src = ANNOUNCEMENT_IMAGE_PATH . $this->image();
-//        $src = $this->image->file_path() . $this->image->file_name();
-        if (!file_exists(DOC_ROOT . $src)) {
-            $src = null;
+        $src = 'missing.png';
+        if ($this->image()) {
+            $src = ANNOUNCEMENT_IMAGE_PATH . $this->image();
         }
-        return HOST . $src;
+        return $src;
     }
 
     public function feedback_submitted($user_id)
     {
         $submitted = false;
         $sql = sprintf("SELECT feedback_id FROM announcement_feedback WHERE user_id=%d AND announcement_id=%d", $user_id, $this->id());
-        $data = db()->Get_Cell($sql);
-        if (!empty($data)) {
-            $submitted = true;
+        $feedback_id = db()->Get_Cell($sql);
+        if (!empty($feedback_id)) {
+            $feedback = new Announcement_Feedback($feedback_id);
+            $submitted = array(
+                'feedback_id' => $feedback_id,
+                'user_id' => $feedback->user_id(),
+                'announcement_id' => $feedback->announcement_id(),
+                'response' => $feedback->response(),
+                'comments' => $feedback->comments(),
+                'date' => $feedback->feedback_date(),
+            );
         }
         return $submitted;
     }
@@ -216,7 +281,8 @@ class Announcement extends DBInterface
 
     public function get_sponsor_ids()
     {
-        $sql = "SELECT sponsor_id FROM announcement_sponsor WHERE announcement_id=" . $this->id();
+        // Limit to 1
+        $sql = "SELECT sponsor_id FROM announcement_sponsor WHERE announcement_id='" . $this->id() . "' ORDER BY is_primary DESC LIMIT 1";
         $data = db()->Get_Table($sql);
         $sponsor_ids = array();
         if (!empty($data)) {

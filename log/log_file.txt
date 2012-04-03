@@ -1,84 +1,25 @@
-1326756090Legislation 1
-1326756113Legislation 1
-1326756115Preparing to process feedback.
-1326756174Legislation 
-1326756174Returning to home.
-1326756179at the beginning
-1326756201Legislation 1
-1326756221Legislation 1
-1326756222Preparing to process feedback.
-1326756222new Feedback
-1326756222response
-1326756222comments
-1326756222user_id
-1326756222legislation_id
-1326756222sponsor_id
-1326756223insert into legislation_feedback ( response, comments, user_id, legislation_id, sponsor_id, feedback_date) values ( '1', 'Support for legislation_id=1', '7', '1', '2', '2012-01-16 18:23:41')
-1326756375at the beginning
-1326756394Legislation 1
-1326756409Legislation 1
-1326756410Preparing to process feedback.
-1326756411new Feedback
-1326756411response
-1326756411comments
-1326756411user_id
-1326756411legislation_id
-1326756411insert into legislation_feedback ( response, comments, user_id, legislation_id, feedback_date) values ( '1', 'legislation_id=1', '7', '1', '2012-01-16 18:26:49')
-1326756411record_response
-1326756411beginning of feedback_response
-1326756411User ID: 7
-1326756413new Announcement
-1326756413gathering feedback
-1326756413gathered data
-1326756413about to generate header
-1326756413header generated
-1326756413about to draw chart
-1326756413chart done
-1326756413generating footer
-1326760215insert into tag ( tag) values ( 'softball')
-1326760216insert into tag ( tag) values ( 'tournament')
-1326760255Legislation 1
-1326761374Legislation 1
-1326761376Preparing to process feedback.
-1326761376new Feedback
-1326761376response
-1326761376comments
-1326761376user_id
-1326761376legislation_id
-1326761376insert into legislation_feedback ( response, comments, user_id, legislation_id, feedback_date) values ( '-1', 'Actually, no, I don\'t support this initiative.', '7', '1', '2012-01-16 19:49:34')
-1326761377record_response
-1326761377beginning of feedback_response
-1326761377User ID: 7
-1326761378new Legislation
-1326761378gathering feedback
-1326761378gathered data
-1326761378about to generate header
-1326761378header generated
-1326761378about to draw chart
-1326761378chart done
-1326761378generating footer
-1326761378Legislation 1
-1326761393Legislation 1
-1326761394Preparing to process feedback.
-1326761394new Feedback
-1326761394response
-1326761394comments
-1326761394user_id
-1326761394legislation_id
-1326761394insert into legislation_feedback ( response, comments, user_id, legislation_id, feedback_date) values ( '-1', 'No, I do not support this initiative.', '7', '1', '2012-01-16 19:49:53')
-1326761395record_response
-1326761395beginning of feedback_response
-1326761395User ID: 7
-1326761396new Legislation
-1326761396gathering feedback
-1326761396gathered data
-1326761396about to generate header
-1326761396header generated
-1326761396about to draw chart
-1326761396chart done
-1326761396generating footer
-1326761397Legislation 
-1326761397Returning to home.
-1326918627at the beginning
-1326919169at the beginning
-1326919639at the beginning
+1328779372insert into user_region ( user_id, region_id, region_type, updated_date) values ( '', '', '4', '2012-02-09 02:22:52')
+1328991905insert into user_region ( user_id, region_id, region_type, updated_date) values ( '', '', '4', '2012-02-11 13:25:05')
+1329271954insert into user_region ( user_id, region_id, region_type, updated_date) values ( '', '', '4', '2012-02-14 19:12:34')
+1329283991insert into user_alert ( user_id, tag_id, status, create_date) values ( '7', '53', '1', '2012-02-14 22:33:11')
+1329283991insert into user_alert ( user_id, tag_id, status, create_date) values ( '7', '54', '1', '2012-02-14 22:33:11')
+1329284012insert into user_alert ( user_id, tag_id, status, create_date) values ( '7', '21', '1', '2012-02-14 22:33:32')
+1329284012insert into user_alert ( user_id, tag_id, status, create_date) values ( '7', '22', '1', '2012-02-14 22:33:32')
+1329284012insert into user_alert ( user_id, tag_id, status, create_date) values ( '7', '56', '1', '2012-02-14 22:33:32')
+1329284227insert into user_alert ( user_id, tag_id, status, create_date) values ( '7', '53', '1', '2012-02-14 22:37:07')
+1329284227insert into user_alert ( user_id, tag_id, status, create_date) values ( '7', '54', '1', '2012-02-14 22:37:07')
+1329284241insert into user_alert ( user_id, tag_id, status, create_date) values ( '7', '56', '1', '2012-02-14 22:37:21')
+1329284353insert into user_alert ( user_id, tag_id, status, create_date) values ( '7', '55', '1', '2012-02-14 22:39:13')
+1329285103insert into user_alert ( user_id, tag_id, status, create_date) values ( '7', '54', '1', '2012-02-14 22:51:43')
+1329285441insert into user_alert ( user_id, tag_id, status, create_date) values ( '7', '55', '1', '2012-02-14 22:57:21')
+1329285565insert into user_alert ( user_id, tag_id, status, create_date) values ( '7', '53', '1', '2012-02-14 22:59:25')
+1329285587insert into user_alert ( user_id, tag_id, status, create_date) values ( '7', '51', '1', '2012-02-14 22:59:47')
+1329285587insert into user_alert ( user_id, tag_id, status, create_date) values ( '7', '41', '1', '2012-02-14 22:59:47')
+1329285731insert into user_alert ( user_id, tag_id, status, create_date) values ( '7', '53', '1', '2012-02-14 23:02:11')
+1329285731insert into user_alert ( user_id, tag_id, status, create_date) values ( '7', '56', '1', '2012-02-14 23:02:11')
+1329286620insert into user_alert ( user_id, tag_id, status, create_date) values ( '7', '53', '1', '2012-02-14 23:17:00')
+1329286620insert into user_alert ( user_id, tag_id, status, create_date) values ( '7', '55', '1', '2012-02-14 23:17:00')
+1329286764insert into user_alert ( user_id, tag_id, status, create_date) values ( '7', '53', '1', '2012-02-14 23:19:24')
+1329286871insert into user_alert ( user_id, tag_id, status, create_date) values ( '7', '56', '1', '2012-02-14 23:21:11')
+1329286884insert into user_alert ( user_id, tag_id, status, create_date) values ( '7', '63', '1', '2012-02-14 23:21:24')
+1329286884insert into user_alert ( user_id, tag_id, status, create_date) values ( '7', '64', '1', '2012-02-14 23:21:24')

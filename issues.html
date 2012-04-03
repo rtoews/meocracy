@@ -6,19 +6,18 @@
     <title>Meocracy</title>
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <link rel="apple-touch-startup-image" href="../photos/logo/startup.jpg">
-    <link rel="apple-touch-icon" href="../photos/logo/touch-icon-iphone.png" /> 
-    <link rel="apple-touch-icon" sizes="72x72" href="../photos/logo/touch-icon-ipad.png" /> 
-    <link rel="apple-touch-icon" sizes="114x114" href="../photos/logo/touch-icon-iphone4.png" /> 
+    <link rel="apple-touch-icon" href="/images/logo/city_fremont.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="/images/logo/city_fremont.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="/images/logo/city_fremont.png" />
     <link href="css/import.css" type="text/css" rel="stylesheet" />
-    <script src="./jslib/jquery-1.6.4.min.js"></script>
-    <script src="./jslib/jquery.mobile-1.0.min.js"></script>
+    <script src="/jslib/jquery-1.6.4.min.js"></script>
+    <script src="/jslib/jquery.mobile-1.0.min.js"></script>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script type="text/javascript" src="./jslib/phonegap-1.1.0.js"></script>
-    <script type="text/javascript" src="./js/constants.js"></script>
-    <script type="text/javascript" src="./js/charts.js"></script>
-    <script type="text/javascript" src="./js/util.js"></script>
-    <script type="text/javascript" src="./js/meo.js"></script>
+    <script type="text/javascript" src="/jslib/phonegap-1.1.0.js"></script>
+    <script type="text/javascript" src="/js/constants.js"></script>
+    <script type="text/javascript" src="/js/charts.js"></script>
+    <script type="text/javascript" src="/js/util.js"></script>
+    <script type="text/javascript" src="/js/meo.js"></script>
     <script type="text/javascript">
         if (!window.googleLoaded) {
             google.load("visualization", "1", {packages:["corechart"]});
@@ -31,7 +30,7 @@
 	<div data-role="header">
 		<div data-role="navbar">
 			<ul>
-			<li><a data-rel="external" href="index.html" data-icon="home" data-theme="a">Home</a></li>
+			<li><a data-rel="external" href="index.html" data-icon="home" data-theme="a">My City</a></li>
 			<li><a href="settings.html" data-icon="gear" data-theme="a">Settings</a></li>
 		    	<li><a href="about.html" data-icon="arrow-u" class="button_green_inactive" >Support</a>
     			<li><a href="about.html" data-icon="arrow-d" class="button_red_inactive" >Oppose</a></li>
@@ -41,10 +40,10 @@
 
     <ul data-role="listview">
         <li>
-            <a href="index.html#index_city"  data-icon="none">
-            <img class="header_image" src=""/>
-            <h3 class="header_city">My issues in:</h3>
-            <p class="header_county_state"></p>
+            <a class="city_link" href="index.html#index_city"  data-icon="none">
+            <img class="city_seal" src=""/>
+            <h3 class="city"></h3>
+            <p class="county_state"></p>
             </a>
         </li>
     </ul>

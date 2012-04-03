@@ -1,0 +1,58 @@
+Alameda 
+Alpine  
+Amador	http://www.co.amador.ca.us//Rss.aspx?type=5&paramtime=Current
+Butte   
+Calaveras	http://www.co.calaveras.ca.us/cc/CalaverasHome/tabid/117/moduleid/3351/RSS.aspx
+Colusa	http://www.countyofcolusa.org/support/newsflash.xml
+Contra Costa	http://www.co.contra-costa.ca.us/support/newsflash.xml
+Del Norte	http://www.co.del-norte.ca.us/index.php?format=feed&type=rss
+El Dorado   
+Fresno  
+Glenn   
+Humboldt    
+Imperial    
+Inyo    
+Kern    
+Kings   
+Lake    
+Lassen  
+Los Angeles 
+Madera  
+Marin   
+Mariposa	http://www.mariposacounty.org/support/newsflash.xml
+Mendocino   
+Merced	http://www.co.merced.ca.us/support/newsflash.xml
+Modoc   
+Mono    
+Monterey    
+Napa    
+Nevada  
+Orange  
+Placer  
+Plumas	http://www.countyofplumas.com/support/newsflash.xml
+Riverside   
+Sacramento	http://www.pio.saccounty.net/PressReleases/rss/index.htm
+San Benito	http://www.cosb.us/feed/
+San Bernardino	http://www.sbcounty.gov/RSS/RSSFeeds/PressReleases.aspx
+San Diego	http://www.sdcounty.ca.gov/Portal/news.rss
+San Francisco	http://www5.sfgov.org/sf_news/rss.xml
+San Joaquin 
+San Luis Obispo 
+San Mateo	https://public.govdelivery.com/accounts/CASMATEO/feed.rss
+Santa Barbara   
+Santa Clara 
+Santa Cruz  
+Shasta  
+Sierra  
+Siskiyou    
+Solano  
+Sonoma  
+Stanislaus  
+Sutter	http://www.co.sutter.ca.us/news/getrssfeed.aspx
+Tehama  
+Trinity 
+Tulare  
+Tuolumne	http://www.tuolumnecounty.ca.gov/rss/cao/newnoterss.xml
+Ventura 
+Yolo	http://www.yolocounty.org/Rss.aspx?type=5&paramtime=Current
+Yuba    

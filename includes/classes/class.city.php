@@ -28,8 +28,6 @@ class City extends DBInterface
                 REGION_COUNTY => $this->count_issues(REGION_COUNTY),
                 REGION_STATE => $this->count_issues(REGION_STATE),
             );
-//            $announcements = $this->get_announcements();
-//            $this->announcements($announcements);    
         }
  	}
 		
@@ -69,47 +67,78 @@ class City extends DBInterface
     }
 
 
+    public static function get_city_by_name($city, $state_id)
+    {
+        $sql = "SELECT city_id FROM ref_city WHERE city_name='$city' AND state_id='$state_id' ORDER BY zip LIMIT 1";
+        $data = db()->Get_Cell($sql);
+        return $data;
+    }
+
     public static function get_city_list_by_zip($zip)
     {
         $records = array();
-        $sql = "SELECT city_id FROM ref_city WHERE zip='$zip' ORDER BY city_name";
-        $data = db()->Get_Table($sql);
-        if (!empty($data)) {
-            foreach ($data as $row) {
-                $record = new City($row['city_id']);
-                $record->retrieve_record($row['city_id']);
-                $records[] = array('key' => $record->id(), 'value' => $record->city_name(), 'county_id' => $record->county_id(), 'state_id' => $record->state_id());
+        $sql = "SELECT prime_zip, city_name FROM ref_city WHERE zip='$zip' ORDER BY city_name, zip";
+        $pre_data = db()->Get_Table($sql);
+        if (!empty($pre_data)) {
+            foreach ($pre_data as $pre_row) {
+                $prime_zip = $pre_row['prime_zip'];
+                $city_name = $pre_row['city_name'];
+                $sql = "SELECT city_id FROM ref_city WHERE zip='$prime_zip' AND city_name='$city_name'";
+                $data = db()->Get_Table($sql);
+                if (!empty($data)) {
+                    foreach ($data as $row) {
+                        $record = new City($row['city_id']);
+                        $record->retrieve_record($row['city_id']);
+                        $records[] = array('key' => $record->id(), 'value' => $record->city_name(), 'county_id' => $record->county_id(), 'state_id' => $record->state_id());
+                    }
+                }
             }
         }
         return $records; 
     }
 
 
-    public function get_issues($filter)
+    public function get_issues($filter, $type='c')
     {
-        if (preg_match('/^C[SX]\d{2}$/', $filter, $matches)) {
+        if ($type == 'l') {
             $sql = 
-                "SELECT l.legislation_id, created_date FROM legislation l
-                   JOIN legislation_region lr ON lr.legislation_id = l.legislation_id
+                "SELECT l.legislation_id AS issue_key, created_date, '2' AS issue_type FROM legislation l
                   WHERE l.current_location='".$filter."'
-                    AND (lr.region_id=".$this->id()." AND lr.region_type=4 OR lr.region_id=".$this->county_id()." AND lr.region_type=3 OR lr.region_id=".$this->state_id()." AND lr.region_type=2)
+                    AND (l.region_id=".$this->id()." AND l.region_type=4 OR l.region_id=".$this->county_id()." AND l.region_type=3 OR l.region_id=".$this->state_id()." AND l.region_type=2)
                ORDER BY created_date DESC";
         }
-        else {
-            $sql = 
-                "SELECT l.legislation_id, created_date FROM legislation l
-                   JOIN category c ON l.current_location=c.lc_category
-                   JOIN legislation_region lr ON lr.legislation_id = l.legislation_id
-                  WHERE c.lc_parent_id=".$filter."
-                    AND (lr.region_id=".$this->id()." AND lr.region_type=4 OR lr.region_id=".$this->county_id()." AND lr.region_type=3 OR lr.region_id=".$this->state_id()." AND lr.region_type=2)
+        elseif ($type == 't') {
+            $sql =
+                "SELECT l.legislation_id AS issue_key, created_date, '2' AS issue_type FROM legislation l
+                   JOIN legislation_tag lt ON l.legislation_id=lt.legislation_id
+                  WHERE lt.tag_id=".$filter."
+                    AND (l.region_id=".$this->id()." AND l.region_type=4 OR l.region_id=".$this->county_id()." AND l.region_type=3 OR l.region_id=".$this->state_id()." AND l.region_type=2)
                ORDER BY created_date DESC";
+        }
+        else { 
+            $sql = 
+                "SELECT l.legislation_id AS issue_key, created_date, '2' AS issue_type FROM legislation l
+                   JOIN category c ON l.current_location=c.lc_category
+                  WHERE c.lc_parent_id=".$filter."
+                    AND (l.region_id=".$this->id()." AND l.region_type=4 OR l.region_id=".$this->county_id()." AND l.region_type=3 OR l.region_id=".$this->state_id()." AND l.region_type=2)
+                  UNION
+                 SELECT a.id AS issue_key, date_created, '1' AS issue_type FROM announcement a
+                   JOIN announcement_category ac ON a.id=ac.ac_announcement_id
+                  WHERE ac.ac_category_id=".$filter."
+                    AND (a.region_id=".$this->id()." AND a.region_type=4 OR a.region_id=".$this->county_id()." AND a.region_type=3 OR a.region_id=".$this->state_id()." AND a.region_type=2)
+               ORDER BY issue_type, created_date DESC";
         }
         $issues = array();
         $key_table = db()->Get_Table($sql);
         if (!empty($key_table)) {
             foreach ($key_table as $key_row) {
-                $issue = new Legislation($key_row['legislation_id']);
-                $issues[] = array('issue' => $issue, 'type' => 2);
+                if ($key_row['issue_type'] == ANNOUNCEMENT_TYPE) {
+                    $issue = new Announcement($key_row['issue_key']);
+                }
+                else {
+                    $issue = new Legislation($key_row['issue_key']);
+                }
+                $issues[] = array('issue' => $issue, 'type' => $key_row['issue_type']);
             }
         }
 
@@ -236,7 +265,7 @@ class City extends DBInterface
 
     public function image_src()
     {
-        $src = null;
+        $src = 'missing.png';
         if ($this->image()) {
             $src = LOGO_PATH . $this->image();
         }
@@ -255,6 +284,62 @@ class City extends DBInterface
         }
         return $img_tag;
     }
+
+
+    public function region_data()
+    {
+        if ($this->id()) {
+            $data = array(
+                'city' => array(
+                    'id' => $this->id(),
+                    'image' => $this->image_src(),
+                    'name' => $this->city_name(),
+                    'announcement_count' => $this->issue_count[REGION_CITY]['a_count'],
+                    'legislation_count' => $this->issue_count[REGION_CITY]['l_count'],
+                ),
+                'county' => array(
+                    'id' => $this->county->id(),
+                    'image' => $this->county->image_src(),
+                    'name' => $this->county->county_name(),
+                    'announcement_count' => $this->issue_count[REGION_COUNTY]['a_count'],
+                    'legislation_count' => $this->issue_count[REGION_COUNTY]['l_count'],
+                ),
+                'state' => array(
+                    'id' => $this->state->id(),
+                    'image' => $this->state->image(_src),
+                    'name' => $this->state->state_name(),
+                    'announcement_count' => $this->issue_count[REGION_STATE]['a_count'],
+                    'legislation_count' => $this->issue_count[REGION_STATE]['l_count'],
+                ),
+            );
+        }
+        else {
+            $data = array(
+                'city' => array(
+                    'id' => '',
+                    'image' => '',
+                    'name' => '',
+                    'announcement_count' => '',
+                    'legislation_count' => '',
+                ),
+                'county' => array(
+                    'id' => '',
+                    'image' => '',
+                    'name' => '',
+                    'announcement_count' => '',
+                    'legislation_count' => '',
+                ),
+                'state' => array(
+                    'id' => '',
+                    'image' => '',
+                    'name' => '',
+                    'announcement_count' => '',
+                    'legislation_count' => '',
+                ),
+            );
+        }
+        return $data;
+    }
 }
 
 
@@ -268,7 +353,7 @@ class County extends DBInterface
 
     public function image_src()
     {
-        $src = null;
+        $src = 'missing.png';
         if ($this->image()) {
             $src = LOGO_PATH . $this->image();
         }
@@ -300,7 +385,7 @@ class State extends DBInterface
 
     public function image_src()
     {
-        $src = null;
+        $src = 'missing.png';
         if ($this->image()) {
             $src = LOGO_PATH . $this->image();
         }

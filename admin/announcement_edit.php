@@ -13,10 +13,11 @@ $announcement = new Announcement($id);
 if (!empty($_POST)) {
     $announcement->region_id($region_id);
     $announcement->region_type($region_type);
-    $announcement->heading(get_param('title'));
+    $announcement->title(get_param('title'));
     $announcement->description(get_param('description'));
     $announcement->text(get_param('text'));
     $announcement->question(get_param('question'));
+    $announcement->location(get_param('location'));
     $date_beginning = set_date_parts(get_param('begin_month'), get_param('begin_day'), get_param('begin_year'));
     $date_ending = set_date_parts(get_param('end_month'), get_param('end_day'), get_param('end_year'));
     $calendared = set_date_parts(get_param('calendared_month'), get_param('calendared_day'), get_param('calendared_year'));
@@ -74,7 +75,7 @@ $html->generate_header();
 
 	<div class='row'>
 		<div class='label' for='title'>Title:</div>
-		<div class='input_border'><input class="tag_source" name='title' id='title' value='<?php echo $announcement->heading(); ?>'></div>
+		<div class='input_border'><input class="tag_source" name='title' id='title' value='<?php echo $announcement->title(); ?>'></div>
 	</div>
 
     <div class="row">
@@ -117,6 +118,11 @@ if (!empty($status_ids)) {
             </select>
         </div>
     </div>
+
+	<div class="row">
+		<div class="label" for="time_beginning">Location:</div>
+		<div class="input_border"><input name="location" id="location" type="text" value="<?php echo $announcement->location(); ?>"/></div>
+	</div>
 
     <div class="row">
         <div class='label' for='date_beginning'>Beginning Date:</div>

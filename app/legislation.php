@@ -8,39 +8,31 @@ $id = get_param('id');
 
 $legislation = new Legislation($id);
 
-$legislators = array();
-if (!empty($legislation->legislator)) {
-    foreach ($legislation->legislator as $legislator) {
-        $legislators[] = array('id' => $legislator->id(), 'img_name' => $legislator->img_name, 'name' => $legislator->full_name, 'office' => $legislator->name_title(), 'party' => $legislator->party);
-    }
-}
-
 $data = array(
-    'bill_id' => $legislation->bill_id(),
+    'id' => $id,
+    'type' => LEGISLATION_TYPE,
+    'bill_id' => $legislation->bill,
     'bill_latest_id' => $legislation->bill_latest_id(),
     'title' => $legislation->title(),
+    'image' => $legislation->image,
+    'location' => $legislation->bill_location,
+    'category' => array(
+        'id' => $legislation->category['id'],
+        'name' => $legislation->category['name'],
+    ),
+    'question' => $legislation->question(),
+    'support' => $legislation->get_support(),
+    'oppose' => $legislation->get_oppose(),
     'current_location' => $legislation->current_location(),
     'location_description' => $legislation->location_description,
     'current_chamber' => $legislation->current_chamber(),
     'raw_category' => $legislation->raw_category(),
     'status' => $legislation->status(),
-    'sponsors' => $legislators,
+    'sponsors' => $legislation->sponsors,
     'summary' => iconv('ISO-8859-1', 'UTF8//TRANSLIT', $legislation->summary()),
+    'text' => iconv('ISO-8859-1', 'UTF8//TRANSLIT', $legislation->summary()),
+    'comment_data' => $legislation->comment_data,
+    'user_feedback' => $legislation->feedback_submitted($user_id),
 );
-/*
-$summary = utf8_encode(substr($legislation->summary(), 450, 50));
-print '<pre>';
-print 'Plain: ';
-print_r($summary);
-print '</pre>';
-print '<pre>';
-print 'JSON-encoded: ';
-print_r(json_encode($summary));
-print '</pre>';
-print '<pre>';
-print 'Whole data: ';
-print_r(json_encode($data));
-print '</pre>';
-*/
 return_jsonp_data($data);
 ?>

@@ -15,7 +15,7 @@ if (!empty($_POST)) {
     $legislation->title(get_param('title'));
     $legislation->status(get_param('status'));
     $legislation->recommended_action(get_param('recommended_action'));
-    $legislation->background(get_param('background'));
+    $legislation->summary(get_param('summary'));
     $legislation->discussion(get_param('discussion'));
     $legislation->question(get_param('question'));
     $date_introduced = set_date_parts(get_param('intro_month'), get_param('intro_day'), get_param('intro_year'));
@@ -115,9 +115,9 @@ if (!empty($region_sponsor_ids)) {
 </div>
 
 <div class='row'>
-    <div class='label' for='background'>Background:</div>
+    <div class='label' for='background'>Summary:</div>
     <div class='input_border'>
-        <textarea class="tag_source" rows='8' cols='60' name='background' id='background'><?php echo $legislation->background(); ?></textarea>
+        <textarea class="" rows='8' cols='60' name='summary' id='summary'><?php echo $legislation->summary(); ?></textarea>
     </div>
 </div>
 
