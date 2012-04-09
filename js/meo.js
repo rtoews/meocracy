@@ -397,6 +397,14 @@ console.log(data);
         },
 
         search : function(data) {
+console.log('meo.callback.search');
+console.log(data);
+            if (data.length == 0) {
+                $('.no_search_results').show();
+            }
+            else {
+                $('.no_search_results').hide();
+            }
             meo.makeList($('#index'), $('#search_tag_list'), data, { key_param: 'tid', unchecked_link : 'issues.html' });
             $('#search_tag_list').listview('refresh');
         },
@@ -822,6 +830,9 @@ console.log('meo.call.index');
                 meo.pageHeader();
                 url = Constants.server + Constants.page.filter_tags;
                 $('#search')
+                    .focus(function() {
+                        $('.no_search_results').hide();
+                    })
                     .keyup(function() {
                         var searchFor = $(this).val();
                         if (searchFor.length >= 3) {
